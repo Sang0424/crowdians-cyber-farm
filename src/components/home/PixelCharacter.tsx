@@ -15,7 +15,7 @@ export function PixelCharacter() {
         <div className="relative w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center">
           {/* Character body - pixel art style */}
           <div className="relative text-7xl sm:text-8xl select-none rounded-2xl p-4">
-            <img src="./public/Black Red Egg.gif" alt="Character" />
+            <img src="/black-red-egg.gif" alt="Character" />
           </div>
         </div>
         
