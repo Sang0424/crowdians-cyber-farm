@@ -1,0 +1,153 @@
+.nav {
+  position: relative;
+  min-height: 100vh;
+  border-right: 1px solid var(--chat-line);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  background-color: var(--sidenav-bg);
+
+  &.collapsed {
+    width: 80px;
+    align-items: center;
+  }
+
+  &.expanded {
+    width: 256px;
+  }
+}
+
+.toggleSidebar {
+  color: var(--text-main);
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  min-height: 40px;
+
+  .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-left: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
+.loginSection {
+  text-align: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--chat-line);
+  margin-bottom: 1rem;
+
+  .loginPrompt {
+    margin-bottom: 1.5rem;
+    color: var(--text-sub);
+    font-family: "DungGeunMo";
+    font-size: 1rem;
+  }
+
+  .collapsedPlaceholder {
+    width: 48px;
+    height: 48px;
+    background-color: var(--sidenav-bg);
+    border-radius: var(--radius-3);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.menuLink {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: var(--radius-3);
+  color: var(--text-sub);
+  text-decoration: none;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: var(--bg-element);
+  }
+
+  &.active {
+    background-color: var(--bg-element);
+    color: var(--text-blue);
+    border-color: var(--text-main);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 117, 149, 0.15);
+
+    // 왼쪽에 강조 표시 추가
+    &::before {
+      content: "";
+      position: absolute;
+      left: -1rem; // 사이드바 패딩 바깥으로 나오게
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 24px;
+      background-color: var(--text-main);
+      border-radius: 0 2px 2px 0;
+    }
+    .icon {
+      color: var(--text-main) !important;
+    }
+
+    // 텍스트 색상 강조
+    .label {
+      color: var(--text-main) !important;
+    }
+  }
+
+  .icon {
+    margin-right: 0.75rem;
+    transition: color 0.2s ease;
+  }
+
+  .label {
+    white-space: nowrap;
+    overflow: hidden;
+    font-family: "DungGeunMo";
+    font-size: 1rem;
+    transition: color 0.2s ease;
+  }
+}
+
+.collapsed .menuLink {
+  &.active {
+    // 중앙 정렬 및 원형 하이라이트
+    justify-content: center;
+    background-color: var(--bg-element);
+    border-color: var(--text-main);
+    box-shadow: 0 0 12px rgba(0, 117, 149, 0.3);
+
+    // 왼쪽 강조 대신 위쪽에 작은 표시
+    &::before {
+      left: 50%;
+      top: -0.5rem;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 3px;
+      border-radius: 2px;
+    }
+  }
+}
+
+.collapsed .menuLink .label {
+  display: none;
+}
+
+.collapsed .menuLink .icon {
+  margin-right: 0;
+}

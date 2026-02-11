@@ -1,0 +1,195 @@
+/* @crowdians/src/app/[locale]/rank/page.module.scss */
+.rankPage {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kicker {
+  color: var(--text-sub);
+  font-size: 16px;
+}
+
+.title {
+  font-family: "DungGeunMo";
+  font-size: 32px;
+  color: var(--text-main);
+}
+
+.toggle {
+  display: flex;
+  gap: 16px;
+}
+
+.toggleBtn {
+  flex: 1;
+  border-radius: 999px;
+  padding: 12px 24px;
+  border: none;
+  background: #eff6ff;
+  color: var(--text-sub);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.activeToggle {
+  background: var(--text-blue);
+  color: #fff;
+}
+
+.shieldIcon {
+  width: 20px;
+  height: 20px;
+  background: url("http://localhost:3845/assets/3e76c78aaa0d2647dbf31fd031786b239938b778.svg")
+    center/contain no-repeat;
+}
+
+.activityIcon {
+  width: 20px;
+  height: 20px;
+  background: url("http://localhost:3845/assets/8a65e8515054d7a097bd3fd2b16d5c7a7958505a.svg")
+    center/contain no-repeat;
+}
+
+.tabs {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.tab {
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  color: var(--text-sub);
+  padding-bottom: 6px;
+}
+
+.activeTab {
+  color: var(--text-main);
+  border-bottom: 2px solid var(--text-main);
+}
+
+.notice {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-sub);
+}
+
+.leaders {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.leaderCard {
+  display: grid;
+  grid-template-columns: 80px 120px 1fr auto;
+  align-items: center;
+  border-radius: 12px;
+  border: 2px solid var(--chat-line);
+  background: #f8f9fa;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.gold {
+  border-color: #fbbc05;
+}
+
+.silver {
+  border-color: var(--text-blue);
+}
+
+.bronze {
+  border-color: #c2b280;
+}
+
+.rank {
+  font-family: "DungGeunMo";
+  font-size: 24px;
+  color: var(--text-main);
+}
+
+.avatar {
+  border-radius: 8px;
+  background: var(--bg-element);
+}
+
+.leaderInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.name {
+  font-family: "DungGeunMo";
+  font-size: 24px;
+}
+
+.score {
+  font-size: 20px;
+}
+
+.delta {
+  font-size: 20px;
+  font-family: "Pretendard";
+}
+
+.up {
+  color: #3eaf3f;
+}
+
+.down {
+  color: #ea4335;
+}
+
+.equal {
+  color: var(--text-main);
+}
+
+.rankList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rankRow {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  background: var(--bg-element);
+  border: 1px solid var(--chat-line);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.rowInfo {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+  color: var(--text-main);
+}
+
+.myRank {
+  background: #eff6ff;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.miniAvatar {
+  border-radius: 8px;
+}

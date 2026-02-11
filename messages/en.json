@@ -1,0 +1,53 @@
+{
+  "LoginModal": {
+    "title": "Crowdians",
+    "subtitle": "Easily get started with your social account",
+    "googleLogin": "Continue with Google",
+    "kakaoLogin": "Continue with Kakao",
+    "naverLogin": "Continue with Naver",
+    "termsAndPrivacy": "By continuing, you agree to Crowdians' Terms of Service and Privacy Policy"
+  },
+  "SideNav": {
+    "loginPrompt": "Login required",
+    "login": "Login",
+    "chat": "Chat",
+    "academy": "Academy",
+    "rank": "Crowdians Ranking",
+    "adventure": "Adventure",
+    "settings": "Settings"
+  },
+  "Chat": {
+    "placeholder": "Chat with Crowdy",
+    "crowdy": "Crowdy",
+    "fatigue": "Fatigue",
+    "greetingTitle": "Hi! I'm Crowdy",
+    "greetingText": "I want to grow with you\nTeach me what you know",
+    "logEmpty": "No conversation history yet",
+    "logEmptySub": "Talk to Crowdy!",
+    "logClose": "Close log",
+    "logOpen": "Show chat log",
+    "aiResponses": {
+      "0": "Oh, that's a really interesting topic! Can you tell me more?",
+      "1": "Wow! I was curious about that too. Thanks!",
+      "2": "I see! Let me verify my understanding. Is that related to any other concepts?",
+      "3": "That's amazing! I'm impressed you know this. Other Crowdians will love it too.",
+      "4": "Hmm... I might need to study that a bit more. Could you explain it further?",
+      "5": "Got it! So to summarize, is this correct?",
+      "6": "Oho, that's news to me! So fascinating!",
+      "7": "Great explanation! I have a related question, want to hear it?",
+      "8": "Thanks a million! I feel like I've leveled up thanks to you!",
+      "9": "Hmm... tough topic. But your explanation is helping me get the gist of it!"
+    }
+  },
+  "WaitListModal": {
+    "title": "Get Notified",
+    "subtitle": "Be the first to know when\nCrowdians officially launches!",
+    "emailPlaceholder": "Enter your email",
+    "submit": "Join Waitlist",
+    "invalidEmail": "Please enter a valid email address",
+    "error": "Something went wrong. Please try again.",
+    "successTitle": "You're in!",
+    "successMessage": "We'll let you know as soon as\nCrowdians launches 🎉",
+    "footer": "No spam. Unsubscribe anytime."
+  }
+}

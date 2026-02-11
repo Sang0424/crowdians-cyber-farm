@@ -1,0 +1,274 @@
+.page {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(260px, 1fr);
+  gap: 32px;
+  width: 100%;
+  padding: 32px 40px;
+  background: var(--bg-primary);
+}
+
+.mainColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.backButton {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--text-blue);
+  font-family: "DungGeunMo";
+  font-size: 16px;
+}
+
+.questionCard {
+  background: var(--bg-element);
+  border: 1px solid var(--chat-line);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.questionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.requesterBlock {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.avatar {
+  border-radius: 12px;
+  background: #fff;
+}
+
+.actions button {
+  border: none;
+  background: transparent;
+  margin-left: 8px;
+}
+
+.tags {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+}
+
+.tags span {
+  background: var(--bg-element);
+  border: 1px solid var(--text-blue);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 14px;
+  color: var(--text-blue);
+}
+
+.questionBody {
+  margin-top: 16px;
+}
+
+.badges {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.rewardBadge {
+  background: #fefce8;
+  border: 1px solid var(--text-blue);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
+.deadlineBadge {
+  background: #f1f1f1;
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
+.reactions {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  color: var(--text-sub);
+}
+
+.reactions div {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.answerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.answerHeader span {
+  color: var(--text-sub);
+  margin-right: 8px;
+}
+
+.sortTabs button {
+  border: none;
+  background: transparent;
+  margin-left: 12px;
+  color: var(--text-sub);
+}
+
+.activeSort {
+  color: var(--text-main);
+  border-bottom: 2px solid var(--text-main);
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.answerCard {
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid var(--chat-line);
+}
+
+.bestAnswer {
+  background: var(--comment-best-bg, #eff6ff);
+  border-color: #0092b8;
+}
+
+.normalAnswer {
+  background: var(--comment-others-bg, #f1f1f1);
+}
+
+.answerBadgeRow {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-sub);
+}
+
+.answerBadge {
+  background: #0092b8;
+  color: #fff;
+  border-radius: 12px;
+  padding: 4px 12px;
+}
+
+.answerHeaderRow {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.answerNickname {
+  font-family: "DungGeunMo";
+  font-size: 18px;
+}
+
+.answerRole {
+  color: var(--text-sub);
+}
+
+.adoptButton {
+  border: 1px solid var(--text-blue);
+  background: transparent;
+  border-radius: 999px;
+  padding: 4px 16px;
+  color: var(--text-blue);
+}
+
+.answerBody {
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+.answerReactions {
+  margin-top: 12px;
+  color: var(--text-sub);
+  display: flex;
+  gap: 8px;
+}
+
+.composer {
+  border: 1px solid var(--chat-line);
+  border-radius: 12px;
+  background: var(--bg-element);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.composer textarea {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 16px 0;
+  resize: none;
+}
+
+.composer button {
+  border: none;
+  background: linear-gradient(90deg, #0891b2, #2563eb);
+  color: #fff;
+  border-radius: 999px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.relatedCard {
+  border: 1px solid var(--chat-line);
+  border-radius: 16px;
+  background: var(--bg-element);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.relatedCard header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.relatedCard ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.relatedCard li {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-main);
+}
+
+@media (max-width: 1024px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}

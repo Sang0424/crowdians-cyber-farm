@@ -1,0 +1,218 @@
+/* @crowdians/src/app/[locale]/user/[id]/page.module.scss */
+.page {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  padding: 32px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.summaryCard {
+  display: grid;
+  grid-template-columns: 200px 1fr 360px;
+  background: var(--bg-element);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--chat-line);
+}
+
+.avatarWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar {
+  border-radius: 16px;
+  background: #fff;
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.titleLine {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.level {
+  font-family: "DungGeunMo";
+  font-size: 20px;
+  color: var(--text-sub);
+}
+
+.nickname {
+  font-family: "DungGeunMo";
+  font-size: 28px;
+  color: var(--text-main);
+}
+
+.bio {
+  color: var(--text-main);
+}
+
+.days {
+  color: var(--text-sub);
+}
+
+.primaryBtn {
+  margin-top: 12px;
+  width: 120px;
+  height: 32px;
+  border-radius: 12px;
+  border: none;
+  color: white;
+  font-size: 12px;
+  background: linear-gradient(70deg, #0891b2 20%, #2563eb 95%);
+  box-shadow: 0 2px 6px rgba(0, 117, 149, 0.3);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  gap: 12px;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Pretendard", sans-serif;
+  }
+
+  dt {
+    color: var(--text-sub);
+  }
+
+  dd {
+    font-weight: 600;
+    color: var(--text-main);
+  }
+}
+
+.tabs {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid var(--chat-line);
+
+  button {
+    background: none;
+    border: none;
+    padding-bottom: 8px;
+    font-family: "DungGeunMo";
+    font-size: 18px;
+    color: var(--text-sub);
+  }
+}
+
+.activeTab {
+  color: var(--text-main);
+  border-bottom: 2px solid var(--text-main);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.questionCard {
+  background: #fff;
+  border-radius: 12px;
+  border: 2px solid var(--text-blue);
+  box-shadow: 4px 4px 2px rgba(135, 200, 224, 0.6);
+  padding: 16px;
+}
+
+.questionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.requester {
+  font-weight: 600;
+}
+
+.meta {
+  color: var(--text-blue);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.rewardBox {
+  text-align: right;
+  font-weight: 600;
+}
+
+.deadline {
+  display: block;
+  color: var(--text-sub);
+  margin-top: 4px;
+}
+
+.questionBody {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+
+  h3 {
+    margin: 0;
+    font-size: 18px;
+  }
+
+  p {
+    margin-top: 8px;
+    color: var(--text-sub);
+  }
+}
+
+.qIcon {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.questionFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  border-top: 1px solid var(--chat-line);
+  padding-top: 12px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-sub);
+}
+
+.iconLike,
+.iconComment,
+.iconMore {
+  width: 24px;
+  height: 24px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.iconLike {
+  background-image: url("http://localhost:3845/assets/4c8393c1f92ba30cfa89c987d2e7c239c9a26a3b.svg");
+}
+
+.iconComment {
+  background-image: url("http://localhost:3845/assets/d2af00baf0d3e72f7eff3b28ba81ca7b4dbd1a69.svg");
+}
+
+.iconMore {
+  background-image: url("http://localhost:3845/assets/a3b7661bbc61f35507a83948b4b22b530d019acf.svg");
+  border: none;
+  background-color: transparent;
+}

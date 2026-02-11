@@ -1,0 +1,953 @@
+/* ==============================================
+   ⚔️ Adventure Run Game Styles
+   ============================================== */
+
+.gameContainer {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background: #0a0a1a;
+  font-family: "DungGeunMo", monospace;
+}
+
+/* ─── Scrolling Background ─── */
+.backgroundLayer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.skyLayer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    #0d0221 0%,
+    #150535 30%,
+    #1a0a3e 50%,
+    #2d1b69 70%,
+    #ff2a6d 90%,
+    #ff6b35 100%
+  );
+}
+
+.starsLayer {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 160px 30px, #fff, transparent),
+    radial-gradient(1px 1px at 200px 60px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(2px 2px at 250px 20px, #05d9e8, transparent),
+    radial-gradient(1px 1px at 300px 50px, #ff2a6d, transparent);
+  background-size: 320px 100px;
+  animation: twinkle 3s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Cyberpunk city silhouette (far) */
+.cityFar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 45%;
+  background: repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 30px,
+      #1a0533 30px,
+      #1a0533 34px
+    ),
+    linear-gradient(
+      0deg,
+      #1a0533 0%,
+      #1a0533 20%,
+      transparent 20%,
+      transparent 30%,
+      #120428 30%,
+      #120428 45%,
+      transparent 45%,
+      transparent 55%,
+      #1a0533 55%,
+      #1a0533 65%,
+      transparent 65%,
+      transparent 70%,
+      #0d0221 70%,
+      #0d0221 85%,
+      transparent 85%
+    );
+  background-size: 200px 100%, 300px 100%;
+  animation: scrollCity 20s linear infinite;
+}
+
+@keyframes scrollCity {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* City silhouette (near) */
+.cityNear {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 30%;
+  background: repeating-linear-gradient(
+    90deg,
+    #0d0221 0px,
+    #0d0221 60px,
+    #150535 60px,
+    #150535 65px,
+    #0d0221 65px,
+    #0d0221 100px,
+    transparent 100px,
+    transparent 120px,
+    #0d0221 120px,
+    #0d0221 180px,
+    #150535 180px,
+    #150535 185px,
+    #0d0221 185px,
+    #0d0221 250px,
+    transparent 250px,
+    transparent 280px
+  );
+  animation: scrollCityNear 12s linear infinite;
+}
+
+@keyframes scrollCityNear {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Neon glow lines */
+.neonLine {
+  position: absolute;
+  bottom: 28%;
+  left: 0;
+  width: 200%;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    #05d9e8 0px,
+    #05d9e8 40px,
+    transparent 40px,
+    transparent 80px,
+    #ff2a6d 80px,
+    #ff2a6d 120px,
+    transparent 120px,
+    transparent 160px
+  );
+  box-shadow: 0 0 10px #05d9e8, 0 0 20px #05d9e8;
+  animation: scrollNeon 8s linear infinite;
+}
+
+@keyframes scrollNeon {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Ground / Road */
+.ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 20%;
+  background: linear-gradient(180deg, #150535 0%, #0d0221 100%);
+  border-top: 3px solid #05d9e8;
+  box-shadow: 0 -4px 15px rgba(5, 217, 232, 0.3);
+  animation: scrollGround 6s linear infinite;
+}
+
+.groundGrid {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+      90deg,
+      rgba(5, 217, 232, 0.1) 0px,
+      rgba(5, 217, 232, 0.1) 1px,
+      transparent 1px,
+      transparent 60px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(5, 217, 232, 0.05) 0px,
+      rgba(5, 217, 232, 0.05) 1px,
+      transparent 1px,
+      transparent 30px
+    );
+  animation: scrollGround 6s linear infinite;
+}
+
+@keyframes scrollGround {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ─── HUD (Top Bar) ─── */
+.hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 2, 33, 0.95) 0%,
+    rgba(13, 2, 33, 0.7) 70%,
+    transparent 100%
+  );
+  z-index: 100;
+}
+
+.hudLeft {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.hudRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.homeBtn {
+  padding: 6px 16px;
+  background: transparent;
+  border: 2px solid #05d9e8;
+  color: #05d9e8;
+  font-family: "DungGeunMo", monospace;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  &:hover {
+    background: rgba(5, 217, 232, 0.15);
+    box-shadow: 0 0 12px rgba(5, 217, 232, 0.4);
+  }
+}
+
+.statGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statIcon {
+  font-size: 18px;
+}
+
+.statLabel {
+  font-size: 13px;
+  color: #a0a0b0;
+}
+
+.statBar {
+  width: 120px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.statBarFill {
+  height: 100%;
+  border-radius: 1px;
+  transition: width 0.5s ease;
+}
+
+.hpFill {
+  background: linear-gradient(90deg, #ff2a6d, #ff6b6b);
+  box-shadow: 0 0 8px rgba(255, 42, 109, 0.5);
+}
+
+.statValue {
+  font-size: 14px;
+  color: #ededed;
+  min-width: 60px;
+}
+
+.goldValue {
+  font-size: 16px;
+  color: #ffd700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+
+.distanceValue {
+  font-size: 14px;
+  color: #05d9e8;
+  text-shadow: 0 0 8px rgba(5, 217, 232, 0.3);
+}
+
+/* ─── Player Character ─── */
+.playerArea {
+  position: absolute;
+  bottom: 20%;
+  left: 15%;
+  z-index: 50;
+  transition: transform 0.1s;
+}
+
+.player {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 0 12px rgba(5, 217, 232, 0.4));
+}
+
+.playerJumping {
+  animation: jump 0.5s ease-out;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.playerWalking {
+  animation: bobble 0.4s ease-in-out infinite;
+}
+
+@keyframes bobble {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* ─── Encounter Alert [!] ─── */
+.encounterAlert {
+  position: absolute;
+  bottom: 20%;
+  right: 20%;
+  z-index: 60;
+  animation: alertPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes alertPop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.alertBubble {
+  background: #ff2a6d;
+  color: #fff;
+  font-size: 48px;
+  font-weight: bold;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(255, 42, 109, 0.6), 0 0 60px rgba(255, 42, 109, 0.3);
+  animation: pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    box-shadow: 0 0 30px rgba(255, 42, 109, 0.6);
+  }
+  to {
+    box-shadow: 0 0 50px rgba(255, 42, 109, 0.9), 0 0 80px rgba(255, 42, 109, 0.4);
+  }
+}
+
+/* ─── Overlay (Encounter / Combat / Result) ─── */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 2, 33, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.encounterPanel {
+  text-align: center;
+  padding: 40px 60px;
+  background: linear-gradient(
+    135deg,
+    rgba(21, 5, 53, 0.95) 0%,
+    rgba(45, 27, 105, 0.9) 100%
+  );
+  border: 2px solid #05d9e8;
+  border-radius: 4px;
+  box-shadow: 0 0 40px rgba(5, 217, 232, 0.2), inset 0 0 30px rgba(5, 217, 232, 0.05);
+  animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  max-width: 500px;
+  width: 90%;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.encounterEmoji {
+  font-size: 80px;
+  margin-bottom: 16px;
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.encounterName {
+  font-size: 28px;
+  color: #ff2a6d;
+  margin-bottom: 8px;
+  text-shadow: 0 0 10px rgba(255, 42, 109, 0.5);
+}
+
+.encounterDesc {
+  font-size: 16px;
+  color: #a0a0b0;
+  margin-bottom: 24px;
+}
+
+.encounterAction {
+  font-size: 14px;
+  color: #05d9e8;
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* ─── Combat Panel ─── */
+.combatPanel {
+  text-align: center;
+  padding: 40px;
+  background: linear-gradient(
+    135deg,
+    rgba(21, 5, 53, 0.95) 0%,
+    rgba(45, 27, 105, 0.9) 100%
+  );
+  border: 2px solid #ff2a6d;
+  border-radius: 4px;
+  box-shadow: 0 0 40px rgba(255, 42, 109, 0.2),
+    inset 0 0 30px rgba(255, 42, 109, 0.05);
+  animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  max-width: 520px;
+  width: 90%;
+}
+
+.combatTitle {
+  font-size: 22px;
+  color: #ff2a6d;
+  margin-bottom: 8px;
+  text-shadow: 0 0 10px rgba(255, 42, 109, 0.5);
+}
+
+.combatSubtitle {
+  font-size: 14px;
+  color: #a0a0b0;
+  margin-bottom: 28px;
+}
+
+.combatVs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.combatFighter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.combatFighterEmoji {
+  font-size: 56px;
+}
+
+.combatFighterName {
+  font-size: 14px;
+  color: #ededed;
+}
+
+.vsText {
+  font-size: 28px;
+  color: #ffd700;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+  font-weight: bold;
+}
+
+/* RPS buttons */
+.rpsButtons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.rpsBtn {
+  padding: 14px 24px;
+  background: rgba(5, 217, 232, 0.1);
+  border: 2px solid #05d9e8;
+  color: #ededed;
+  font-family: "DungGeunMo", monospace;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 90px;
+
+  &:hover {
+    background: rgba(5, 217, 232, 0.25);
+    box-shadow: 0 0 15px rgba(5, 217, 232, 0.4);
+    transform: translateY(-3px);
+  }
+}
+
+.rpsBtnEmoji {
+  font-size: 32px;
+}
+
+.rpsBtnKey {
+  font-size: 11px;
+  color: #05d9e8;
+}
+
+.rpsResult {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.rpsChoice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.rpsChoiceEmoji {
+  font-size: 48px;
+}
+
+.rpsChoiceLabel {
+  font-size: 13px;
+  color: #a0a0b0;
+}
+
+/* Dice */
+.diceArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.diceRow {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.diceSlot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.dice {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #05d9e8;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  color: #ededed;
+  font-family: "DungGeunMo", monospace;
+}
+
+.diceRolling {
+  animation: diceShake 0.1s linear infinite;
+}
+
+@keyframes diceShake {
+  0% {
+    transform: rotate(-5deg) scale(1.05);
+  }
+  50% {
+    transform: rotate(5deg) scale(0.95);
+  }
+  100% {
+    transform: rotate(-5deg) scale(1.05);
+  }
+}
+
+.diceLabel {
+  font-size: 13px;
+  color: #a0a0b0;
+}
+
+.diceAction {
+  font-size: 14px;
+  color: #05d9e8;
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+/* Timing Bar */
+.timingArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.timingBarOuter {
+  width: 100%;
+  max-width: 400px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.timingZoneGreen {
+  position: absolute;
+  height: 100%;
+  background: rgba(155, 188, 15, 0.3);
+  border-left: 2px solid #9bbc0f;
+  border-right: 2px solid #9bbc0f;
+}
+
+.timingCursor {
+  position: absolute;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: #ff2a6d;
+  box-shadow: 0 0 10px rgba(255, 42, 109, 0.8);
+  transition: none;
+}
+
+.timingAction {
+  font-size: 14px;
+  color: #05d9e8;
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+.timingStopped {
+  width: 8px;
+  border-radius: 2px;
+  background: #ffd700;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+}
+
+/* ─── Result Panel ─── */
+.resultPanel {
+  text-align: center;
+  padding: 40px 60px;
+  background: linear-gradient(
+    135deg,
+    rgba(21, 5, 53, 0.95) 0%,
+    rgba(45, 27, 105, 0.9) 100%
+  );
+  border: 2px solid #ffd700;
+  border-radius: 4px;
+  box-shadow: 0 0 40px rgba(255, 215, 0, 0.15),
+    inset 0 0 30px rgba(255, 215, 0, 0.05);
+  animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  max-width: 460px;
+  width: 90%;
+}
+
+.resultWin {
+  border-color: #9bbc0f;
+  box-shadow: 0 0 40px rgba(155, 188, 15, 0.2),
+    inset 0 0 30px rgba(155, 188, 15, 0.05);
+}
+
+.resultLose {
+  border-color: #ff2a6d;
+  box-shadow: 0 0 40px rgba(255, 42, 109, 0.2),
+    inset 0 0 30px rgba(255, 42, 109, 0.05);
+}
+
+.resultEmoji {
+  font-size: 64px;
+  margin-bottom: 12px;
+}
+
+.resultTitle {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.resultWinTitle {
+  color: #9bbc0f;
+  text-shadow: 0 0 12px rgba(155, 188, 15, 0.5);
+}
+
+.resultLoseTitle {
+  color: #ff2a6d;
+  text-shadow: 0 0 12px rgba(255, 42, 109, 0.5);
+}
+
+.resultReward {
+  font-size: 22px;
+  color: #ffd700;
+  margin-bottom: 24px;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+}
+
+.resultDamage {
+  font-size: 22px;
+  color: #ff6b6b;
+  margin-bottom: 24px;
+}
+
+.resultTreasure {
+  font-size: 22px;
+  color: #ffd700;
+  margin-bottom: 24px;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+}
+
+.resultContinue {
+  font-size: 14px;
+  color: #05d9e8;
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+/* ─── Game Over ─── */
+.gameOverPanel {
+  text-align: center;
+  padding: 50px 60px;
+  background: linear-gradient(
+    135deg,
+    rgba(21, 5, 53, 0.98) 0%,
+    rgba(45, 27, 105, 0.95) 100%
+  );
+  border: 3px solid #ff2a6d;
+  border-radius: 4px;
+  box-shadow: 0 0 60px rgba(255, 42, 109, 0.3);
+  animation: slideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  max-width: 480px;
+  width: 90%;
+}
+
+.gameOverTitle {
+  font-size: 36px;
+  color: #ff2a6d;
+  margin-bottom: 16px;
+  text-shadow: 0 0 20px rgba(255, 42, 109, 0.6);
+}
+
+.gameOverStats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.gameOverStat {
+  font-size: 18px;
+  color: #ededed;
+}
+
+.gameOverBtns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.retryBtn {
+  padding: 10px 28px;
+  background: rgba(5, 217, 232, 0.15);
+  border: 2px solid #05d9e8;
+  color: #05d9e8;
+  font-family: "DungGeunMo", monospace;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba(5, 217, 232, 0.3);
+    box-shadow: 0 0 15px rgba(5, 217, 232, 0.4);
+  }
+}
+
+.homeBtn2 {
+  padding: 10px 28px;
+  background: rgba(255, 42, 109, 0.15);
+  border: 2px solid #ff2a6d;
+  color: #ff2a6d;
+  font-family: "DungGeunMo", monospace;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba(255, 42, 109, 0.3);
+    box-shadow: 0 0 15px rgba(255, 42, 109, 0.4);
+  }
+}
+
+/* ─── Start Screen ─── */
+.startScreen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  background: rgba(13, 2, 33, 0.92);
+  backdrop-filter: blur(4px);
+}
+
+.startTitle {
+  font-size: 48px;
+  color: #05d9e8;
+  text-shadow: 0 0 30px rgba(5, 217, 232, 0.5), 0 0 60px rgba(5, 217, 232, 0.2);
+  margin-bottom: 12px;
+  letter-spacing: 4px;
+}
+
+.startSubtitle {
+  font-size: 18px;
+  color: #ff2a6d;
+  margin-bottom: 40px;
+}
+
+.startCharacter {
+  width: 120px;
+  height: 120px;
+  image-rendering: pixelated;
+  margin-bottom: 32px;
+  filter: drop-shadow(0 0 20px rgba(5, 217, 232, 0.4));
+  animation: float 2s ease-in-out infinite;
+}
+
+.startAction {
+  font-size: 18px;
+  color: #ededed;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+/* ─── Utility ─── */
+.scanLine {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 90;
+}

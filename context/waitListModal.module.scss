@@ -1,0 +1,251 @@
+// WaitList Modal Styles
+// 레트로 퓨처리스틱 컨셉에 맞춘 디자인
+
+// 모달 배경
+.waitListModal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 194, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px 4px rgba(0, 255, 194, 0.15);
+  }
+}
+
+@keyframes checkmark {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// 모달 컨텐츠
+.modalContent {
+  background-color: var(--bg-primary);
+  color: var(--foreground);
+  border: 1px solid var(--chat-line);
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  text-align: center;
+  width: 28rem;
+  max-width: 90vw;
+  position: relative;
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.15),
+    0 10px 10px -5px rgba(0, 0, 0, 0.08),
+    0 0 40px rgba(0, 255, 194, 0.05);
+}
+
+// 닫기 버튼
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-sub);
+  cursor: pointer;
+  padding: 0.25rem;
+  line-height: 1;
+  font-size: 1.5rem;
+  transition: color 0.2s ease;
+  font-family: "DungGeunMo";
+
+  &:hover {
+    color: var(--text-main);
+  }
+}
+
+// 아이콘 영역
+.iconArea {
+  margin-bottom: 1.2rem;
+
+  .iconCircle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00ffc2 0%, #007595 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    animation: pulse 2s ease-in-out infinite;
+
+    svg {
+      color: white;
+    }
+  }
+}
+
+// 타이틀
+.title {
+  font-family: "DungGeunMo";
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+// 서브타이틀
+.subtitle {
+  font-family: "Galmuri14";
+  font-size: 0.9rem;
+  color: var(--text-sub);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+// 이메일 폼
+.emailForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.emailInput {
+  width: 100%;
+  height: 2.75rem;
+  padding: 0 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--chat-line);
+  background-color: var(--input-bg);
+  color: var(--text-main);
+  font-family: "Galmuri14";
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &::placeholder {
+    color: var(--text-sub);
+    opacity: 0.6;
+  }
+
+  &:focus {
+    border-color: #00ffc2;
+    box-shadow: 0 0 0 3px rgba(0, 255, 194, 0.15);
+  }
+}
+
+.submitButton {
+  width: 100%;
+  height: 2.75rem !important;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #00ffc2 0%, #00d4a1 100%) !important;
+  color: #121212 !important;
+  font-family: "DungGeunMo";
+  font-size: 1.05rem !important;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 255, 194, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+// 에러 메시지
+.errorMessage {
+  color: var(--stamina);
+  font-family: "Galmuri14";
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+// 성공 상태
+.successState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+
+  .successIcon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00ffc2 0%, #007595 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: checkmark 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+    svg {
+      color: white;
+    }
+  }
+
+  .successTitle {
+    font-family: "DungGeunMo";
+    font-size: 1.4rem;
+    color: #00ffc2;
+  }
+
+  .successMessage {
+    font-family: "Galmuri14";
+    font-size: 0.85rem;
+    color: var(--text-sub);
+    line-height: 1.5;
+  }
+}
+
+// 하단 안내 텍스트
+.footerText {
+  font-size: 0.75rem;
+  color: var(--text-sub);
+  opacity: 0.7;
+  margin-top: 1rem;
+  font-family: "Galmuri14";
+}
