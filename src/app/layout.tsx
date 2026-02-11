@@ -1,16 +1,9 @@
 // /Users/isang-yeob/Crowdians/crowdians/src/app/layout.tsx
-import { getMessages } from "next-intl/server";
+import { getMessages, getLocale } from "next-intl/server";
 import { ReactNode } from "react";
 import localFont from "next/font/local";
 import { Metadata } from "next";
 import "./globals.css";
-
-// This is a placeholder for your actual locale detection logic
-// For now, we'll default to 'kr'
-async function getLocale(): Promise<string> {
-  // In a real app, you'd get this from a cookie, URL, or `Accept-Language` header
-  return "ko";
-}
 
 const myCustomFont = localFont({
   src: "../../public/font/DungGeunMo.woff2",

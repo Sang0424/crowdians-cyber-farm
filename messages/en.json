@@ -49,5 +49,155 @@
     "successTitle": "You're in!",
     "successMessage": "We'll let you know as soon as\nCrowdians launches 🎉",
     "footer": "No spam. Unsubscribe anytime."
+  },
+  "Academy": {
+    "hud": {
+      "learningTicket": "Tickets",
+      "brainCharge": "Brain",
+      "trust": "Trust",
+      "lowEffBanner": "⚠️ Free Study Mode — Rewards reduced to 15%"
+    },
+    "npc": {
+      "name": "Dr. Bit",
+      "intro": "Alright, let's start the lesson!",
+      "suspended": "You're suspended... You need to restore your trust score.",
+      "grading": "🔍 Grading... Hold on a moment!",
+      "feedbackRejected": "Sharp eye! You filtered out junk data. 👏",
+      "feedbackFailed": "Hmm, this one's not great... Try again. 😅",
+      "feedbackCorrect": "Oh! Excellent insight! 👏",
+      "completeLowEff": "Brain overload... Rewards are decreasing.",
+      "completeNormal": "You finished today's lesson! Amazing!",
+      "votePrompt": "Pick the better answer!",
+      "teachPrompt": "Tell me your thoughts!"
+    },
+    "progress": {
+      "expPending": "📋 EXP +{exp} (pending)"
+    },
+    "card": {
+      "rejectBoth": "Neither is good",
+      "teachPlaceholder": "Write your answer here...",
+      "pass": "Don't know / Pass",
+      "submit": "Submit",
+      "gradingText": "Dr. Bit is grading..."
+    },
+    "feedback": {
+      "goldActivity": "💰 +{gold} Gold (activity)",
+      "expPending": "📋 +{exp} EXP after grading",
+      "trustUp": "🛡️ Trust +{delta}",
+      "goldReject": "💰 +{gold} Gold (reject bonus)",
+      "failedMsg": "Grading failed — Answer too short",
+      "trustDown": "🛡️ Trust {delta}"
+    },
+    "suspended": {
+      "title": "Suspended",
+      "desc": "Your trust score is below 30. You cannot enter the Academy.\nRestore your trust through other activities.",
+      "currentTrust": "🛡️ Current Trust:",
+      "goAdventure": "⚔️ Go on an Adventure"
+    },
+    "complete": {
+      "titleLowEff": "Free Study Complete!",
+      "titleNormal": "Lesson Complete!",
+      "instantReward": "Instant Reward (Activity)",
+      "pendingReward": "Pending (Experience)",
+      "rejectedCards": "Rejected Cards",
+      "rejectedCount": "🗑️ {count}",
+      "trust": "Trust",
+      "msgLowEff": "💤 Brain overloaded. Rewards are decreasing...",
+      "msgNormal": "Dr. Bit will send your EXP to your mailbox after grading!",
+      "continueBtn": "🔥 Brain still fresh! Next lesson",
+      "exhaustedBtn": "💤 Brain overloaded. Go on an adventure?",
+      "restartBtn": "🔄 Start over"
+    }
+  },
+  "MockData": {
+    "cards": {
+      "kc_1": {
+        "question": "When does the cleanup function of useEffect in React execute?",
+        "category": "Frontend",
+        "answerA": "It only runs when the component unmounts. It cleans up resources set during mount.",
+        "answerB": "It runs both when dependencies change (re-render) and on unmount. The previous effect is cleaned up before the new one runs."
+      },
+      "kc_2": {
+        "question": "What is 'Hoisting' in JavaScript?",
+        "category": "JavaScript",
+        "hint": "Think about how variable and function declarations are processed."
+      },
+      "kc_3": {
+        "question": "What is the biggest difference between Flexbox and Grid in CSS?",
+        "category": "CSS",
+        "answerA": "Flexbox is for 1D layouts (row or column), Grid is for 2D layouts (rows and columns simultaneously).",
+        "answerB": "Flexbox is for older browser compatibility, and Grid is a complete superset of Flexbox."
+      },
+      "kc_4": {
+        "question": "Compare the pros and cons of REST API and GraphQL.",
+        "category": "Backend",
+        "hint": "Think about data fetching methods and over-fetching/under-fetching."
+      },
+      "kc_5": {
+        "question": "What is the difference between interface and type in TypeScript?",
+        "category": "TypeScript",
+        "answerA": "They are nearly identical, but interface supports declaration merging while type offers more freedom with unions/intersections.",
+        "answerB": "Interface can only be used for objects, and type can be used for all types, so type is always better."
+      }
+    },
+    "monsters": {
+      "m1": "Glitch Slime",
+      "m2": "Bug Spider",
+      "m3": "Data Golem",
+      "m4": "Virus Dragon",
+      "m5": "Phantom Hacker"
+    },
+    "treasures": {
+      "t1": "Data Fragment Box",
+      "t2": "Bitcoin Wallet",
+      "t3": "Ancient USB",
+      "t4": "Neon Crystal"
+    }
+  },
+  "Adventure": {
+    "start": {
+      "subtitle": "Explore the Cyberpunk City",
+      "pressKey": "Press any key to start"
+    },
+    "hud": {
+      "home": "🏠 Home"
+    },
+    "encounter": {
+      "monsterAppeared": "A glitch monster appeared!",
+      "treasureFound": "You found a treasure chest!",
+      "pressKeyContinue": "Press any key to continue..."
+    },
+    "combat": {
+      "title": "⚔️ Combat!",
+      "me": "Me",
+      "enemy": "Enemy",
+      "rps": {
+        "subtitle": "Rock Paper Scissors showdown!",
+        "rock": "Rock",
+        "scissors": "Scissors",
+        "paper": "Paper"
+      },
+      "dice": {
+        "subtitle": "Roll the dice to battle!",
+        "action": "Press Enter to roll the dice"
+      },
+      "timing": {
+        "subtitle": "Stop in the green zone!",
+        "action": "Press Space to stop!"
+      }
+    },
+    "result": {
+      "win": "Victory!",
+      "lose": "Defeat...",
+      "goldGained": "💰 {gold} Gold obtained!",
+      "goldGainedPlus": "💰 +{gold} Gold obtained!",
+      "pressKeyContinue": "Press any key to continue..."
+    },
+    "gameover": {
+      "distance": "📍 Distance: {distance}m",
+      "gold": "💰 Gold earned: {gold} G",
+      "retry": "🔄 Retry",
+      "home": "🏠 Home"
+    }
   }
 }

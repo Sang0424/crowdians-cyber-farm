@@ -113,13 +113,16 @@ export const MOCK_QUESTS: Quest[] = [
 export interface KnowledgeCard {
   id: string;
   type: "vote" | "teach";
-  question: string;
-  category: string;
-  /** Vote 카드일 때만 존재 */
-  answerA?: string;
-  answerB?: string;
-  /** Teach 카드일 때 힌트 */
-  hint?: string;
+  /** i18n key for question, e.g. "cards.kc_1.question" */
+  questionKey: string;
+  /** i18n key for category, e.g. "cards.kc_1.category" */
+  categoryKey: string;
+  /** i18n key for answer A (vote only), e.g. "cards.kc_1.answerA" */
+  answerAKey?: string;
+  /** i18n key for answer B (vote only), e.g. "cards.kc_1.answerB" */
+  answerBKey?: string;
+  /** i18n key for hint (teach only), e.g. "cards.kc_2.hint" */
+  hintKey?: string;
   expReward: number;
 }
 
@@ -127,51 +130,44 @@ export const MOCK_KNOWLEDGE_CARDS: KnowledgeCard[] = [
   {
     id: "kc_1",
     type: "vote",
-    question: "React에서 useEffect의 cleanup 함수는 언제 실행될까요?",
-    category: "프론트엔드",
-    answerA:
-      "컴포넌트가 언마운트될 때만 실행됩니다. 마운트 시점에 설정한 리소스를 정리하는 역할을 합니다.",
-    answerB:
-      "의존성이 변경되어 리렌더링될 때와 언마운트될 때 모두 실행됩니다. 이전 이펙트를 정리한 후 새 이펙트가 실행됩니다.",
+    questionKey: "cards.kc_1.question",
+    categoryKey: "cards.kc_1.category",
+    answerAKey: "cards.kc_1.answerA",
+    answerBKey: "cards.kc_1.answerB",
     expReward: 50,
   },
   {
     id: "kc_2",
     type: "teach",
-    question: "자바스크립트에서 '호이스팅(Hoisting)'이란 무엇인가요?",
-    category: "자바스크립트",
-    hint: "변수와 함수 선언이 어떻게 처리되는지 생각해보세요.",
+    questionKey: "cards.kc_2.question",
+    categoryKey: "cards.kc_2.category",
+    hintKey: "cards.kc_2.hint",
     expReward: 80,
   },
   {
     id: "kc_3",
     type: "vote",
-    question: "CSS에서 Flexbox와 Grid의 가장 큰 차이점은 무엇인가요?",
-    category: "CSS",
-    answerA:
-      "Flexbox는 1차원(행 또는 열), Grid는 2차원(행과 열 동시) 레이아웃에 적합합니다.",
-    answerB:
-      "Flexbox는 구형 브라우저 호환용이고, Grid가 Flexbox의 완전한 상위 호환입니다.",
+    questionKey: "cards.kc_3.question",
+    categoryKey: "cards.kc_3.category",
+    answerAKey: "cards.kc_3.answerA",
+    answerBKey: "cards.kc_3.answerB",
     expReward: 50,
   },
   {
     id: "kc_4",
     type: "teach",
-    question: "REST API와 GraphQL의 장단점을 비교해주세요.",
-    category: "백엔드",
-    hint: "데이터 패칭 방식과 오버페칭/언더페칭 관점에서 생각해보세요.",
+    questionKey: "cards.kc_4.question",
+    categoryKey: "cards.kc_4.category",
+    hintKey: "cards.kc_4.hint",
     expReward: 100,
   },
   {
     id: "kc_5",
     type: "vote",
-    question:
-      "TypeScript에서 interface와 type의 차이점은 무엇인가요?",
-    category: "타입스크립트",
-    answerA:
-      "둘은 거의 동일하지만, interface는 선언 병합(declaration merging)이 가능하고 type은 유니온/인터섹션이 자유롭습니다.",
-    answerB:
-      "interface는 객체에만 쓸 수 있고, type은 모든 타입에 사용할 수 있어서 type이 항상 더 좋습니다.",
+    questionKey: "cards.kc_5.question",
+    categoryKey: "cards.kc_5.category",
+    answerAKey: "cards.kc_5.answerA",
+    answerBKey: "cards.kc_5.answerB",
     expReward: 50,
   },
 ];
@@ -182,7 +178,8 @@ export const MOCK_KNOWLEDGE_CARDS: KnowledgeCard[] = [
 
 export interface Monster {
   id: string;
-  name: string;
+  /** i18n key for name, e.g. "monsters.m1" */
+  nameKey: string;
   emoji: string;
   hp: number;
   rewardGold: number;
@@ -191,25 +188,26 @@ export interface Monster {
 
 export interface Treasure {
   id: string;
-  name: string;
+  /** i18n key for name, e.g. "treasures.t1" */
+  nameKey: string;
   emoji: string;
   goldMin: number;
   goldMax: number;
 }
 
 export const MONSTERS: Monster[] = [
-  { id: "m1", name: "글리치 슬라임", emoji: "👾", hp: 30, rewardGold: 50, damage: 10 },
-  { id: "m2", name: "버그 스파이더", emoji: "🕷️", hp: 50, rewardGold: 80, damage: 15 },
-  { id: "m3", name: "데이터 고렘", emoji: "🤖", hp: 80, rewardGold: 120, damage: 20 },
-  { id: "m4", name: "바이러스 드래곤", emoji: "🐉", hp: 100, rewardGold: 200, damage: 30 },
-  { id: "m5", name: "팬텀 해커", emoji: "👻", hp: 60, rewardGold: 100, damage: 25 },
+  { id: "m1", nameKey: "monsters.m1", emoji: "👾", hp: 30, rewardGold: 50, damage: 10 },
+  { id: "m2", nameKey: "monsters.m2", emoji: "🕷️", hp: 50, rewardGold: 80, damage: 15 },
+  { id: "m3", nameKey: "monsters.m3", emoji: "🤖", hp: 80, rewardGold: 120, damage: 20 },
+  { id: "m4", nameKey: "monsters.m4", emoji: "🐉", hp: 100, rewardGold: 200, damage: 30 },
+  { id: "m5", nameKey: "monsters.m5", emoji: "👻", hp: 60, rewardGold: 100, damage: 25 },
 ];
 
 export const TREASURES: Treasure[] = [
-  { id: "t1", name: "데이터 조각 상자", emoji: "🎁", goldMin: 20, goldMax: 60 },
-  { id: "t2", name: "비트코인 지갑", emoji: "💰", goldMin: 50, goldMax: 150 },
-  { id: "t3", name: "고대 USB", emoji: "💎", goldMin: 80, goldMax: 200 },
-  { id: "t4", name: "네온 크리스탈", emoji: "✨", goldMin: 30, goldMax: 100 },
+  { id: "t1", nameKey: "treasures.t1", emoji: "🎁", goldMin: 20, goldMax: 60 },
+  { id: "t2", nameKey: "treasures.t2", emoji: "💰", goldMin: 50, goldMax: 150 },
+  { id: "t3", nameKey: "treasures.t3", emoji: "💎", goldMin: 80, goldMax: 200 },
+  { id: "t4", nameKey: "treasures.t4", emoji: "✨", goldMin: 30, goldMax: 100 },
 ];
 
 // ==========================================

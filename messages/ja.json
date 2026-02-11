@@ -49,5 +49,155 @@
     "successTitle": "登録完了！",
     "successMessage": "Crowdiansのリリース情報を\nいち早くお届けします 🎉",
     "footer": "スパムメールは送りません。いつでも配信停止できます。"
+  },
+  "Academy": {
+    "hud": {
+      "learningTicket": "学習券",
+      "brainCharge": "脳チャージ",
+      "trust": "信頼度",
+      "lowEffBanner": "⚠️ 自習モード — 報酬が15%に減少します"
+    },
+    "npc": {
+      "name": "ドクター・ビット",
+      "intro": "さあ、授業を始めよう！",
+      "suspended": "停学処分中だよ... 信頼度を回復しないと。",
+      "grading": "🔍 採点中... ちょっと待ってね！",
+      "feedbackRejected": "さすが鋭いね！ゴミデータを見抜いたよ。👏",
+      "feedbackFailed": "これはちょっと... もう一度考えてみて。😅",
+      "feedbackCorrect": "おぉ！素晴らしい見識だ！👏",
+      "completeLowEff": "脳がオーバーロード... 報酬が減少しているよ。",
+      "completeNormal": "今日の授業を終えたね！すごい！",
+      "votePrompt": "2つの回答からより良いものを選んでね！",
+      "teachPrompt": "君の考えを直接教えてね！"
+    },
+    "progress": {
+      "expPending": "📋 EXP +{exp} (保留中)"
+    },
+    "card": {
+      "rejectBoth": "どちらもイマイチ",
+      "teachPlaceholder": "ここに回答を書いてください...",
+      "pass": "分からない / パス",
+      "submit": "提出する",
+      "gradingText": "ドクター・ビットが採点中..."
+    },
+    "feedback": {
+      "goldActivity": "💰 +{gold} Gold (活動費)",
+      "expPending": "📋 +{exp} EXP 採点後に付与",
+      "trustUp": "🛡️ 信頼度 +{delta}",
+      "goldReject": "💰 +{gold} Gold (却下ボーナス)",
+      "failedMsg": "採点不合格 — 回答が短すぎます",
+      "trustDown": "🛡️ 信頼度 {delta}"
+    },
+    "suspended": {
+      "title": "停学処分",
+      "desc": "信頼度が30未満のため、アカデミーに入場できません。\n他の活動で信頼度を回復してください。",
+      "currentTrust": "🛡️ 現在の信頼度:",
+      "goAdventure": "⚔️ 冒険に行く"
+    },
+    "complete": {
+      "titleLowEff": "自習完了！",
+      "titleNormal": "授業完了！",
+      "instantReward": "即時報酬 (活動費)",
+      "pendingReward": "採点待ち (経験値)",
+      "rejectedCards": "却下カード",
+      "rejectedCount": "🗑️ {count}件",
+      "trust": "信頼度",
+      "msgLowEff": "💤 脳がオーバーロード。報酬が減少しているよ...",
+      "msgNormal": "ドクター・ビットが採点を終えたらEXPをメールボックスに送るよ！",
+      "continueBtn": "🔥 まだ脳は元気！次の授業へ",
+      "exhaustedBtn": "💤 脳がオーバーロード。冒険に行こうか？",
+      "restartBtn": "🔄 最初からやり直す"
+    }
+  },
+  "MockData": {
+    "cards": {
+      "kc_1": {
+        "question": "ReactのuseEffectのクリーンアップ関数はいつ実行されますか？",
+        "category": "フロントエンド",
+        "answerA": "コンポーネントがアンマウントされるときのみ実行されます。マウント時に設定したリソースをクリーンアップする役割があります。",
+        "answerB": "依存関係が変更されて再レンダリングされるときとアンマウント時の両方で実行されます。前のエフェクトをクリーンアップしてから新しいエフェクトが実行されます。"
+      },
+      "kc_2": {
+        "question": "JavaScriptにおける「ホイスティング（Hoisting）」とは何ですか？",
+        "category": "JavaScript",
+        "hint": "変数や関数の宣言がどのように処理されるか考えてみてください。"
+      },
+      "kc_3": {
+        "question": "CSSにおけるFlexboxとGridの最大の違いは何ですか？",
+        "category": "CSS",
+        "answerA": "Flexboxは1次元（行または列）、Gridは2次元（行と列を同時に）レイアウトに適しています。",
+        "answerB": "Flexboxは古いブラウザ互換用で、GridはFlexboxの完全な上位互換です。"
+      },
+      "kc_4": {
+        "question": "REST APIとGraphQLの長所と短所を比較してください。",
+        "category": "バックエンド",
+        "hint": "データフェッチ方式とオーバーフェッチング・アンダーフェッチングの観点で考えてみてください。"
+      },
+      "kc_5": {
+        "question": "TypeScriptにおけるinterfaceとtypeの違いは何ですか？",
+        "category": "TypeScript",
+        "answerA": "ほぼ同じですが、interfaceは宣言マージ（declaration merging）が可能で、typeはユニオン/インターセクションが自由です。",
+        "answerB": "interfaceはオブジェクトにしか使えず、typeはすべての型に使えるので、typeの方が常に優れています。"
+      }
+    },
+    "monsters": {
+      "m1": "グリッチスライム",
+      "m2": "バグスパイダー",
+      "m3": "データゴーレム",
+      "m4": "ウイルスドラゴン",
+      "m5": "ファントムハッカー"
+    },
+    "treasures": {
+      "t1": "データの欠片ボックス",
+      "t2": "ビットコインウォレット",
+      "t3": "古代USB",
+      "t4": "ネオンクリスタル"
+    }
+  },
+  "Adventure": {
+    "start": {
+      "subtitle": "サイバーパンクシティを探検せよ",
+      "pressKey": "任意のキーを押してスタート"
+    },
+    "hud": {
+      "home": "🏠 ホーム"
+    },
+    "encounter": {
+      "monsterAppeared": "グリッチモンスターが現れた！",
+      "treasureFound": "宝箱を発見した！",
+      "pressKeyContinue": "任意のキーを押して続ける..."
+    },
+    "combat": {
+      "title": "⚔️ 戦闘！",
+      "me": "自分",
+      "enemy": "敵",
+      "rps": {
+        "subtitle": "じゃんけんで勝負だ！",
+        "rock": "グー",
+        "scissors": "チョキ",
+        "paper": "パー"
+      },
+      "dice": {
+        "subtitle": "サイコロを振って勝負！",
+        "action": "Enterキーを押してサイコロを振る"
+      },
+      "timing": {
+        "subtitle": "緑のゾーンで止めろ！",
+        "action": "Spaceキーを押して止める！"
+      }
+    },
+    "result": {
+      "win": "勝利！",
+      "lose": "敗北...",
+      "goldGained": "💰 {gold} ゴールド獲得！",
+      "goldGainedPlus": "💰 +{gold} ゴールド獲得！",
+      "pressKeyContinue": "任意のキーを押して続ける..."
+    },
+    "gameover": {
+      "distance": "📍 移動距離: {distance}m",
+      "gold": "💰 獲得ゴールド: {gold} G",
+      "retry": "🔄 リトライ",
+      "home": "🏠 ホーム"
+    }
   }
 }

@@ -5,7 +5,7 @@ import styles from "./loginModal.module.scss";
 import { Button } from "@radix-ui/themes";
 import { useTranslations } from "next-intl";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth, db } from "../lib/firebase";
+
 import { useRouter } from "next/navigation";
 import {
   doc,
@@ -51,75 +51,75 @@ function LoginModal({ onClose }: { onClose: () => void }) {
   const t = useTranslations("LoginModal");
   const provider = new GoogleAuthProvider();
 
-  const handleGoogleLogin = async () => {
-    const provider = new GoogleAuthProvider();
+  // const handleGoogleLogin = async () => {
+  //   const provider = new GoogleAuthProvider();
 
-    try {
-      // 1. 구글 팝업 띄우기 (인증 시작)
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const accessToken = credential?.accessToken;
+  //   try {
+  //     // 1. 구글 팝업 띄우기 (인증 시작)
+      
+  //     const user = result.user;
+  //     const credential = GoogleAuthProvider.credentialFromResult(result);
+  //     const accessToken = credential?.accessToken;
 
-      console.log("🔥 Firebase Auth 성공:", user.uid);
-      console.log("google login result", result);
-      console.log("google login credential", credential);
+  //     console.log("🔥 Firebase Auth 성공:", user.uid);
+  //     console.log("google login result", result);
+  //     console.log("google login credential", credential);
 
-      // 2. Firestore에서 유저 정보 조회 (이미 가입된 유저인지 확인)
-      const userRef = doc(db, "users", user.uid);
-      const userSnap = await getDoc(userRef);
+  //     // 2. Firestore에서 유저 정보 조회 (이미 가입된 유저인지 확인)
+  //     const userRef = doc(db, "users", user.uid);
+  //     const userSnap = await getDoc(userRef);
 
-      if (userSnap.exists()) {
-        // 🅰️ [기존 유저] -> 정보 업데이트 후 메인으로 이동
-        console.log("✅ 이미 가입된 유저입니다. 로그인 처리합니다.");
+  //     if (userSnap.exists()) {
+  //       // 🅰️ [기존 유저] -> 정보 업데이트 후 메인으로 이동
+  //       console.log("✅ 이미 가입된 유저입니다. 로그인 처리합니다.");
 
-        await updateDoc(userRef, {
-          lastLoginAt: serverTimestamp(), // 마지막 접속 시간 갱신
-        });
+  //       await updateDoc(userRef, {
+  //         lastLoginAt: serverTimestamp(), // 마지막 접속 시간 갱신
+  //       });
 
-        router.push("/");
-      } else {
-        // 🅱️ [신규 유저] -> DB에 초기 데이터 저장(회원가입) 후 이동
-        console.log("🎉 신규 유저입니다. 회원가입을 진행합니다.");
+  //       router.push("/");
+  //     } else {
+  //       // 🅱️ [신규 유저] -> DB에 초기 데이터 저장(회원가입) 후 이동
+  //       console.log("🎉 신규 유저입니다. 회원가입을 진행합니다.");
 
-        // 우리가 설계했던 스키마대로 초기 데이터 생성
-        const newUser = {
-          uid: user.uid,
-          email: user.email,
-          nickname: user.displayName || "이름없음",
+  //       // 우리가 설계했던 스키마대로 초기 데이터 생성
+  //       const newUser = {
+  //         uid: user.uid,
+  //         email: user.email,
+  //         nickname: user.displayName || "이름없음",
 
-          // 🎮 게임 초기 스탯 설정
-          stats: {
-            level: 1,
-            exp: 0,
-            maxExp: 100,
-            points: 0, // 초기 자금 (0원부터 시작)
-            stamina: 20,
-            maxStamina: 20,
-          },
+  //         // 🎮 게임 초기 스탯 설정
+  //         stats: {
+  //           level: 1,
+  //           exp: 0,
+  //           maxExp: 100,
+  //           points: 0, // 초기 자금 (0원부터 시작)
+  //           stamina: 20,
+  //           maxStamina: 20,
+  //         },
 
-          // 캐릭터 정보
-          character: {
-            id: "char_default",
-            evolutionStage: 0,
-            name: "알",
-          },
+  //         // 캐릭터 정보
+  //         character: {
+  //           id: "char_default",
+  //           evolutionStage: 0,
+  //           name: "알",
+  //         },
 
-          role: "user",
-          createdAt: serverTimestamp(),
-          lastLoginAt: serverTimestamp(),
-        };
+  //         role: "user",
+  //         createdAt: serverTimestamp(),
+  //         lastLoginAt: serverTimestamp(),
+  //       };
 
-        // Firestore에 저장 (회원가입 완료)
-        await setDoc(userRef, newUser);
+  //       // Firestore에 저장 (회원가입 완료)
+  //       await setDoc(userRef, newUser);
 
-        router.push("/");
-      }
-    } catch (error) {
-      console.error("❌ 로그인 실패:", error);
-      // 에러 발생 시 사용자에게 토스트 메시지 등을 띄워주면 좋습니다.
-    }
-  };
+  //       router.push("/");
+  //     }
+  //   } catch (error) {
+  //     console.error("❌ 로그인 실패:", error);
+  //     // 에러 발생 시 사용자에게 토스트 메시지 등을 띄워주면 좋습니다.
+  //   }
+  // };
 
   return (
     <div className={styles.loginModal} onClick={onClose}>
@@ -145,7 +145,7 @@ function LoginModal({ onClose }: { onClose: () => void }) {
         </h2>
         {/* Google Login */}
         <div className={styles.loginButtons}>
-          <Button className={styles.googleLogin} onClick={handleGoogleLogin}>
+          <Button className={styles.googleLogin} onClick={() => {alert('Coming Soon')}}>
             <svg width="24" height="20" viewBox="0 0 20 20">
               <path
                 fill="#4285F4"
@@ -167,7 +167,7 @@ function LoginModal({ onClose }: { onClose: () => void }) {
             <span>{t("googleLogin")}</span>
           </Button>
           {/* Kakao Login */}
-          <Button className={styles.kakaoLogin}>
+          <Button className={styles.kakaoLogin} onClick={() => {alert('Coming Soon')}}>
             <svg width="24" height="20" viewBox="0 0 20 20" fill="none">
               <path
                 d="M10 3C5.589 3 2 5.906 2 9.5c0 2.387 1.588 4.488 4.009 5.664-.157.565-.978 3.532-1.119 4.026-.166.591.216.583.456.423.191-.128 3.103-2.047 4.24-2.796.471.064.954.097 1.414.097 4.411 0 8-2.906 8-6.5S14.411 3 10 3z"
@@ -178,7 +178,7 @@ function LoginModal({ onClose }: { onClose: () => void }) {
           </Button>
 
           {/* Naver Login */}
-          <Button className={styles.naverLogin}>
+          <Button className={styles.naverLogin} onClick={() => {alert('Coming Soon')}}>
             <svg width="24" height="20" viewBox="0 0 20 20" fill="white">
               <path d="M13.6 10.8L6.4 2H2v16h6.4V9.2L15.6 18H20V2h-6.4v8.8z" />
             </svg>

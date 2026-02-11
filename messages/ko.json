@@ -49,5 +49,155 @@
     "successTitle": "신청 완료!",
     "successMessage": "크라우디언스 출시 소식을\n가장 먼저 알려드릴게요 🎉",
     "footer": "스팸 메일은 보내지 않습니다. 언제든 구독 취소 가능합니다."
+  },
+  "Academy": {
+    "hud": {
+      "learningTicket": "학습권",
+      "brainCharge": "뇌 충전",
+      "trust": "신뢰도",
+      "lowEffBanner": "⚠️ 자율 학습 모드 — 보상이 15%로 감소합니다"
+    },
+    "npc": {
+      "name": "닥터 비트",
+      "intro": "자, 수업을 시작하자!",
+      "suspended": "정학 처분 중이야... 신뢰도를 회복해야 해.",
+      "grading": "🔍 채점 중... 잠깐만 기다려!",
+      "feedbackRejected": "역시 예리하군! 쓰레기 데이터를 걸러냈어. 👏",
+      "feedbackFailed": "이건 좀... 다시 생각해봐. 😅",
+      "feedbackCorrect": "오! 훌륭한 식견이야! 👏",
+      "completeLowEff": "뇌가 과부하 걸렸어... 보상이 줄어들고 있어.",
+      "completeNormal": "오늘의 수업을 끝냈어! 대단해!",
+      "votePrompt": "두 답변 중 더 나은 것을 골라봐!",
+      "teachPrompt": "네 생각을 직접 알려줘!"
+    },
+    "progress": {
+      "expPending": "📋 EXP +{exp} (대기)"
+    },
+    "card": {
+      "rejectBoth": "둘 다 별로예요",
+      "teachPlaceholder": "여기에 답변을 작성해주세요...",
+      "pass": "모름 / 패스",
+      "submit": "제출하기",
+      "gradingText": "닥터 비트가 채점 중..."
+    },
+    "feedback": {
+      "goldActivity": "💰 +{gold} Gold (활동비)",
+      "expPending": "📋 +{exp} EXP 채점 후 지급",
+      "trustUp": "🛡️ 신뢰도 +{delta}",
+      "goldReject": "💰 +{gold} Gold (기각 보너스)",
+      "failedMsg": "채점 불합격 — 답변이 너무 짧아요",
+      "trustDown": "🛡️ 신뢰도 {delta}"
+    },
+    "suspended": {
+      "title": "정학 처분",
+      "desc": "신뢰도가 30 미만이라 아카데미에 입장할 수 없습니다.\n다른 활동으로 신뢰도를 회복해주세요.",
+      "currentTrust": "🛡️ 현재 신뢰도:",
+      "goAdventure": "⚔️ 모험하러 가기"
+    },
+    "complete": {
+      "titleLowEff": "자율 학습 완료!",
+      "titleNormal": "수업 완료!",
+      "instantReward": "즉시 보상 (활동비)",
+      "pendingReward": "채점 대기 (경험치)",
+      "rejectedCards": "기각 카드",
+      "rejectedCount": "🗑️ {count}건",
+      "trust": "신뢰도",
+      "msgLowEff": "💤 뇌가 과부하 걸렸어. 보상이 줄어들고 있어...",
+      "msgNormal": "닥터 비트가 채점을 끝내면 EXP를 우편함으로 보내줄게!",
+      "continueBtn": "🔥 아직 뇌가 쌩쌩해! 다음 수업 듣기",
+      "exhaustedBtn": "💤 뇌가 과부하야. 모험이나 갈까?",
+      "restartBtn": "🔄 처음부터 다시하기"
+    }
+  },
+  "MockData": {
+    "cards": {
+      "kc_1": {
+        "question": "React에서 useEffect의 cleanup 함수는 언제 실행될까요?",
+        "category": "프론트엔드",
+        "answerA": "컴포넌트가 언마운트될 때만 실행됩니다. 마운트 시점에 설정한 리소스를 정리하는 역할을 합니다.",
+        "answerB": "의존성이 변경되어 리렌더링될 때와 언마운트될 때 모두 실행됩니다. 이전 이펙트를 정리한 후 새 이펙트가 실행됩니다."
+      },
+      "kc_2": {
+        "question": "자바스크립트에서 '호이스팅(Hoisting)'이란 무엇인가요?",
+        "category": "자바스크립트",
+        "hint": "변수와 함수 선언이 어떻게 처리되는지 생각해보세요."
+      },
+      "kc_3": {
+        "question": "CSS에서 Flexbox와 Grid의 가장 큰 차이점은 무엇인가요?",
+        "category": "CSS",
+        "answerA": "Flexbox는 1차원(행 또는 열), Grid는 2차원(행과 열 동시) 레이아웃에 적합합니다.",
+        "answerB": "Flexbox는 구형 브라우저 호환용이고, Grid가 Flexbox의 완전한 상위 호환입니다."
+      },
+      "kc_4": {
+        "question": "REST API와 GraphQL의 장단점을 비교해주세요.",
+        "category": "백엔드",
+        "hint": "데이터 패칭 방식과 오버페칭/언더페칭 관점에서 생각해보세요."
+      },
+      "kc_5": {
+        "question": "TypeScript에서 interface와 type의 차이점은 무엇인가요?",
+        "category": "타입스크립트",
+        "answerA": "둘은 거의 동일하지만, interface는 선언 병합(declaration merging)이 가능하고 type은 유니온/인터섹션이 자유롭습니다.",
+        "answerB": "interface는 객체에만 쓸 수 있고, type은 모든 타입에 사용할 수 있어서 type이 항상 더 좋습니다."
+      }
+    },
+    "monsters": {
+      "m1": "글리치 슬라임",
+      "m2": "버그 스파이더",
+      "m3": "데이터 고렘",
+      "m4": "바이러스 드래곤",
+      "m5": "팬텀 해커"
+    },
+    "treasures": {
+      "t1": "데이터 조각 상자",
+      "t2": "비트코인 지갑",
+      "t3": "고대 USB",
+      "t4": "네온 크리스탈"
+    }
+  },
+  "Adventure": {
+    "start": {
+      "subtitle": "사이버펑크 시티를 탐험하라",
+      "pressKey": "아무 키를 눌러 시작"
+    },
+    "hud": {
+      "home": "🏠 집으로"
+    },
+    "encounter": {
+      "monsterAppeared": "글리치 몬스터가 나타났다!",
+      "treasureFound": "보물상자를 발견했다!",
+      "pressKeyContinue": "아무 키를 눌러 계속..."
+    },
+    "combat": {
+      "title": "⚔️ 전투!",
+      "me": "나",
+      "enemy": "적",
+      "rps": {
+        "subtitle": "가위바위보로 승부하자!",
+        "rock": "바위",
+        "scissors": "가위",
+        "paper": "보"
+      },
+      "dice": {
+        "subtitle": "주사위를 굴려서 승부!",
+        "action": "Enter 키를 눌러 주사위 굴리기"
+      },
+      "timing": {
+        "subtitle": "초록 구간에서 멈춰라!",
+        "action": "Space 키를 눌러 멈추기!"
+      }
+    },
+    "result": {
+      "win": "승리!",
+      "lose": "패배...",
+      "goldGained": "💰 {gold} 골드 획득!",
+      "goldGainedPlus": "💰 +{gold} 골드 획득!",
+      "pressKeyContinue": "아무 키를 눌러 계속..."
+    },
+    "gameover": {
+      "distance": "📍 이동 거리: {distance}m",
+      "gold": "💰 획득 골드: {gold} G",
+      "retry": "🔄 다시하기",
+      "home": "🏠 집으로"
+    }
   }
 }

@@ -4,6 +4,7 @@ import styles from "./page.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useCallback, useRef } from "react";
+import { useTranslations } from "next-intl";
 import { MONSTERS, TREASURES, Monster, Treasure } from "@/data/mockData";
 
 // ── Types ──
@@ -25,7 +26,6 @@ function pickRandom<T>(arr: T[]): T {
 }
 
 const RPS_EMOJI: Record<RPS, string> = { rock: "✊", paper: "✋", scissors: "✌️" };
-const RPS_LABEL: Record<RPS, string> = { rock: "바위", paper: "보", scissors: "가위" };
 
 function rpsWinner(player: RPS, enemy: RPS): CombatResult {
   if (player === enemy) return "lose"; // tie = lose for simplicity
@@ -39,6 +39,9 @@ function rpsWinner(player: RPS, enemy: RPS): CombatResult {
 
 // ══════════════════════════════════════
 export default function AdventurePage() {
+  const t = useTranslations("Adventure");
+  const tData = useTranslations("MockData");
+
   // ── Game State ──
   const [phase, setPhase] = useState<GamePhase>("start");
   const [hp, setHp] = useState(100);
@@ -144,8 +147,8 @@ export default function AdventurePage() {
   const handleEncounterAction = useCallback(() => {
     if (!encounter) return;
     if (encounter.type === "treasure") {
-      const t = encounter.data as Treasure;
-      const g = randomInt(t.goldMin, t.goldMax);
+      const tr = encounter.data as Treasure;
+      const g = randomInt(tr.goldMin, tr.goldMax);
       setResultGold(g);
       setResultDamage(0);
       setGold((prev) => prev + g);
@@ -341,7 +344,7 @@ export default function AdventurePage() {
       {phase === "start" && (
         <div className={styles.startScreen}>
           <h1 className={styles.startTitle}>⚔️ ADVENTURE</h1>
-          <p className={styles.startSubtitle}>사이버펑크 시티를 탐험하라</p>
+          <p className={styles.startSubtitle}>{t("start.subtitle")}</p>
           <Image
             src="/Crowdy/GEOS.gif"
             alt="Character"
@@ -350,7 +353,7 @@ export default function AdventurePage() {
             unoptimized
             className={styles.startCharacter}
           />
-          <p className={styles.startAction}>아무 키를 눌러 시작</p>
+          <p className={styles.startAction}>{t("start.pressKey")}</p>
         </div>
       )}
 
@@ -359,7 +362,7 @@ export default function AdventurePage() {
         <div className={styles.hud}>
           <div className={styles.hudLeft}>
             <Link href="/" className={styles.homeBtn}>
-              🏠 집으로
+              {t("hud.home")}
             </Link>
             <div className={styles.statGroup}>
               <span className={styles.statIcon}>❤️</span>
@@ -409,10 +412,10 @@ export default function AdventurePage() {
                     {(encounter.data as Monster).emoji}
                   </div>
                   <div className={styles.encounterName}>
-                    {(encounter.data as Monster).name}
+                    {tData((encounter.data as Monster).nameKey)}
                   </div>
                   <div className={styles.encounterDesc}>
-                    글리치 몬스터가 나타났다!
+                    {t("encounter.monsterAppeared")}
                   </div>
                 </>
               ) : (
@@ -421,15 +424,15 @@ export default function AdventurePage() {
                     {(encounter?.data as Treasure).emoji}
                   </div>
                   <div className={styles.encounterName}>
-                    {(encounter?.data as Treasure).name}
+                    {tData((encounter?.data as Treasure).nameKey)}
                   </div>
                   <div className={styles.encounterDesc}>
-                    보물상자를 발견했다!
+                    {t("encounter.treasureFound")}
                   </div>
                 </>
               )}
               <div className={styles.encounterAction}>
-                아무 키를 눌러 계속...
+                {t("encounter.pressKeyContinue")}
               </div>
             </div>
           </div>
@@ -440,12 +443,12 @@ export default function AdventurePage() {
       {phase === "combat" && encounter?.type === "monster" && (
         <div className={styles.overlay}>
           <div className={styles.combatPanel}>
-            <div className={styles.combatTitle}>⚔️ 전투!</div>
+            <div className={styles.combatTitle}>{t("combat.title")}</div>
 
             <div className={styles.combatVs}>
               <div className={styles.combatFighter}>
                 <span className={styles.combatFighterEmoji}>🧑‍💻</span>
-                <span className={styles.combatFighterName}>나</span>
+                <span className={styles.combatFighterName}>{t("combat.me")}</span>
               </div>
               <span className={styles.vsText}>VS</span>
               <div className={styles.combatFighter}>
@@ -453,7 +456,7 @@ export default function AdventurePage() {
                   {(encounter.data as Monster).emoji}
                 </span>
                 <span className={styles.combatFighterName}>
-                  {(encounter.data as Monster).name}
+                  {tData((encounter.data as Monster).nameKey)}
                 </span>
               </div>
             </div>
@@ -462,23 +465,23 @@ export default function AdventurePage() {
             {combatType === "rps" && (
               <>
                 <div className={styles.combatSubtitle}>
-                  가위바위보로 승부하자!
+                  {t("combat.rps.subtitle")}
                 </div>
                 {!playerRPS ? (
                   <div className={styles.rpsButtons}>
                     <button className={styles.rpsBtn} onClick={() => handleRPS("rock")}>
                       <span className={styles.rpsBtnEmoji}>✊</span>
-                      <span>바위</span>
+                      <span>{t("combat.rps.rock")}</span>
                       <span className={styles.rpsBtnKey}>[1]</span>
                     </button>
                     <button className={styles.rpsBtn} onClick={() => handleRPS("scissors")}>
                       <span className={styles.rpsBtnEmoji}>✌️</span>
-                      <span>가위</span>
+                      <span>{t("combat.rps.scissors")}</span>
                       <span className={styles.rpsBtnKey}>[2]</span>
                     </button>
                     <button className={styles.rpsBtn} onClick={() => handleRPS("paper")}>
                       <span className={styles.rpsBtnEmoji}>✋</span>
-                      <span>보</span>
+                      <span>{t("combat.rps.paper")}</span>
                       <span className={styles.rpsBtnKey}>[3]</span>
                     </button>
                   </div>
@@ -486,12 +489,12 @@ export default function AdventurePage() {
                   <div className={styles.rpsResult}>
                     <div className={styles.rpsChoice}>
                       <span className={styles.rpsChoiceEmoji}>{RPS_EMOJI[playerRPS]}</span>
-                      <span className={styles.rpsChoiceLabel}>나: {RPS_LABEL[playerRPS]}</span>
+                      <span className={styles.rpsChoiceLabel}>{t("combat.me")}: {t(`combat.rps.${playerRPS}`)}</span>
                     </div>
                     <span className={styles.vsText}>VS</span>
                     <div className={styles.rpsChoice}>
                       <span className={styles.rpsChoiceEmoji}>{enemyRPS ? RPS_EMOJI[enemyRPS] : "❓"}</span>
-                      <span className={styles.rpsChoiceLabel}>적: {enemyRPS ? RPS_LABEL[enemyRPS] : "?"}</span>
+                      <span className={styles.rpsChoiceLabel}>{t("combat.enemy")}: {enemyRPS ? t(`combat.rps.${enemyRPS}`) : "?"}</span>
                     </div>
                   </div>
                 )}
@@ -502,7 +505,7 @@ export default function AdventurePage() {
             {combatType === "dice" && (
               <>
                 <div className={styles.combatSubtitle}>
-                  주사위를 굴려서 승부!
+                  {t("combat.dice.subtitle")}
                 </div>
                 <div className={styles.diceArea}>
                   <div className={styles.diceRow}>
@@ -512,7 +515,7 @@ export default function AdventurePage() {
                       >
                         {playerDice ?? "?"}
                       </div>
-                      <span className={styles.diceLabel}>나</span>
+                      <span className={styles.diceLabel}>{t("combat.me")}</span>
                     </div>
                     <span className={styles.vsText}>VS</span>
                     <div className={styles.diceSlot}>
@@ -521,12 +524,12 @@ export default function AdventurePage() {
                       >
                         {enemyDice ?? "?"}
                       </div>
-                      <span className={styles.diceLabel}>적</span>
+                      <span className={styles.diceLabel}>{t("combat.enemy")}</span>
                     </div>
                   </div>
                   {!diceRolling && !playerDice && (
                     <div className={styles.diceAction}>
-                      Enter 키를 눌러 주사위 굴리기
+                      {t("combat.dice.action")}
                     </div>
                   )}
                 </div>
@@ -537,7 +540,7 @@ export default function AdventurePage() {
             {combatType === "timing" && (
               <>
                 <div className={styles.combatSubtitle}>
-                  초록 구간에서 멈춰라!
+                  {t("combat.timing.subtitle")}
                 </div>
                 <div className={styles.timingArea}>
                   <div className={styles.timingBarOuter}>
@@ -552,7 +555,7 @@ export default function AdventurePage() {
                   </div>
                   {!timingStopped && (
                     <div className={styles.timingAction}>
-                      Space 키를 눌러 멈추기!
+                      {t("combat.timing.action")}
                     </div>
                   )}
                 </div>
@@ -574,15 +577,15 @@ export default function AdventurePage() {
               <>
                 <div className={styles.resultEmoji}>🎉</div>
                 <div className={`${styles.resultTitle} ${styles.resultWinTitle}`}>
-                  승리!
+                  {t("result.win")}
                 </div>
                 {encounter?.type === "treasure" ? (
                   <div className={styles.resultTreasure}>
-                    💰 {resultGold} 골드 획득!
+                    {t("result.goldGained", { gold: resultGold })}
                   </div>
                 ) : (
                   <div className={styles.resultReward}>
-                    💰 +{resultGold} 골드 획득!
+                    {t("result.goldGainedPlus", { gold: resultGold })}
                   </div>
                 )}
               </>
@@ -590,7 +593,7 @@ export default function AdventurePage() {
               <>
                 <div className={styles.resultEmoji}>💥</div>
                 <div className={`${styles.resultTitle} ${styles.resultLoseTitle}`}>
-                  패배...
+                  {t("result.lose")}
                 </div>
                 <div className={styles.resultDamage}>
                   ❤️ -{resultDamage} HP
@@ -598,7 +601,7 @@ export default function AdventurePage() {
               </>
             )}
             <div className={styles.resultContinue}>
-              아무 키를 눌러 계속...
+              {t("result.pressKeyContinue")}
             </div>
           </div>
         </div>
@@ -610,15 +613,15 @@ export default function AdventurePage() {
           <div className={styles.gameOverPanel}>
             <div className={styles.gameOverTitle}>GAME OVER</div>
             <div className={styles.gameOverStats}>
-              <div className={styles.gameOverStat}>📍 이동 거리: {distance}m</div>
-              <div className={styles.gameOverStat}>💰 획득 골드: {gold} G</div>
+              <div className={styles.gameOverStat}>{t("gameover.distance", { distance })}</div>
+              <div className={styles.gameOverStat}>{t("gameover.gold", { gold })}</div>
             </div>
             <div className={styles.gameOverBtns}>
               <button className={styles.retryBtn} onClick={restart}>
-                🔄 다시하기
+                {t("gameover.retry")}
               </button>
               <Link href="/" className={styles.homeBtn2}>
-                🏠 집으로
+                {t("gameover.home")}
               </Link>
             </div>
           </div>

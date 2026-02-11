@@ -9,7 +9,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
   let locale = await requestLocale;
 
   if (!locale || !locales.includes(locale as any)) {
-    locale = "ko";
+    locale = "en";
   }
 
   return {
@@ -23,7 +23,7 @@ export const routing = defineRouting({
   locales: ["ko", "en", "ja"],
 
   // 기본 언어 (URL에 언어가 없을 때)
-  defaultLocale: "ko",
+  defaultLocale: "en",
 });
 
 export const { Link, redirect, usePathname, useRouter } =
