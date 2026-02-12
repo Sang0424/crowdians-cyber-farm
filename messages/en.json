@@ -107,6 +107,14 @@
       "continueBtn": "🔥 Brain still fresh! Next lesson",
       "exhaustedBtn": "💤 Brain overloaded. Go on an adventure?",
       "restartBtn": "🔄 Start over"
+    },
+    "help": {
+      "title": "Help",
+      "levelTitle": "Level & XP",
+      "levelDesc": "Earn XP through chatting and level up! Your character grows as your level increases.",
+      "fatigueTitle": "Fatigue System",
+      "fatigueDesc": "Engaging in many conversations builds up fatigue. High fatigue will reduce the amount of XP earned.",
+      "close": "Close"
     }
   },
   "MockData": {
