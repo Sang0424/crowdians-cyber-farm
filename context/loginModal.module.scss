@@ -17,6 +17,10 @@
 
   // 💡 중요: 글로벌 스타일(파란색)을 이기기 위해 border를 명시
   border: 1px solid transparent;
+  &:hover{
+    cursor:pointer;
+    color: transparent;
+  }
 }
 
 // 2. 로그인 버튼 그룹

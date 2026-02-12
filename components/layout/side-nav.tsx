@@ -130,7 +130,7 @@ export default function SideNav() {
             </>
           ) : (
             <Box className={styles.collapsedPlaceholder}>
-              <LogIn color="var(--text-main)" />
+              <LogIn color="var(--text-main)" onClick={openLoginModal}/>
             </Box>
           )}
         </Box>

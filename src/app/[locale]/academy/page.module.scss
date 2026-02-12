@@ -1016,3 +1016,190 @@
     color: var(--text-main);
   }
 }
+
+
+/* ─── Mobile Responsive ─── */
+@media (max-width: 768px) {
+  .board {
+    padding: 12px 16px 32px;
+    gap: 16px;
+  }
+
+  .hudBar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .hudLeft,
+  .hudRight {
+    justify-content: space-between;
+    width: 100%;
+    gap: 0;
+  }
+  
+  .hudIcon {
+    font-size: 14px;
+  }
+  
+  .hudLabel {
+    display: none; /* Hide labels to save space if needed, or keep small */
+  }
+
+  .brainBar {
+    width: 80px;
+  }
+
+  /* NPC Section */
+  .npcSection {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    transform: none;
+    opacity: 1;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .npcAvatar {
+    width: 80px;
+    height: 80px;
+    margin-bottom: -10px;
+    z-index: 2;
+  }
+
+  .speechBubble {
+    padding: 12px 16px;
+    border-radius: 16px;
+    max-width: none;
+    flex: 1;
+    margin-bottom: 8px; /* Lift up slightly */
+    animation: none;
+    opacity: 1;
+    transform: none;
+    
+    &::before, &::after {
+      left: -8px;
+      bottom: 12px;
+    }
+  }
+
+  .speechText {
+    font-size: 14px;
+  }
+
+  /* Progress */
+  .progressWrapper {
+    margin-top: 0;
+  }
+  
+  .progressInfo {
+    font-size: 12px;
+  }
+
+  /* Card Stack */
+  .cardStack {
+    min-height: auto;
+  }
+
+  .knowledgeCard {
+    padding: 20px;
+    border-radius: 20px;
+    gap: 16px;
+  }
+
+  .cardHeader {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .categoryTag, 
+  .rewardTag {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+  .questionText {
+    font-size: 18px;
+    padding: 4px 0;
+  }
+
+  /* Vote Buttons */
+  .voteSection {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .vsLabel {
+    align-self: center;
+    transform: rotate(90deg);
+    font-size: 18px;
+    margin: -4px 0;
+  }
+
+  .voteBtn {
+    padding: 16px;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .voteBtn p {
+    font-size: 13px;
+  }
+
+  /* Teach UI */
+  .teachTextarea {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .teachActions {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+  
+  .passBtn, .submitBtn {
+    width: 100%;
+    padding: 12px 0;
+  }
+
+  /* Reject Button */
+  .rejectBtn {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  /* Suspended / Complete Screens */
+  .suspendedCard,
+  .completeCard {
+    padding: 32px 20px;
+    border-radius: 20px;
+  }
+
+  .suspendedTitle,
+  .completeTitle {
+    font-size: 20px;
+  }
+  
+  .suspendedEmoji,
+  .completeEmoji {
+    font-size: 48px;
+  }
+
+  .completeStat {
+    padding: 10px 16px;
+  }
+  
+  .completeLabel {
+    font-size: 13px;
+  }
+  
+  .completeGold, .completePending, .completeReject, .completeTrust {
+    font-size: 14px;
+  }
+}
+

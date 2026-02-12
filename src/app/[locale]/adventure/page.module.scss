@@ -951,3 +951,135 @@
   pointer-events: none;
   z-index: 90;
 }
+
+/* ─── Mobile Responsive ─── */
+@media (max-width: 768px) {
+  .hud {
+    padding: 8px 12px;
+    flex-wrap: wrap;
+    background: linear-gradient(
+      180deg,
+      rgba(13, 2, 33, 0.98) 0%,
+      rgba(13, 2, 33, 0.8) 100%
+    );
+  }
+
+  .hudLeft {
+    width: 100%;
+    margin-bottom: 8px;
+    justify-content: space-between;
+  }
+
+  .hudRight {
+    width: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  .homeBtn {
+    padding: 4px 10px;
+    font-size: 12px;
+  }
+
+  .statBar {
+    width: 100px;
+  }
+  
+  .startTitle {
+    font-size: 36px;
+    letter-spacing: 2px;
+    max-width: 90%;
+    text-align: center;
+    line-height: 1.2;
+  }
+  
+  .startSubtitle {
+    font-size: 16px;
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .playerArea {
+    bottom: 25%;
+    left: 10%;
+  }
+
+  .player {
+    width: 64px;
+    height: 64px;
+  }
+
+  .encounterPanel,
+  .combatPanel,
+  .resultPanel,
+  .gameOverPanel {
+    width: 92%;
+    padding: 24px 16px;
+    max-width: none;
+  }
+
+  .encounterEmoji,
+  .combatFighterEmoji,
+  .resultEmoji {
+    font-size: 48px;
+    margin-bottom: 12px;
+  }
+
+  .encounterName,
+  .combatTitle,
+  .resultTitle,
+  .gameOverTitle {
+    font-size: 20px;
+  }
+  
+  .encounterDesc, 
+  .combatSubtitle,
+  .resultReward,
+  .resultDamage, 
+  .resultTreasure {
+    font-size: 16px;
+  }
+
+  .combatVs {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .vsText {
+    font-size: 20px;
+  }
+  
+  .rpsButtons {
+    gap: 8px;
+  }
+
+  .rpsBtn {
+    padding: 10px 8px;
+    min-width: 64px;
+    font-size: 13px;
+    flex: 1;
+  }
+  
+  .rpsBtnEmoji {
+    font-size: 24px;
+  }
+  
+  .rpsBtnKey {
+    display: none;
+  }
+  
+  .dice {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+  }
+  
+  .diceRow {
+    gap: 20px;
+  }
+  
+  .timingBarOuter {
+    height: 32px;
+  }
+}
+

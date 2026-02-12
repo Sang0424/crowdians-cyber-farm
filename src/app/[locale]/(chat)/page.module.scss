@@ -100,7 +100,8 @@
   right: 64px;
   width: 24px;
   height: 24px;
-  background: var(--text-sub);
+  background: var(--bg-primary);
+  border: 1px solid var(--chat-line);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -545,3 +546,215 @@
     border-radius: 3px;
   }
 }
+
+/* ─── Mobile Responsive ─── */
+@media (max-width: 768px) {
+  .headerGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    margin: 0 16px;
+    gap: 8px;
+    padding-bottom: 8px;
+  }
+
+  .title {
+    font-size: 20px;
+    margin: 8px 0;
+    text-align: center;
+  }
+
+  .contentHeader {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 0;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .statusContainer {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  /* Hide character avatar in header on mobile to save space */
+  .statusContainer > .character {
+    display: none;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .levelSection {
+    width: 100%;
+    gap: 12px;
+  }
+
+  .levelInfo,
+  .fatigueInfo {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .level,
+  .fatigueLabel {
+    font-size: 14px;
+    width: 100%
+  }
+
+  .expBar,
+  .fatigueBar {
+    width: 100%; /* Fluid width */
+    height: 12px;
+  }
+
+  .expText,
+  .fatigueText {
+    font-size: 12px;
+    width: 60px;
+    text-align: right;
+  }
+
+  .helpButton {
+    top: 8px;
+    right: 0;
+    color: transparent;
+  }
+
+  /* Content & Character */
+  .content {
+    padding: 12px 0;
+  }
+
+  .characterImage {
+    width: 140px;
+    height: 140px;
+  }
+
+  .speechBubble {
+    top: -110px;
+    margin-left: 0;
+    max-width: 280px;
+    min-width: 180px;
+    
+    &::after {
+      left: 50%;
+    }
+    &::before {
+      left: 50%;
+    }
+  }
+
+  /* Chat Input */
+  .messageInputContainer {
+    padding: 12px 16px 20px 16px;
+    margin-bottom: 32px;
+  }
+  
+  /* Chat Log */
+  .logOverlay {
+    border-radius: 0;
+  }
+
+  .logContent {
+    padding: 70px 16px 30px 16px;
+  }
+
+  .chatBubble {
+    max-width: 85%;
+    padding: 10px 14px;
+  }
+  
+  .logToggleBtn {
+    top: 12px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ── Modal ── */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease both;
+}
+
+.modalContent {
+  background: var(--bg-element);
+  border: 1px solid var(--chat-line);
+  border-radius: 20px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.modalTitle {
+  font-family: "DungGeunMo", sans-serif;
+  font-size: 20px;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.modalSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modalIcon {
+  font-size: 24px;
+}
+
+.modalSectionTitle {
+  font-family: "DungGeunMo", sans-serif;
+  font-size: 16px;
+  color: var(--text-main);
+  margin: 0 0 4px 0;
+}
+
+.modalSectionDesc {
+  font-family: "DungGeunMo", sans-serif;
+  font-size: 14px;
+  color: var(--text-sub);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.modalCloseBtn {
+  margin-top: 16px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: var(--text-blue);
+  color: #fff;
+  font-family: "DungGeunMo", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.1s;
+  
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+

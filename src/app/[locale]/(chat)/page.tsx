@@ -3,9 +3,11 @@
 import styles from "./page.module.scss";
 import Image from "next/image";
 import { MessageInput } from "@/../components/domain/MessageInput";
+import { Link } from "../../../../i18n";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { MessageCircle, X } from "lucide-react";
 import { useTranslations } from "next-intl";
+
 
 // ── Types ──
 interface ChatMessage {
@@ -69,7 +71,7 @@ export default function Home() {
       setTimeout(() => {
         // Randomly pick 0-9
         const randomIndex = Math.floor(Math.random() * 10);
-        const aiText = t(`chat.aiResponses.${randomIndex}`);
+        const aiText = t(`Chat.aiResponses.${randomIndex}`);
 
         const aiMsg: ChatMessage = {
           id: newMsgId(),
@@ -126,8 +128,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-
-          <div className={styles.helpButton}>?</div>
+          <Link href="/help" className={styles.helpButton}>?</Link>
         </header>
       </div>
 
