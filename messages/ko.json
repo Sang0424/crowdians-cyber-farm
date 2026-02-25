@@ -26,6 +26,7 @@
     "logEmptySub": "크라우디에게 말을 걸어보세요!",
     "logClose": "로그 닫기",
     "logOpen": "채팅 로그 보기",
+    "staminaEmpty": "피로도가 부족해서 더 이상 대화할 수 없어...",
     "aiResponses": {
       "0": "오, 그건 정말 흥미로운 주제야! 더 자세히 알려줄래?",
       "1": "와! 나도 그거에 대해 궁금했어. 고마워!",
@@ -45,6 +46,59 @@
       "fatigueTitle": "피로도 시스템",
       "fatigueDesc": "대화를 많이 하면 피로도가 쌓입니다. 피로도가 높으면 경험치 획득량이 줄어듭니다.",
       "close": "닫기"
+    },
+    "rlhf": {
+      "button": "마음에 들지 않음",
+      "modalTitle": "아카데미에 의뢰하기",
+      "modalDesc": "이 부분에 대해서 조금 더 공부할까요?",
+      "modalSub": "아카데미의 Teach 퀘스트로 등록됩니다.",
+      "confirm": "공부하기",
+      "cancel": "괜찮아",
+      "successMsg": "아카데미에 학습 퀘스트가 등록되었어요!"
+    },
+    "report": {
+      "button": "신고하기",
+      "modalTitle": "AI 답변 신고",
+      "selectReason": "신고 사유를 선택해주세요",
+      "reasons": {
+        "profanity": "욕설 / 비하",
+        "sexual": "선정성",
+        "misinformation": "허위 정보",
+        "other": "기타"
+      },
+      "confirmTitle": "정말 신고하시겠습니까?",
+      "confirmDesc": "선택한 사유로 운영자 검토 대기열에 전송됩니다.",
+      "confirm": "신고하기",
+      "cancel": "취소",
+      "successMsg": "신고가 접수되었습니다. 검토 후 조치하겠습니다."
+    },
+    "reset": {
+      "button": "대화 초기화",
+      "modalTitle": "대화 내역 삭제",
+      "modalDesc": "모든 대화 내역이 삭제되고 새로운 대화를 시작합니다.",
+      "confirm": "삭제하기",
+      "cancel": "취소",
+      "successMsg": "대화가 초기화되었습니다.",
+      "failMsg": "대화 내역이 없습니다."
+    },
+    "delete": {
+      "modalTitle": "메시지 삭제",
+      "modalDesc": "이 메시지를 삭제하시겠습니까?",
+      "confirm": "삭제하기",
+      "cancel": "취소",
+      "successMsg": "메시지가 삭제되었습니다."
+    },
+    "sos": {
+      "button": "지식 의뢰",
+      "modalTitle": "지식 의뢰 (SOS)",
+      "modalDesc": "이 질문을 아카데미 교수님들에게 의뢰하시겠습니까? 답변이 검증되면 우편함으로 알려드립니다.",
+      "cost": "비용: 30 Gold",
+      "confirm": "의뢰하기",
+      "cancel": "취소",
+      "successTitle": "의뢰 접수 완료",
+      "successMsg": "아카데미에 질문이 접수되었습니다!",
+      "failTitle": "골드 부족",
+      "failMsg": "의뢰비(30G)가 부족합니다."
     }
   },
   "WaitListModal": {
@@ -96,6 +150,9 @@
       "failedMsg": "채점 불합격 — 답변이 너무 짧아요",
       "trustDown": "🛡️ 신뢰도 {delta}"
     },
+    "intro": {
+      "start": "시작하기"
+    },
     "suspended": {
       "title": "정학 처분",
       "desc": "신뢰도가 30 미만이라 아카데미에 입장할 수 없습니다.\n다른 활동으로 신뢰도를 회복해주세요.",
@@ -115,35 +172,72 @@
       "continueBtn": "🔥 아직 뇌가 쌩쌩해! 다음 수업 듣기",
       "exhaustedBtn": "💤 뇌가 과부하야. 모험이나 갈까?",
       "restartBtn": "🔄 처음부터 다시하기"
+    },
+    "archive": {
+      "tabs": {
+        "latest": "최신지식",
+        "popular": "인기지식",
+        "pending": "답변대기"
+      },
+      "tabTraining": "실전 훈련",
+      "tabArchive": "지식 도서관",
+      "searchPlaceholder": "질문 제목이나 태그를 검색해보세요...",
+      "filterLatest": "최신순",
+      "filterPopular": "인기순",
+      "viewLimit": "일일 무료 열람: {current}/{max}",
+      "limitreached": "무료 열람 횟수 초과",
+      "unlock": "지식 열람권 구매",
+      "blurMsg": "오늘의 무료 열람 횟수를 다 썼어요! 😭\n중요한 지식을 확인하려면 열람권이 필요합니다.",
+      "likes": "좋아요",
+      "qnaTitle": "Q&A 상세",
+      "topAnswer": "🏆 베스트 답변",
+      "otherAnswers": "다른 답변들",
+      "noResults": "검색 결과가 없습니다.",
+      "subtitle": "크라우디언들의 지식이 모이는 공간",
+      "sidebar": {
+        "contributor": "🏆 오늘의 전수자",
+        "bountyBoard": "💰 바운티 보드",
+        "bountyDesc": "채택 시 추가 골드 보상이 있는 퀘스트들입니다."
+      },
+      "reportModal": {
+        "title": "답변 신고",
+        "desc": "선택한 사유로 운영자 검토 대기열에 전송됩니다.",
+        "success": "신고가 접수되었습니다."
+      },
+      "trustTiers": {
+        "novice": "견습생",
+        "expert": "숙련자",
+        "master": "마스터"
+      }
     }
   },
   "MockData": {
     "cards": {
       "kc_1": {
         "question": "React에서 useEffect의 cleanup 함수는 언제 실행될까요?",
-        "category": "프론트엔드",
+        "type": "밸런스형",
         "answerA": "컴포넌트가 언마운트될 때만 실행됩니다. 마운트 시점에 설정한 리소스를 정리하는 역할을 합니다.",
         "answerB": "의존성이 변경되어 리렌더링될 때와 언마운트될 때 모두 실행됩니다. 이전 이펙트를 정리한 후 새 이펙트가 실행됩니다."
       },
       "kc_2": {
         "question": "자바스크립트에서 '호이스팅(Hoisting)'이란 무엇인가요?",
-        "category": "자바스크립트",
+        "type": "서술형",
         "hint": "변수와 함수 선언이 어떻게 처리되는지 생각해보세요."
       },
       "kc_3": {
         "question": "CSS에서 Flexbox와 Grid의 가장 큰 차이점은 무엇인가요?",
-        "category": "CSS",
+        "type": "밸런스형",
         "answerA": "Flexbox는 1차원(행 또는 열), Grid는 2차원(행과 열 동시) 레이아웃에 적합합니다.",
         "answerB": "Flexbox는 구형 브라우저 호환용이고, Grid가 Flexbox의 완전한 상위 호환입니다."
       },
       "kc_4": {
         "question": "REST API와 GraphQL의 장단점을 비교해주세요.",
-        "category": "백엔드",
+        "type": "서술형",
         "hint": "데이터 패칭 방식과 오버페칭/언더페칭 관점에서 생각해보세요."
       },
       "kc_5": {
         "question": "TypeScript에서 interface와 type의 차이점은 무엇인가요?",
-        "category": "타입스크립트",
+        "type": "밸런스형",
         "answerA": "둘은 거의 동일하지만, interface는 선언 병합(declaration merging)이 가능하고 type은 유니온/인터섹션이 자유롭습니다.",
         "answerB": "interface는 객체에만 쓸 수 있고, type은 모든 타입에 사용할 수 있어서 type이 항상 더 좋습니다."
       }
@@ -165,7 +259,10 @@
   "Adventure": {
     "start": {
       "subtitle": "사이버펑크 시티를 탐험하라",
-      "pressKey": "아무 키를 눌러 시작"
+      "pressKey": "아무 키를 눌러 시작",
+      "button": "탐험 시작",
+      "courage": "🛡️ 용기 스탯: <strong>{value}</strong>",
+      "bonus": "(승률 보너스: +{value}%)"
     },
     "hud": {
       "home": "🏠 집으로"
@@ -173,7 +270,11 @@
     "encounter": {
       "monsterAppeared": "글리치 몬스터가 나타났다!",
       "treasureFound": "보물상자를 발견했다!",
-      "pressKeyContinue": "아무 키를 눌러 계속..."
+      "pressKeyContinue": "아무 키를 눌러 계속...",
+      "player": "나",
+      "vs": "VS",
+      "combatStatus": "전투 판정 중...",
+      "treasureStatus": "보물을 열고 있습니다..."
     },
     "combat": {
       "title": "⚔️ 전투!",
@@ -195,17 +296,121 @@
       }
     },
     "result": {
+      "hpChange": "HP {change}",
+      "goldChange": "Gold {change}",
       "win": "승리!",
       "lose": "패배...",
       "goldGained": "💰 {gold} 골드 획득!",
       "goldGainedPlus": "💰 +{gold} 골드 획득!",
-      "pressKeyContinue": "아무 키를 눌러 계속..."
+      "pressKeyContinue": "아무 키를 눌러 계속...",
+      "viewResult": "결과 보기",
+      "complete": "탐험 완료",
+      "next": "다음 갈림길로 →"
     },
     "gameover": {
       "distance": "📍 이동 거리: {distance}m",
       "gold": "💰 획득 골드: {gold} G",
       "retry": "🔄 다시하기",
-      "home": "🏠 집으로"
+      "home": "🏠 집으로",
+      "courageUp": "🛡️ 용기 +{nodes}"
+    },
+    "map": {
+      "title": "🗺️ 갈림길",
+      "subtitle": "어느 길로 나아갈까?",
+      "danger": "⚠️ 위험도: {value}",
+      "treasure": "💎 보물 발견!",
+      "random": "🎲 무엇이 나올까?"
+    },
+    "choices": {
+      "title": "갈림길",
+      "desc": "앞에 갈림길이 나타났습니다. 어느 쪽으로 가시겠습니까?"
+    },
+    "nodeTypes": {
+      "combat": "글리치 몬스터",
+      "treasure": "보물 상자",
+      "random": "미지의 구역"
+    },
+    "combatJudgement": {
+      "success": "공격 성공!",
+      "fail": "공격 실패..."
+    },
+    "combatStatus": {
+      "win": "몬스터를 처치했습니다!",
+      "lose": "전투에서 패배했습니다..."
+    },
+    "completeStats": {
+      "title": "탐험 완료!",
+      "distance": "총 이동 거리",
+      "gold": "획득 골드",
+      "nodes": "탐험한 노드",
+      "clearNodes": "클리어 노드",
+      "courageUp": "용기 상승",
+      "retry": "다시 탐험",
+      "home": "홈으로"
+    }
+  },
+  "QuestCard": {
+    "menu": {
+      "share": "공유하기",
+      "bookmark": "북마크",
+      "report": "신고하기"
+    },
+    "alert": {
+      "shared": "공유 링크가 복사되었습니다.",
+      "bookmarked": "북마크에 저장되었습니다."
+    },
+    "footer": {
+      "requester": "의뢰인",
+      "trust": "신뢰도",
+      "answers": "답변"
+    }
+  },
+  "Rank": {
+    "kicker": "가장 활발하게 활동하는 크라우디언들의 순위입니다",
+    "title": "크라우디언 랭크",
+    "toggleTrust": "신뢰도 랭킹",
+    "toggleActivity": "누적 활동 랭킹",
+    "tabAll": "전체 랭킹",
+    "tabWeekly": "주간 랭킹",
+    "weeklyNotice": "주간 랭킹은 매주 월요일 0시에 업데이트됩니다",
+    "myRankBadge": "내 순위",
+    "unit": "점"
+  },
+  "Settings": {
+    "title": "설정",
+    "subtitle": "계정 및 서비스 설정을 관리합니다",
+    "account": {
+      "title": "계정 관리",
+      "nicknameLabel": "닉네임",
+      "passwordLabel": "비밀번호 변경",
+      "passwordDesc": "보안을 위해 주기적으로 변경하세요",
+      "logoutLabel": "로그아웃",
+      "logoutDesc": "현재 계정에서 로그아웃합니다",
+      "deleteLabel": "회원 탈퇴",
+      "deleteDesc": "모든 데이터가 삭제되며 복구할 수 없습니다"
+    },
+    "policy": {
+      "title": "정책 및 정보",
+      "termsLabel": "이용약관",
+      "termsDesc": "서비스 이용약관을 확인합니다",
+      "privacyLabel": "개인정보 처리방침",
+      "privacyDesc": "개인정보 취급에 관한 정책입니다",
+      "supportLabel": "고객지원",
+      "supportDesc": "문의사항이 있으시면 연락해주세요"
+    },
+    "modal": {
+      "logoutTitle": "로그아웃",
+      "logoutDesc": "정말 로그아웃 하시겠습니까?",
+      "logoutConfirm": "로그아웃",
+      "deleteTitle": "회원 탈퇴",
+      "deleteDesc": "정말 탈퇴하시겠습니까?",
+      "deleteSubDesc": "모든 데이터가 영구적으로 삭제되며 복구할 수 없습니다.",
+      "deleteConfirm": "탈퇴하기",
+      "passwordTitle": "비밀번호 변경",
+      "passwordDesc": "현재는 소셜 로그인만 지원됩니다.",
+      "passwordSubDesc": "비밀번호 변경은 추후 업데이트 예정입니다.",
+      "cancel": "취소",
+      "confirm": "확인"
     }
   }
 }

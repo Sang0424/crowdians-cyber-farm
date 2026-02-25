@@ -3,6 +3,18 @@
   ========================================
 */
 
+@font-face {
+  font-family: "DungGeunMo";
+  src: url("/font/DungGeunMo.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Galmuri14";
+  src: url("/font/Galmuri14.woff2") format("woff2");
+  font-display: swap;
+}
+
 :root {
   /* ☀️ Light Mode (기본) */
   --background: #f8f9fa; /* 전체 배경 (아주 연한 회색) */
@@ -28,6 +40,8 @@
   --text-accent: #007595; /* (호환용) 강조색 */
   --message-toggle: #4ab8d5; /* 토글 버튼 색상 */
 
+  --comment-bestBG: #eff6ff;
+  --comment-normalBG: #f1f1f1;
   /* 게임 요소 (상태바) */
   --exp: #9bbc0f; /* 경험치 (게임보이 초록) */
   --stamina: #c25767; /* 피로도 (빨강) */
@@ -60,6 +74,9 @@
   --text-accent: #4ab8d5;
   --message-toggle: #4ab8d5;
 
+  --comment-bestBG: #1e293b;
+  --comment-normalBG: #262626;
+
   /* 게임 요소 */
   --exp: #9bbc0f; /* 경험치 (그대로 유지하거나 형광빛) */
   --stamina: #ff6b6b; /* 피로도 (조금 더 밝은 빨강) */
@@ -78,7 +95,15 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:
+    "Pretendard",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Apple SD Gothic Neo",
+    "Noto Sans KR",
+    "Malgun Gothic",
+    "맑은 고딕",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition:

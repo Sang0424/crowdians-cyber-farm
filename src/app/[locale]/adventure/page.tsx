@@ -3,18 +3,28 @@
 import styles from "./page.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { MONSTERS, TREASURES, Monster, Treasure } from "@/data/mockData";
+import { useUserStore } from "../../../../store/useUserStore";
 
 // ── Types ──
-type GamePhase = "start" | "running" | "encounter" | "combat" | "result" | "gameover";
-type CombatType = "rps" | "dice" | "timing";
-type RPS = "rock" | "paper" | "scissors";
-type CombatResult = "win" | "lose" | null;
-type EncounterData =
-  | { type: "monster"; data: Monster }
-  | { type: "treasure"; data: Treasure };
+type GamePhase =
+  | "start"
+  | "map"
+  | "encounter"
+  | "result"
+  | "gameover"
+  | "complete";
+type NodeType = "combat" | "treasure" | "random";
+
+interface MapNode {
+  id: string;
+  type: NodeType;
+  icon: string;
+  label: string;
+  data?: Monster | Treasure;
+}
 
 // ── Helpers ──
 function randomInt(min: number, max: number) {
@@ -25,320 +35,229 @@ function pickRandom<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-const RPS_EMOJI: Record<RPS, string> = { rock: "✊", paper: "✋", scissors: "✌️" };
+// ── Generate 2~3 random nodes ──
+function generateNodes(): MapNode[] {
+  const count = Math.random() < 0.5 ? 2 : 3;
+  const types: NodeType[] = ["combat", "treasure", "random"];
+  const nodes: MapNode[] = [];
 
-function rpsWinner(player: RPS, enemy: RPS): CombatResult {
-  if (player === enemy) return "lose"; // tie = lose for simplicity
-  if (
-    (player === "rock" && enemy === "scissors") ||
-    (player === "scissors" && enemy === "paper") ||
-    (player === "paper" && enemy === "rock")
-  ) return "win";
-  return "lose";
+  for (let i = 0; i < count; i++) {
+    const type = pickRandom(types);
+    if (type === "combat") {
+      const monster = pickRandom(MONSTERS);
+      nodes.push({
+        id: `node_${Date.now()}_${i}`,
+        type: "combat",
+        icon: "⚔️",
+        label: "전투",
+        data: monster,
+      });
+    } else if (type === "treasure") {
+      const treasure = pickRandom(TREASURES);
+      nodes.push({
+        id: `node_${Date.now()}_${i}`,
+        type: "treasure",
+        icon: "🎁",
+        label: "보물",
+        data: treasure,
+      });
+    } else {
+      nodes.push({
+        id: `node_${Date.now()}_${i}`,
+        type: "random",
+        icon: "❓",
+        label: "???",
+      });
+    }
+  }
+  return nodes;
 }
+
+// Max depth for "complete"
+const MAX_DEPTH = 8;
 
 // ══════════════════════════════════════
 export default function AdventurePage() {
   const t = useTranslations("Adventure");
-  const tData = useTranslations("MockData");
+
+  // ── Store ──
+  const {
+    addGold: storeAddGold,
+    addCourage: storeAddCourage,
+    initializeDefaultUser,
+    user,
+  } = useUserStore();
+
+  useEffect(() => {
+    initializeDefaultUser();
+  }, [initializeDefaultUser]);
+
+  const courage = user?.stats?.courage ?? 0;
 
   // ── Game State ──
   const [phase, setPhase] = useState<GamePhase>("start");
   const [hp, setHp] = useState(100);
   const [gold, setGold] = useState(0);
-  const [distance, setDistance] = useState(0);
-  const [isJumping, setIsJumping] = useState(false);
+  const [depth, setDepth] = useState(0); // Current map depth
+  const [nodeClears, setNodeClears] = useState(0);
 
-  // encounter
-  const [encounter, setEncounter] = useState<EncounterData | null>(null);
-  const [combatType, setCombatType] = useState<CombatType>("rps");
-  const [combatResult, setCombatResult] = useState<CombatResult>(null);
+  // Map nodes
+  const [nodes, setNodes] = useState<MapNode[]>([]);
+  const [selectedNode, setSelectedNode] = useState<MapNode | null>(null);
 
-  // RPS state
-  const [playerRPS, setPlayerRPS] = useState<RPS | null>(null);
-  const [enemyRPS, setEnemyRPS] = useState<RPS | null>(null);
-
-  // Dice state
-  const [playerDice, setPlayerDice] = useState<number | null>(null);
-  const [enemyDice, setEnemyDice] = useState<number | null>(null);
-  const [diceRolling, setDiceRolling] = useState(false);
-
-  // Timing bar state
-  const [timingPos, setTimingPos] = useState(0);
-  const [timingStopped, setTimingStopped] = useState(false);
-  const timingRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const timingDirRef = useRef(1);
-
-  // result display
+  // Encounter result
+  const [encounterResult, setEncounterResult] = useState<"win" | "lose" | null>(
+    null,
+  );
   const [resultGold, setResultGold] = useState(0);
   const [resultDamage, setResultDamage] = useState(0);
+  const [resultMessage, setResultMessage] = useState("");
 
-  // ── Distance runner ──
-  useEffect(() => {
-    if (phase !== "running") return;
-    const interval = setInterval(() => {
-      setDistance((d) => d + 1);
-    }, 100);
-    return () => clearInterval(interval);
-  }, [phase]);
+  // Resolved random type (for display after random is revealed)
+  const [resolvedType, setResolvedType] = useState<
+    "combat" | "treasure" | null
+  >(null);
 
-  // ── Random encounter trigger ──
-  useEffect(() => {
-    if (phase !== "running") return;
-    const delay = randomInt(5000, 8000);
-    const timeout = setTimeout(() => {
-      triggerEncounter();
-    }, delay);
-    return () => clearTimeout(timeout);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [phase, distance]);
-
-  const triggerEncounter = useCallback(() => {
-    // 70% monster, 30% treasure
-    if (Math.random() < 0.7) {
-      setEncounter({ type: "monster", data: pickRandom(MONSTERS) });
-    } else {
-      setEncounter({ type: "treasure", data: pickRandom(TREASURES) });
-    }
-    setPhase("encounter");
+  // ── Generate new map ──
+  const generateMap = useCallback(() => {
+    setNodes(generateNodes());
+    setSelectedNode(null);
+    setEncounterResult(null);
+    setResolvedType(null);
+    setPhase("map");
   }, []);
 
-  // ── Jump ──
-  const doJump = useCallback(() => {
-    if (isJumping) return;
-    setIsJumping(true);
-    setTimeout(() => setIsJumping(false), 500);
-  }, [isJumping]);
+  // ── Start game ──
+  const startGame = useCallback(() => {
+    setHp(100);
+    setGold(0);
+    setDepth(0);
+    setNodeClears(0);
+    generateMap();
+  }, [generateMap]);
 
-  // ── Combat: Timing bar animation ──
-  useEffect(() => {
-    if (phase === "combat" && combatType === "timing" && !timingStopped) {
-      timingDirRef.current = 1;
-      setTimingPos(0);
-      timingRef.current = setInterval(() => {
-        setTimingPos((p) => {
-          let next = p + timingDirRef.current * 2;
-          if (next >= 100) { next = 100; timingDirRef.current = -1; }
-          if (next <= 0) { next = 0; timingDirRef.current = 1; }
-          return next;
-        });
-      }, 16);
-      return () => { if (timingRef.current) clearInterval(timingRef.current); };
-    }
-  }, [phase, combatType, timingStopped]);
+  // ── Select a node ──
+  const selectNode = useCallback(
+    (node: MapNode) => {
+      setSelectedNode(node);
+      let actualNode = { ...node };
 
-  // ── Start combat mini-game ──
-  const startCombat = useCallback(() => {
-    const types: CombatType[] = ["rps", "dice", "timing"];
-    const chosen = pickRandom(types);
-    setCombatType(chosen);
-    setCombatResult(null);
-    setPlayerRPS(null);
-    setEnemyRPS(null);
-    setPlayerDice(null);
-    setEnemyDice(null);
-    setDiceRolling(false);
-    setTimingStopped(false);
-    setTimingPos(0);
-    setPhase("combat");
-  }, []);
-
-  // ── Process encounter action ──
-  const handleEncounterAction = useCallback(() => {
-    if (!encounter) return;
-    if (encounter.type === "treasure") {
-      const tr = encounter.data as Treasure;
-      const g = randomInt(tr.goldMin, tr.goldMax);
-      setResultGold(g);
-      setResultDamage(0);
-      setGold((prev) => prev + g);
-      setCombatResult("win");
-      setPhase("result");
-    } else {
-      startCombat();
-    }
-  }, [encounter, startCombat]);
-
-  // ── RPS combat ──
-  const handleRPS = useCallback((choice: RPS) => {
-    const enemy: RPS = pickRandom(["rock", "paper", "scissors"]);
-    setPlayerRPS(choice);
-    setEnemyRPS(enemy);
-    const result = rpsWinner(choice, enemy);
-    setCombatResult(result);
-
-    if (encounter?.type === "monster") {
-      const m = encounter.data as Monster;
-      if (result === "win") {
-        setResultGold(m.rewardGold);
-        setResultDamage(0);
-        setGold((g) => g + m.rewardGold);
-      } else {
-        setResultGold(0);
-        setResultDamage(m.damage);
-        setHp((h) => Math.max(0, h - m.damage));
-      }
-    }
-    setTimeout(() => setPhase("result"), 1200);
-  }, [encounter]);
-
-  // ── Dice combat ──
-  const handleDiceRoll = useCallback(() => {
-    if (diceRolling) return;
-    setDiceRolling(true);
-    setPlayerDice(null);
-    setEnemyDice(null);
-
-    // animate for 1s then reveal
-    setTimeout(() => {
-      const p = randomInt(1, 6);
-      const e = randomInt(1, 6);
-      setPlayerDice(p);
-      setEnemyDice(e);
-      setDiceRolling(false);
-
-      const result: CombatResult = p >= e ? "win" : "lose";
-      setCombatResult(result);
-
-      if (encounter?.type === "monster") {
-        const m = encounter.data as Monster;
-        if (result === "win") {
-          setResultGold(m.rewardGold);
-          setResultDamage(0);
-          setGold((g) => g + m.rewardGold);
+      // Resolve random node
+      if (node.type === "random") {
+        if (Math.random() < 0.6) {
+          const monster = pickRandom(MONSTERS);
+          actualNode = {
+            ...node,
+            type: "combat",
+            data: monster,
+            icon: "⚔️",
+            label: "전투",
+          };
+          setResolvedType("combat");
         } else {
-          setResultGold(0);
-          setResultDamage(m.damage);
-          setHp((h) => Math.max(0, h - m.damage));
+          const treasure = pickRandom(TREASURES);
+          actualNode = {
+            ...node,
+            type: "treasure",
+            data: treasure,
+            icon: "🎁",
+            label: "보물",
+          };
+          setResolvedType("treasure");
         }
+        setSelectedNode(actualNode);
       }
-      setTimeout(() => setPhase("result"), 1200);
-    }, 1000);
-  }, [diceRolling, encounter]);
 
-  // ── Timing combat ──
-  const handleTimingStop = useCallback(() => {
-    if (timingStopped) return;
-    setTimingStopped(true);
-    if (timingRef.current) clearInterval(timingRef.current);
+      setPhase("encounter");
 
-    // green zone: 35-65
-    const inZone = timingPos >= 35 && timingPos <= 65;
-    const result: CombatResult = inZone ? "win" : "lose";
-    setCombatResult(result);
+      // Auto-resolve after a brief delay
+      setTimeout(() => {
+        if (actualNode.type === "treasure") {
+          const tr = actualNode.data as Treasure;
+          const g = randomInt(tr.goldMin, tr.goldMax);
+          setResultGold(g);
+          setResultDamage(0);
+          setGold((prev) => prev + g);
+          storeAddGold(g);
+          setNodeClears((c) => c + 1);
+          setEncounterResult("win");
+          setResultMessage(`${tr.emoji} 보물에서 ${g} Gold를 획득했다!`);
+          setPhase("result");
+        } else if (actualNode.type === "combat") {
+          const m = actualNode.data as Monster;
+          // Win probability based on courage
+          const baseWinRate = 50; // 50% base
+          const courageBonus = Math.min(courage * 0.5, 40); // max +40%
+          const winRate = baseWinRate + courageBonus;
+          const won = Math.random() * 100 < winRate;
 
-    if (encounter?.type === "monster") {
-      const m = encounter.data as Monster;
-      if (result === "win") {
-        setResultGold(m.rewardGold);
-        setResultDamage(0);
-        setGold((g) => g + m.rewardGold);
-      } else {
-        setResultGold(0);
-        setResultDamage(m.damage);
-        setHp((h) => Math.max(0, h - m.damage));
-      }
-    }
-    setTimeout(() => setPhase("result"), 1000);
-  }, [timingStopped, timingPos, encounter]);
+          if (won) {
+            setResultGold(m.rewardGold);
+            setResultDamage(0);
+            setGold((prev) => prev + m.rewardGold);
+            storeAddGold(m.rewardGold);
+            setNodeClears((c) => c + 1);
+            setEncounterResult("win");
+            setResultMessage(
+              `${m.emoji} ${m.nameKey}을(를) 물리쳤다! +${m.rewardGold} Gold`,
+            );
+          } else {
+            setResultGold(0);
+            setResultDamage(m.damage);
+            setHp((h) => Math.max(0, h - m.damage));
+            setEncounterResult("lose");
+            setResultMessage(
+              `${m.emoji} ${m.nameKey}에게 당했다... -${m.damage} HP`,
+            );
+          }
+          setPhase("result");
+        }
+      }, 1500);
+    },
+    [courage, storeAddGold],
+  );
 
-  // ── Resume after result ──
-  const resumeAfterResult = useCallback(() => {
-    // check game over
+  // ── Continue to next depth ──
+  const continueAdventure = useCallback(() => {
     if (hp <= 0) {
+      if (nodeClears > 0) {
+        storeAddCourage(nodeClears);
+      }
       setPhase("gameover");
-    } else {
-      setEncounter(null);
-      setCombatResult(null);
-      setPhase("running");
+      return;
     }
-  }, [hp]);
+
+    const nextDepth = depth + 1;
+    setDepth(nextDepth);
+
+    if (nextDepth >= MAX_DEPTH) {
+      if (nodeClears > 0) {
+        storeAddCourage(nodeClears);
+      }
+      setPhase("complete");
+      return;
+    }
+
+    generateMap();
+  }, [hp, depth, nodeClears, storeAddCourage, generateMap]);
 
   // ── Restart ──
   const restart = useCallback(() => {
-    setHp(100);
-    setGold(0);
-    setDistance(0);
-    setPhase("running");
-    setEncounter(null);
-    setCombatResult(null);
-  }, []);
-
-  // ── Keyboard handler ──
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (phase === "start") {
-        setPhase("running");
-        return;
-      }
-
-      if (phase === "running" && e.code === "Space") {
-        e.preventDefault();
-        doJump();
-        return;
-      }
-
-      if (phase === "encounter") {
-        handleEncounterAction();
-        return;
-      }
-
-      if (phase === "combat") {
-        if (combatType === "rps" && !playerRPS) {
-          if (e.key === "1") handleRPS("rock");
-          if (e.key === "2") handleRPS("scissors");
-          if (e.key === "3") handleRPS("paper");
-        }
-        if (combatType === "dice" && e.code === "Enter") {
-          handleDiceRoll();
-        }
-        if (combatType === "timing" && e.code === "Space") {
-          e.preventDefault();
-          handleTimingStop();
-        }
-        return;
-      }
-
-      if (phase === "result") {
-        resumeAfterResult();
-        return;
-      }
-    };
-
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [
-    phase, combatType, playerRPS, doJump,
-    handleEncounterAction, handleRPS, handleDiceRoll,
-    handleTimingStop, resumeAfterResult,
-  ]);
-
-  // check game over after hp change
-  useEffect(() => {
-    if (hp <= 0 && phase === "result") {
-      // will be caught by resumeAfterResult
-    }
-  }, [hp, phase]);
+    startGame();
+  }, [startGame]);
 
   // ══════════════════════════════════════
   // ── RENDER ──
   // ══════════════════════════════════════
   return (
     <div className={styles.gameContainer}>
-      {/* Background layers */}
+      {/* Background */}
       <div className={styles.backgroundLayer}>
         <div className={styles.skyLayer} />
-        <div className={styles.starsLayer} />
-        <div className={styles.cityFar} />
-        <div className={styles.cityNear} />
-        <div className={styles.neonLine} />
         <div className={styles.ground}>
           <div className={styles.groundGrid} />
         </div>
       </div>
-
-      {/* CRT scanlines overlay */}
-      <div className={styles.scanLine} />
 
       {/* ── START SCREEN ── */}
       {phase === "start" && (
@@ -353,7 +272,18 @@ export default function AdventurePage() {
             unoptimized
             className={styles.startCharacter}
           />
-          <p className={styles.startAction}>{t("start.pressKey")}</p>
+          <button className={styles.startBtn} onClick={startGame}>
+            {t("start.button")}
+          </button>
+          <p className={styles.startCourage}>
+            {t.rich("start.courage", {
+              value: courage,
+              strong: (chunks) => <strong>{chunks}</strong>,
+            })}{" "}
+            {t("start.bonus", {
+              value: Math.min(courage * 0.5, 40).toFixed(0),
+            })}
+          </p>
         </div>
       )}
 
@@ -377,187 +307,102 @@ export default function AdventurePage() {
           </div>
           <div className={styles.hudRight}>
             <span className={styles.goldValue}>💰 {gold} G</span>
-            <span className={styles.distanceValue}>📍 {distance}m</span>
+            <span className={styles.distanceValue}>
+              📍 {depth}/{MAX_DEPTH}
+            </span>
           </div>
         </div>
       )}
 
-      {/* ── Player Character ── */}
-      {phase !== "start" && (
-        <div className={styles.playerArea}>
-          <Image
-            src="/Crowdy/GEOS.gif"
-            alt="Player"
-            width={80}
-            height={80}
-            unoptimized
-            className={`${styles.player} ${
-              isJumping ? styles.playerJumping : phase === "running" ? styles.playerWalking : ""
-            }`}
-          />
-        </div>
-      )}
-
-      {/* ── Encounter Alert [!] ── */}
-      {phase === "encounter" && (
-        <>
-          <div className={styles.encounterAlert}>
-            <div className={styles.alertBubble}>!</div>
+      {/* ── MAP: Node Selection ── */}
+      {phase === "map" && (
+        <div className={styles.mapScreen}>
+          <div className={styles.mapHeader}>
+            <h2 className={styles.mapTitle}>{t("map.title")}</h2>
+            <p className={styles.mapSubtitle}>{t("map.subtitle")}</p>
           </div>
-          <div className={styles.overlay}>
-            <div className={styles.encounterPanel}>
-              {encounter?.type === "monster" ? (
-                <>
-                  <div className={styles.encounterEmoji}>
-                    {(encounter.data as Monster).emoji}
-                  </div>
-                  <div className={styles.encounterName}>
-                    {tData((encounter.data as Monster).nameKey)}
-                  </div>
-                  <div className={styles.encounterDesc}>
-                    {t("encounter.monsterAppeared")}
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className={styles.encounterEmoji}>
-                    {(encounter?.data as Treasure).emoji}
-                  </div>
-                  <div className={styles.encounterName}>
-                    {tData((encounter?.data as Treasure).nameKey)}
-                  </div>
-                  <div className={styles.encounterDesc}>
-                    {t("encounter.treasureFound")}
-                  </div>
-                </>
-              )}
-              <div className={styles.encounterAction}>
-                {t("encounter.pressKeyContinue")}
-              </div>
-            </div>
-          </div>
-        </>
-      )}
 
-      {/* ── Combat ── */}
-      {phase === "combat" && encounter?.type === "monster" && (
-        <div className={styles.overlay}>
-          <div className={styles.combatPanel}>
-            <div className={styles.combatTitle}>{t("combat.title")}</div>
-
-            <div className={styles.combatVs}>
-              <div className={styles.combatFighter}>
-                <span className={styles.combatFighterEmoji}>🧑‍💻</span>
-                <span className={styles.combatFighterName}>{t("combat.me")}</span>
-              </div>
-              <span className={styles.vsText}>VS</span>
-              <div className={styles.combatFighter}>
-                <span className={styles.combatFighterEmoji}>
-                  {(encounter.data as Monster).emoji}
-                </span>
-                <span className={styles.combatFighterName}>
-                  {tData((encounter.data as Monster).nameKey)}
-                </span>
-              </div>
-            </div>
-
-            {/* RPS */}
-            {combatType === "rps" && (
-              <>
-                <div className={styles.combatSubtitle}>
-                  {t("combat.rps.subtitle")}
-                </div>
-                {!playerRPS ? (
-                  <div className={styles.rpsButtons}>
-                    <button className={styles.rpsBtn} onClick={() => handleRPS("rock")}>
-                      <span className={styles.rpsBtnEmoji}>✊</span>
-                      <span>{t("combat.rps.rock")}</span>
-                      <span className={styles.rpsBtnKey}>[1]</span>
-                    </button>
-                    <button className={styles.rpsBtn} onClick={() => handleRPS("scissors")}>
-                      <span className={styles.rpsBtnEmoji}>✌️</span>
-                      <span>{t("combat.rps.scissors")}</span>
-                      <span className={styles.rpsBtnKey}>[2]</span>
-                    </button>
-                    <button className={styles.rpsBtn} onClick={() => handleRPS("paper")}>
-                      <span className={styles.rpsBtnEmoji}>✋</span>
-                      <span>{t("combat.rps.paper")}</span>
-                      <span className={styles.rpsBtnKey}>[3]</span>
-                    </button>
-                  </div>
-                ) : (
-                  <div className={styles.rpsResult}>
-                    <div className={styles.rpsChoice}>
-                      <span className={styles.rpsChoiceEmoji}>{RPS_EMOJI[playerRPS]}</span>
-                      <span className={styles.rpsChoiceLabel}>{t("combat.me")}: {t(`combat.rps.${playerRPS}`)}</span>
-                    </div>
-                    <span className={styles.vsText}>VS</span>
-                    <div className={styles.rpsChoice}>
-                      <span className={styles.rpsChoiceEmoji}>{enemyRPS ? RPS_EMOJI[enemyRPS] : "❓"}</span>
-                      <span className={styles.rpsChoiceLabel}>{t("combat.enemy")}: {enemyRPS ? t(`combat.rps.${enemyRPS}`) : "?"}</span>
-                    </div>
-                  </div>
+          <div className={styles.nodeGrid}>
+            {nodes.map((node) => (
+              <button
+                key={node.id}
+                className={styles.nodeCard}
+                onClick={() => selectNode(node)}
+              >
+                <div className={styles.nodeIcon}>{node.icon}</div>
+                <span className={styles.nodeLabel}>{node.label}</span>
+                {node.type === "combat" && node.data && (
+                  <span className={styles.nodeHint}>
+                    {t("map.danger", { value: (node.data as Monster).damage })}
+                  </span>
                 )}
-              </>
-            )}
+                {node.type === "treasure" && (
+                  <span className={styles.nodeHint}>{t("map.treasure")}</span>
+                )}
+                {node.type === "random" && (
+                  <span className={styles.nodeHint}>{t("map.random")}</span>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
-            {/* Dice */}
-            {combatType === "dice" && (
+      {/* ── ENCOUNTER ── */}
+      {phase === "encounter" && selectedNode && (
+        <div className={styles.overlay}>
+          <div className={styles.encounterPanel}>
+            {(selectedNode.type === "combat" || resolvedType === "combat") &&
+            selectedNode.data ? (
               <>
-                <div className={styles.combatSubtitle}>
-                  {t("combat.dice.subtitle")}
-                </div>
-                <div className={styles.diceArea}>
-                  <div className={styles.diceRow}>
-                    <div className={styles.diceSlot}>
-                      <div
-                        className={`${styles.dice} ${diceRolling ? styles.diceRolling : ""}`}
-                      >
-                        {playerDice ?? "?"}
-                      </div>
-                      <span className={styles.diceLabel}>{t("combat.me")}</span>
-                    </div>
-                    <span className={styles.vsText}>VS</span>
-                    <div className={styles.diceSlot}>
-                      <div
-                        className={`${styles.dice} ${diceRolling ? styles.diceRolling : ""}`}
-                      >
-                        {enemyDice ?? "?"}
-                      </div>
-                      <span className={styles.diceLabel}>{t("combat.enemy")}</span>
-                    </div>
+                <div className={styles.encounterVs}>
+                  <div className={styles.encounterFighter}>
+                    <Image
+                      src="/Crowdy/GEOS.gif"
+                      alt="Player"
+                      width={80}
+                      height={80}
+                      unoptimized
+                      className={styles.encounterSprite}
+                    />
+                    <span>{t("encounter.player")}</span>
                   </div>
-                  {!diceRolling && !playerDice && (
-                    <div className={styles.diceAction}>
-                      {t("combat.dice.action")}
-                    </div>
-                  )}
+                  <span className={styles.vsText}>{t("encounter.vs")}</span>
+                  <div className={styles.encounterFighter}>
+                    <Image
+                      src="/Crowdy/Black_Dagger_Thief_south.png"
+                      alt="Enemy"
+                      width={80}
+                      height={80}
+                      unoptimized
+                      className={styles.encounterSprite}
+                    />
+                    <span>{(selectedNode.data as Monster).emoji}</span>
+                  </div>
+                </div>
+                <p className={styles.encounterDesc}>
+                  {t("encounter.combatStatus")}
+                </p>
+                <div className={styles.encounterDots}>
+                  <span className={styles.dot} />
+                  <span className={styles.dot} />
+                  <span className={styles.dot} />
                 </div>
               </>
-            )}
-
-            {/* Timing */}
-            {combatType === "timing" && (
+            ) : (
               <>
-                <div className={styles.combatSubtitle}>
-                  {t("combat.timing.subtitle")}
+                <div className={styles.encounterEmoji}>
+                  {selectedNode.data
+                    ? (selectedNode.data as Treasure).emoji
+                    : "🎁"}
                 </div>
-                <div className={styles.timingArea}>
-                  <div className={styles.timingBarOuter}>
-                    <div
-                      className={styles.timingZoneGreen}
-                      style={{ left: "35%", width: "30%" }}
-                    />
-                    <div
-                      className={`${styles.timingCursor} ${timingStopped ? styles.timingStopped : ""}`}
-                      style={{ left: `${timingPos}%` }}
-                    />
-                  </div>
-                  {!timingStopped && (
-                    <div className={styles.timingAction}>
-                      {t("combat.timing.action")}
-                    </div>
-                  )}
+                <p className={styles.encounterDesc}>
+                  {t("encounter.treasureStatus")}
+                </p>
+                <div className={styles.encounterDots}>
+                  <span className={styles.dot} />
+                  <span className={styles.dot} />
+                  <span className={styles.dot} />
                 </div>
               </>
             )}
@@ -565,56 +410,101 @@ export default function AdventurePage() {
         </div>
       )}
 
-      {/* ── Result ── */}
+      {/* ── RESULT ── */}
       {phase === "result" && (
         <div className={styles.overlay}>
           <div
             className={`${styles.resultPanel} ${
-              combatResult === "win" ? styles.resultWin : styles.resultLose
+              encounterResult === "win" ? styles.resultWin : styles.resultLose
             }`}
           >
-            {combatResult === "win" ? (
+            {encounterResult === "win" ? (
               <>
                 <div className={styles.resultEmoji}>🎉</div>
-                <div className={`${styles.resultTitle} ${styles.resultWinTitle}`}>
+                <div
+                  className={`${styles.resultTitle} ${styles.resultWinTitle}`}
+                >
                   {t("result.win")}
                 </div>
-                {encounter?.type === "treasure" ? (
-                  <div className={styles.resultTreasure}>
-                    {t("result.goldGained", { gold: resultGold })}
-                  </div>
-                ) : (
+                <p className={styles.resultMessage}>{resultMessage}</p>
+                {resultGold > 0 && (
                   <div className={styles.resultReward}>
-                    {t("result.goldGainedPlus", { gold: resultGold })}
+                    💰 +{resultGold} Gold
                   </div>
                 )}
               </>
             ) : (
               <>
                 <div className={styles.resultEmoji}>💥</div>
-                <div className={`${styles.resultTitle} ${styles.resultLoseTitle}`}>
+                <div
+                  className={`${styles.resultTitle} ${styles.resultLoseTitle}`}
+                >
                   {t("result.lose")}
                 </div>
-                <div className={styles.resultDamage}>
-                  ❤️ -{resultDamage} HP
-                </div>
+                <p className={styles.resultMessage}>{resultMessage}</p>
+                <div className={styles.resultDamage}>❤️ -{resultDamage} HP</div>
               </>
             )}
-            <div className={styles.resultContinue}>
-              {t("result.pressKeyContinue")}
+            <button className={styles.continueBtn} onClick={continueAdventure}>
+              {hp <= 0
+                ? t("result.viewResult")
+                : depth + 1 >= MAX_DEPTH
+                  ? t("result.complete")
+                  : t("result.next")}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── COMPLETE ── */}
+      {phase === "complete" && (
+        <div className={styles.overlay}>
+          <div className={styles.completePanel}>
+            <div className={styles.completeEmoji}>🏆</div>
+            <div className={styles.completeTitle}>
+              {t("completeStats.title")}
+            </div>
+            <div className={styles.completeStats}>
+              <div className={styles.completeStat}>
+                <span>{t("completeStats.gold")}</span>
+                <strong>💰 {gold} G</strong>
+              </div>
+              <div className={styles.completeStat}>
+                <span>{t("completeStats.clearNodes")}</span>
+                <strong>⚔️ {nodeClears}</strong>
+              </div>
+              <div className={styles.completeStat}>
+                <span>{t("completeStats.courageUp")}</span>
+                <strong>🛡️ +{nodeClears}</strong>
+              </div>
+            </div>
+            <div className={styles.gameOverBtns}>
+              <button className={styles.retryBtn} onClick={restart}>
+                {t("completeStats.retry")}
+              </button>
+              <Link href="/" className={styles.homeBtn2}>
+                {t("completeStats.home")}
+              </Link>
             </div>
           </div>
         </div>
       )}
 
-      {/* ── Game Over ── */}
+      {/* ── GAME OVER ── */}
       {phase === "gameover" && (
         <div className={styles.overlay}>
           <div className={styles.gameOverPanel}>
             <div className={styles.gameOverTitle}>GAME OVER</div>
             <div className={styles.gameOverStats}>
-              <div className={styles.gameOverStat}>{t("gameover.distance", { distance })}</div>
-              <div className={styles.gameOverStat}>{t("gameover.gold", { gold })}</div>
+              <div className={styles.gameOverStat}>
+                {t("gameover.distance", { distance: depth })}
+              </div>
+              <div className={styles.gameOverStat}>
+                {t("gameover.gold", { gold })}
+              </div>
+              <div className={styles.gameOverStat}>
+                {t("gameover.courageUp", { nodes: nodeClears })}
+              </div>
             </div>
             <div className={styles.gameOverBtns}>
               <button className={styles.retryBtn} onClick={restart}>

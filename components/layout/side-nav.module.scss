@@ -43,6 +43,20 @@
   border-bottom: 1px solid var(--chat-line);
   margin-bottom: 1rem;
 
+  .loginBtn {
+    width: 100%;
+    height: 2rem;
+    border-radius: var(--radius-3);
+    font-family: "DungGeunMo";
+    background-color: var(--bg-element);
+    color: var(--text-main);
+    font-weight: bold;
+    font-size: 1rem;
+    &:hover {
+      cursor: pointer;
+      background-color: var(--bg-blue);
+    }
+  }
   .loginPrompt {
     margin-bottom: 1.5rem;
     color: var(--text-sub);
@@ -59,9 +73,161 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    &:hover{
-      cursor:pointer;
+    &:hover {
+      cursor: pointer;
       background-color: var(--bg-element);
+    }
+  }
+}
+
+.profileSection {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--chat-line);
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  .profileTop {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background-color: #f1f1f1;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .profileInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    overflow: hidden;
+  }
+
+  .nickname {
+    font-family: "DungGeunMo";
+    font-size: 1.25rem;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .level {
+    font-family: "DungGeunMo";
+    font-size: 0.875rem;
+    color: var(--text-main);
+  }
+
+  .expContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .expLabel {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Galmuri14";
+    font-size: 0.75rem;
+    color: var(--text-sub);
+  }
+
+  .expBarBg {
+    width: 100%;
+    height: 6px;
+    background-color: #e0e0e0;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .expBarFill {
+    height: 100%;
+    background-color: var(--text-blue);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+
+  .statsRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: "DungGeunMo";
+    font-size: 1rem;
+    color: var(--text-main);
+    margin-top: 0.25rem;
+
+    .points {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .mypageLink {
+      font-family: "DungGeunMo";
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.1rem;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .logoutBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 8px 0;
+    border: 1px solid var(--chat-line);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-sub);
+    font-family: "DungGeunMo";
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      color: #ff2a6d;
+      border-color: rgba(255, 42, 109, 0.3);
+      background: rgba(255, 42, 109, 0.05);
+    }
+  }
+
+  .logoutBtnCollapsed {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    margin-top: 4px;
+    border-radius: 6px;
+    transition: all 0.2s;
+
+    &:hover {
+      background: rgba(255, 42, 109, 0.1);
+      color: #ff2a6d;
     }
   }
 }

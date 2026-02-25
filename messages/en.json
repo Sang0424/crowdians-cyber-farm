@@ -26,6 +26,7 @@
     "logEmptySub": "Talk to Crowdy!",
     "logClose": "Close log",
     "logOpen": "Show chat log",
+    "staminaEmpty": "I'm too tired to chat anymore...",
     "aiResponses": {
       "0": "Oh, that's a really interesting topic! Can you tell me more?",
       "1": "Wow! I was curious about that too. Thanks!",
@@ -37,6 +38,67 @@
       "7": "Great explanation! I have a related question, want to hear it?",
       "8": "Thanks a million! I feel like I've leveled up thanks to you!",
       "9": "Hmm... tough topic. But your explanation is helping me get the gist of it!"
+    },
+    "help": {
+      "title": "Help",
+      "levelTitle": "Level & XP",
+      "levelDesc": "Earn XP through chatting and level up! Your character grows as your level increases.",
+      "fatigueTitle": "Fatigue System",
+      "fatigueDesc": "Engaging in many conversations builds up fatigue. High fatigue will reduce the amount of XP earned.",
+      "close": "Close"
+    },
+    "rlhf": {
+      "button": "Dislike",
+      "modalTitle": "Request Academy Study",
+      "modalDesc": "Want to study more about this topic?",
+      "modalSub": "It will be registered as an Academy Teach quest.",
+      "confirm": "Study",
+      "cancel": "No thanks",
+      "successMsg": "A study quest has been registered at the Academy!"
+    },
+    "report": {
+      "button": "Report",
+      "modalTitle": "Report AI Response",
+      "selectReason": "Select a reason for reporting",
+      "reasons": {
+        "profanity": "Profanity / Hate speech",
+        "sexual": "Sexual content",
+        "misinformation": "Misinformation",
+        "other": "Other"
+      },
+      "confirmTitle": "Are you sure you want to report?",
+      "confirmDesc": "This will be sent to the admin review queue.",
+      "confirm": "Report",
+      "cancel": "Cancel",
+      "successMsg": "Report has been submitted. We will review and take action."
+    },
+    "reset": {
+      "button": "Reset chat",
+      "modalTitle": "Delete conversation",
+      "modalDesc": "All conversation history will be deleted and a new conversation will begin.",
+      "confirm": "Delete",
+      "cancel": "Cancel",
+      "successMsg": "Conversation has been reset.",
+      "failMsg": "No conversation history."
+    },
+    "delete": {
+      "modalTitle": "Delete Message",
+      "modalDesc": "Are you sure you want to delete this message?",
+      "confirm": "Delete",
+      "cancel": "Cancel",
+      "successMsg": "Message deleted."
+    },
+    "sos": {
+      "button": "Request Knowledge",
+      "modalTitle": "Knowledge Request (SOS)",
+      "modalDesc": "Would you like to refer this question to the Academy Professors? You will be notified via mailbox once the answer is verified.",
+      "cost": "Cost: 30 Gold",
+      "confirm": "Request",
+      "cancel": "Cancel",
+      "successTitle": "Request Submitted",
+      "successMsg": "Your question has been submitted to the Academy!",
+      "failTitle": "Insufficient Gold",
+      "failMsg": "Not enough Gold (30G) for the request."
     }
   },
   "WaitListModal": {
@@ -88,6 +150,9 @@
       "failedMsg": "Grading failed — Answer too short",
       "trustDown": "🛡️ Trust {delta}"
     },
+    "intro": {
+      "start": "Start"
+    },
     "suspended": {
       "title": "Suspended",
       "desc": "Your trust score is below 30. You cannot enter the Academy.\nRestore your trust through other activities.",
@@ -115,35 +180,72 @@
       "fatigueTitle": "Fatigue System",
       "fatigueDesc": "Engaging in many conversations builds up fatigue. High fatigue will reduce the amount of XP earned.",
       "close": "Close"
+    },
+    "archive": {
+      "tabs": {
+        "latest": "Latest",
+        "popular": "Popular",
+        "pending": "Pending"
+      },
+      "tabTraining": "Training",
+      "tabArchive": "Library",
+      "searchPlaceholder": "Search title or tag...",
+      "filterLatest": "Latest",
+      "filterPopular": "Popular",
+      "viewLimit": "Daily Free Views: {current}/{max}",
+      "limitreached": "Daily Limit Reached",
+      "unlock": "Unlock Access",
+      "blurMsg": "You've used up today's free views! 😭\nYou need a pass to view this knowledge.",
+      "likes": "Likes",
+      "qnaTitle": "Q&A Details",
+      "topAnswer": "🏆 Best Answer",
+      "otherAnswers": "Other Answers",
+      "noResults": "No results found.",
+      "subtitle": "A community of wisdom and knowledge.",
+      "sidebar": {
+        "contributor": "🏆 Top Contributor",
+        "bountyBoard": "💰 Bounty Board",
+        "bountyDesc": "Quests with extra gold rewards upon adoption."
+      },
+      "reportModal": {
+        "title": "Report Answer",
+        "desc": "This will be sent to the admin review queue.",
+        "success": "Report has been submitted."
+      },
+      "trustTiers": {
+        "novice": "Novice",
+        "expert": "Expert",
+        "master": "Master"
+      }
     }
   },
   "MockData": {
     "cards": {
       "kc_1": {
         "question": "When does the cleanup function of useEffect in React execute?",
-        "category": "Frontend",
+        "type": "A/B choice",
         "answerA": "It only runs when the component unmounts. It cleans up resources set during mount.",
         "answerB": "It runs both when dependencies change (re-render) and on unmount. The previous effect is cleaned up before the new one runs."
       },
       "kc_2": {
         "question": "What is 'Hoisting' in JavaScript?",
-        "category": "JavaScript",
+        "type": "Descriptive",
         "hint": "Think about how variable and function declarations are processed."
       },
       "kc_3": {
         "question": "What is the biggest difference between Flexbox and Grid in CSS?",
-        "category": "CSS",
+        "type": "A/B choice",
         "answerA": "Flexbox is for 1D layouts (row or column), Grid is for 2D layouts (rows and columns simultaneously).",
         "answerB": "Flexbox is for older browser compatibility, and Grid is a complete superset of Flexbox."
       },
       "kc_4": {
         "question": "Compare the pros and cons of REST API and GraphQL.",
-        "category": "Backend",
+        "type": "Descriptive",
         "hint": "Think about data fetching methods and over-fetching/under-fetching."
       },
       "kc_5": {
         "question": "What is the difference between interface and type in TypeScript?",
-        "category": "TypeScript",
+        "type": "A/B choice",
         "answerA": "They are nearly identical, but interface supports declaration merging while type offers more freedom with unions/intersections.",
         "answerB": "Interface can only be used for objects, and type can be used for all types, so type is always better."
       }
@@ -165,7 +267,10 @@
   "Adventure": {
     "start": {
       "subtitle": "Explore the Cyberpunk City",
-      "pressKey": "Press any key to start"
+      "pressKey": "Press any key to start",
+      "button": "Start Adventure",
+      "courage": "🛡️ Courage: <strong>{value}</strong>",
+      "bonus": "(Win Rate Bonus: +{value}%)"
     },
     "hud": {
       "home": "🏠 Home"
@@ -173,7 +278,11 @@
     "encounter": {
       "monsterAppeared": "A glitch monster appeared!",
       "treasureFound": "You found a treasure chest!",
-      "pressKeyContinue": "Press any key to continue..."
+      "pressKeyContinue": "Press any key to continue...",
+      "player": "Me",
+      "vs": "VS",
+      "combatStatus": "Combat determination...",
+      "treasureStatus": "Opening treasure chest..."
     },
     "combat": {
       "title": "⚔️ Combat!",
@@ -195,17 +304,121 @@
       }
     },
     "result": {
+      "hpChange": "HP {change}",
+      "goldChange": "Gold {change}",
       "win": "Victory!",
       "lose": "Defeat...",
       "goldGained": "💰 {gold} Gold obtained!",
       "goldGainedPlus": "💰 +{gold} Gold obtained!",
-      "pressKeyContinue": "Press any key to continue..."
+      "pressKeyContinue": "Press any key to continue...",
+      "viewResult": "View Results",
+      "complete": "Exploration Complete",
+      "next": "Forward to next Fork →"
     },
     "gameover": {
       "distance": "📍 Distance: {distance}m",
       "gold": "💰 Gold earned: {gold} G",
       "retry": "🔄 Retry",
-      "home": "🏠 Home"
+      "home": "🏠 Home",
+      "courageUp": "🛡️ Courage +{nodes}"
+    },
+    "map": {
+      "title": "🗺️ Fork in the Road",
+      "subtitle": "Which way will you go?",
+      "danger": "⚠️ Hazard: {value}",
+      "treasure": "💎 Treasure Found!",
+      "random": "🎲 What's inside?"
+    },
+    "choices": {
+      "title": "Fork in the Road",
+      "desc": "A fork in the road has appeared. Which way will you go?"
+    },
+    "nodeTypes": {
+      "combat": "Glitch Monster",
+      "treasure": "Treasure Chest",
+      "random": "Unknown Area"
+    },
+    "combatJudgement": {
+      "success": "Attack Success!",
+      "fail": "Attack Failed..."
+    },
+    "combatStatus": {
+      "win": "Monster defeated!",
+      "lose": "Defeated in battle..."
+    },
+    "completeStats": {
+      "title": "Exploration Complete!",
+      "distance": "Total Distance",
+      "gold": "Gold Earned",
+      "nodes": "Explored Nodes",
+      "clearNodes": "Cleared Nodes",
+      "courageUp": "Courage Up",
+      "retry": "Explore Again",
+      "home": "Home"
+    }
+  },
+  "QuestCard": {
+    "menu": {
+      "share": "Share",
+      "bookmark": "Bookmark",
+      "report": "Report"
+    },
+    "alert": {
+      "shared": "Link copied to clipboard.",
+      "bookmarked": "Saved to bookmarks."
+    },
+    "footer": {
+      "requester": "Requester",
+      "trust": "Trust",
+      "answers": "Answers"
+    }
+  },
+  "Rank": {
+    "kicker": "Rankings of the most active Crowdians",
+    "title": "Crowdians Rank",
+    "toggleTrust": "Trust Ranking",
+    "toggleActivity": "Activity Ranking",
+    "tabAll": "Overall",
+    "tabWeekly": "Weekly",
+    "weeklyNotice": "Weekly rankings are updated every Monday at midnight",
+    "myRankBadge": "My Rank",
+    "unit": "pts"
+  },
+  "Settings": {
+    "title": "Settings",
+    "subtitle": "Manage your account and service settings",
+    "account": {
+      "title": "Account",
+      "nicknameLabel": "Nickname",
+      "passwordLabel": "Change Password",
+      "passwordDesc": "Change your password regularly for security",
+      "logoutLabel": "Log Out",
+      "logoutDesc": "Log out of your current account",
+      "deleteLabel": "Delete Account",
+      "deleteDesc": "All data will be permanently deleted"
+    },
+    "policy": {
+      "title": "Policies & Info",
+      "termsLabel": "Terms of Service",
+      "termsDesc": "Review the terms of service",
+      "privacyLabel": "Privacy Policy",
+      "privacyDesc": "How we handle your personal data",
+      "supportLabel": "Customer Support",
+      "supportDesc": "Contact us for any inquiries"
+    },
+    "modal": {
+      "logoutTitle": "Log Out",
+      "logoutDesc": "Are you sure you want to log out?",
+      "logoutConfirm": "Log Out",
+      "deleteTitle": "Delete Account",
+      "deleteDesc": "Are you sure you want to delete your account?",
+      "deleteSubDesc": "All data will be permanently deleted and cannot be recovered.",
+      "deleteConfirm": "Delete",
+      "passwordTitle": "Change Password",
+      "passwordDesc": "Only social login is currently supported.",
+      "passwordSubDesc": "Password change will be available in a future update.",
+      "cancel": "Cancel",
+      "confirm": "OK"
     }
   }
 }

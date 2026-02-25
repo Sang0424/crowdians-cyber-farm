@@ -3,7 +3,7 @@
   width: 100%;
   min-height: 100vh;
   background: var(--bg-primary);
-  padding: 40px 32px;
+  padding: 40px 32px 120px; /* extra bottom padding for sticky myRank */
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -26,6 +26,7 @@
   color: var(--text-main);
 }
 
+/* ─── Toggle ─── */
 .toggle {
   display: flex;
   gap: 16px;
@@ -36,34 +37,32 @@
   border-radius: 999px;
   padding: 12px 24px;
   border: none;
-  background: #eff6ff;
+  background: var(--bg-element);
   color: var(--text-sub);
-  font-size: 18px;
+  font-family: "DungGeunMo";
+  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba(0, 117, 149, 0.08);
+  }
 }
 
 .activeToggle {
   background: var(--text-blue);
   color: #fff;
+
+  &:hover {
+    background: var(--text-blue);
+  }
 }
 
-.shieldIcon {
-  width: 20px;
-  height: 20px;
-  background: url("http://localhost:3845/assets/3e76c78aaa0d2647dbf31fd031786b239938b778.svg")
-    center/contain no-repeat;
-}
-
-.activityIcon {
-  width: 20px;
-  height: 20px;
-  background: url("http://localhost:3845/assets/8a65e8515054d7a097bd3fd2b16d5c7a7958505a.svg")
-    center/contain no-repeat;
-}
-
+/* ─── Tabs ─── */
 .tabs {
   display: flex;
   gap: 24px;
@@ -73,9 +72,16 @@
 .tab {
   border: none;
   background: transparent;
+  font-family: "DungGeunMo";
   font-size: 18px;
   color: var(--text-sub);
   padding-bottom: 6px;
+  cursor: pointer;
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--text-main);
+  }
 }
 
 .activeTab {
@@ -89,6 +95,7 @@
   color: var(--text-sub);
 }
 
+/* ─── Leaders (Top 3) ─── */
 .leaders {
   display: flex;
   flex-direction: column;
@@ -101,19 +108,24 @@
   align-items: center;
   border-radius: 12px;
   border: 2px solid var(--chat-line);
-  background: #f8f9fa;
+  background: var(--bg-element);
   padding: 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
 }
 
 .gold {
   border-color: #fbbc05;
 }
-
 .silver {
   border-color: var(--text-blue);
 }
-
 .bronze {
   border-color: #c2b280;
 }
@@ -137,30 +149,31 @@
 
 .name {
   font-family: "DungGeunMo";
-  font-size: 24px;
+  font-size: 20px;
+  color: var(--text-main);
 }
 
 .score {
-  font-size: 20px;
+  font-size: 16px;
+  color: var(--text-sub);
 }
 
 .delta {
-  font-size: 20px;
-  font-family: "Pretendard";
+  font-size: 18px;
+  font-family: "DungGeunMo";
 }
 
 .up {
   color: #3eaf3f;
 }
-
 .down {
   color: #ea4335;
 }
-
 .equal {
-  color: var(--text-main);
+  color: var(--text-sub);
 }
 
+/* ─── Rank List ─── */
 .rankList {
   display: flex;
   flex-direction: column;
@@ -175,6 +188,13 @@
   border: 1px solid var(--chat-line);
   border-radius: 12px;
   padding: 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    background: rgba(0, 117, 149, 0.04);
+    border-color: var(--text-blue);
+  }
 }
 
 .rowInfo {
@@ -184,12 +204,88 @@
   color: var(--text-main);
 }
 
+/* ─── My Rank (Sticky Bottom) ─── */
 .myRank {
-  background: #eff6ff;
-  border-radius: 12px;
-  padding: 16px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--bg-element);
+  border-top: 2px solid var(--text-blue);
+  padding: 12px 32px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.myRankRow {
+  display: grid;
+  grid-template-columns: auto 60px 48px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  max-width: 900px;
+  margin: 0 auto;
+
+  &:hover .name {
+    color: var(--text-blue);
+  }
+}
+
+.myRankBadge {
+  font-family: "DungGeunMo";
+  font-size: 12px;
+  color: #fff;
+  background: var(--text-blue);
+  padding: 4px 10px;
+  border-radius: 999px;
 }
 
 .miniAvatar {
   border-radius: 8px;
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 768px) {
+  .rankPage {
+    padding: 20px 16px 100px;
+  }
+
+  .toggle {
+    gap: 8px;
+  }
+
+  .toggleBtn {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .tabs {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .notice {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 4px;
+  }
+
+  .leaderCard {
+    grid-template-columns: 60px 80px 1fr auto;
+    padding: 12px;
+  }
+
+  .avatar {
+    width: 64px !important;
+    height: 64px !important;
+  }
+
+  .myRank {
+    padding: 10px 16px;
+  }
+
+  .myRankRow {
+    grid-template-columns: auto 50px 36px 1fr auto;
+    gap: 8px;
+  }
 }

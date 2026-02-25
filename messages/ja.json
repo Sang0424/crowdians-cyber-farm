@@ -26,6 +26,7 @@
     "logEmptySub": "クラウディに話しかけてみよう！",
     "logClose": "ログを閉じる",
     "logOpen": "チャットログを表示",
+    "staminaEmpty": "疲れすぎてもう会話できないよ...",
     "aiResponses": {
       "0": "おぉ、それは本当に興味深いテーマだね！もっと詳しく教えてくれる？",
       "1": "わぁ！僕もそれについて気になってたんだ。ありがとう！",
@@ -45,6 +46,59 @@
       "fatigueTitle": "疲労度システム",
       "fatigueDesc": "会話を続けると疲労度がたまります。疲労度が高くなると、経験値の獲得量が減少します。",
       "close": "閉じる"
+    },
+    "rlhf": {
+      "button": "気に入らない",
+      "modalTitle": "アカデミーで勉強する",
+      "modalDesc": "このテーマについてもう少し勉強しましょうか？",
+      "modalSub": "アカデミーのTeachクエストとして登録されます。",
+      "confirm": "勉強する",
+      "cancel": "大丈夫",
+      "successMsg": "アカデミーに学習クエストが登録されました！"
+    },
+    "report": {
+      "button": "通報する",
+      "modalTitle": "AI回答の通報",
+      "selectReason": "通報理由を選択してください",
+      "reasons": {
+        "profanity": "暴言 / 侮辱",
+        "sexual": "性的コンテンツ",
+        "misinformation": "虚偽情報",
+        "other": "その他"
+      },
+      "confirmTitle": "本当に通報しますか？",
+      "confirmDesc": "選択した理由で管理者レビューキューに送信されます。",
+      "confirm": "通報する",
+      "cancel": "キャンセル",
+      "successMsg": "通報が受理されました。確認後、対応いたします。"
+    },
+    "reset": {
+      "button": "チャットリセット",
+      "modalTitle": "会話履歴の削除",
+      "modalDesc": "すべての会話履歴が削除され、新しい会話が始まります。",
+      "confirm": "削除する",
+      "cancel": "キャンセル",
+      "successMsg": "会話がリセットされました。",
+      "failMsg": "会話履歴がありません。"
+    },
+    "delete": {
+      "modalTitle": "メッセージの削除",
+      "modalDesc": "このメッセージを削除しますか？",
+      "confirm": "削除する",
+      "cancel": "キャンセル",
+      "successMsg": "メッセージが削除されました。"
+    },
+    "sos": {
+      "button": "知識依頼",
+      "modalTitle": "知識依頼 (SOS)",
+      "modalDesc": "この質問をアカデミーの教授陣に依頼しますか？回答が検証され次第、メールボックスでお知らせします。",
+      "cost": "費用: 30 Gold",
+      "confirm": "依頼する",
+      "cancel": "キャンセル",
+      "successTitle": "依頼受付完了",
+      "successMsg": "アカデミーに質問が受理されました！",
+      "failTitle": "ゴールド不足",
+      "failMsg": "依頼費用(30G)が不足しています。"
     }
   },
   "WaitListModal": {
@@ -96,6 +150,9 @@
       "failedMsg": "採点不合格 — 回答が短すぎます",
       "trustDown": "🛡️ 信頼度 {delta}"
     },
+    "intro": {
+      "start": "始める"
+    },
     "suspended": {
       "title": "停学処分",
       "desc": "信頼度が30未満のため、アカデミーに入場できません。\n他の活動で信頼度を回復してください。",
@@ -115,35 +172,72 @@
       "continueBtn": "🔥 まだ脳は元気！次の授業へ",
       "exhaustedBtn": "💤 脳がオーバーロード。冒険に行こうか？",
       "restartBtn": "🔄 最初からやり直す"
+    },
+    "archive": {
+      "tabs": {
+        "latest": "最新",
+        "popular": "人気",
+        "pending": "回答待ち"
+      },
+      "tabTraining": "実戦訓練",
+      "tabArchive": "知識図書館",
+      "searchPlaceholder": "質問タイトルやタグを検索...",
+      "filterLatest": "最新順",
+      "filterPopular": "人気順",
+      "viewLimit": "本日の無料閲覧: {current}/{max}",
+      "limitreached": "無料閲覧回数超過",
+      "unlock": "閲覧権を購入",
+      "blurMsg": "本日の無料閲覧回数を使い切りました！😭\n重要な知識を確認するには閲覧権が必要です。",
+      "likes": "いいね",
+      "qnaTitle": "Q&A 詳細",
+      "topAnswer": "🏆 ベストアンサー",
+      "otherAnswers": "その他の回答",
+      "noResults": "検索結果がありません。",
+      "subtitle": "クラウディアンの知識が集まる場所",
+      "sidebar": {
+        "contributor": "🏆 今日の伝授者",
+        "bountyBoard": "💰 バウンティボード",
+        "bountyDesc": "採択時に追加ゴールド報酬があるクエストです。"
+      },
+      "reportModal": {
+        "title": "回答の通報",
+        "desc": "選択した理由で管理者レビューキューに送信されます。",
+        "success": "通報が受理されました。"
+      },
+      "trustTiers": {
+        "novice": "見習い",
+        "expert": "熟練者",
+        "master": "マスター"
+      }
     }
   },
   "MockData": {
     "cards": {
       "kc_1": {
         "question": "ReactのuseEffectのクリーンアップ関数はいつ実行されますか？",
-        "category": "フロントエンド",
+        "type": "究極の選択",
         "answerA": "コンポーネントがアンマウントされるときのみ実行されます。マウント時に設定したリソースをクリーンアップする役割があります。",
         "answerB": "依存関係が変更されて再レンダリングされるときとアンマウント時の両方で実行されます。前のエフェクトをクリーンアップしてから新しいエフェクトが実行されます。"
       },
       "kc_2": {
         "question": "JavaScriptにおける「ホイスティング（Hoisting）」とは何ですか？",
-        "category": "JavaScript",
+        "type": "記述型",
         "hint": "変数や関数の宣言がどのように処理されるか考えてみてください。"
       },
       "kc_3": {
         "question": "CSSにおけるFlexboxとGridの最大の違いは何ですか？",
-        "category": "CSS",
+        "type": "究極の選択",
         "answerA": "Flexboxは1次元（行または列）、Gridは2次元（行と列を同時に）レイアウトに適しています。",
         "answerB": "Flexboxは古いブラウザ互換用で、GridはFlexboxの完全な上位互換です。"
       },
       "kc_4": {
         "question": "REST APIとGraphQLの長所と短所を比較してください。",
-        "category": "バックエンド",
+        "type": "記述型",
         "hint": "データフェッチ方式とオーバーフェッチング・アンダーフェッチングの観点で考えてみてください。"
       },
       "kc_5": {
         "question": "TypeScriptにおけるinterfaceとtypeの違いは何ですか？",
-        "category": "TypeScript",
+        "type": "究極の選択",
         "answerA": "ほぼ同じですが、interfaceは宣言マージ（declaration merging）が可能で、typeはユニオン/インターセクションが自由です。",
         "answerB": "interfaceはオブジェクトにしか使えず、typeはすべての型に使えるので、typeの方が常に優れています。"
       }
@@ -165,7 +259,10 @@
   "Adventure": {
     "start": {
       "subtitle": "サイバーパンクシティを探検せよ",
-      "pressKey": "任意のキーを押してスタート"
+      "pressKey": "任意のキーを押してスタート",
+      "button": "探検開始",
+      "courage": "🛡️ 勇気ステータス: <strong>{value}</strong>",
+      "bonus": "(勝率ボーナス: +{value}%)"
     },
     "hud": {
       "home": "🏠 ホーム"
@@ -173,7 +270,11 @@
     "encounter": {
       "monsterAppeared": "グリッチモンスターが現れた！",
       "treasureFound": "宝箱を発見した！",
-      "pressKeyContinue": "任意のキーを押して続ける..."
+      "pressKeyContinue": "任意のキーを押して続ける...",
+      "player": "自分",
+      "vs": "VS",
+      "combatStatus": "戦闘判定中...",
+      "treasureStatus": "宝箱を開けています..."
     },
     "combat": {
       "title": "⚔️ 戦闘！",
@@ -195,17 +296,121 @@
       }
     },
     "result": {
+      "hpChange": "HP {change}",
+      "goldChange": "Gold {change}",
       "win": "勝利！",
       "lose": "敗北...",
       "goldGained": "💰 {gold} ゴールド獲得！",
       "goldGainedPlus": "💰 +{gold} ゴールド獲得！",
-      "pressKeyContinue": "任意のキーを押して続ける..."
+      "pressKeyContinue": "任意のキーを押して続ける...",
+      "viewResult": "結果を見る",
+      "complete": "探検完了",
+      "next": "次の分岐路へ →"
     },
     "gameover": {
       "distance": "📍 移動距離: {distance}m",
       "gold": "💰 獲得ゴールド: {gold} G",
       "retry": "🔄 リトライ",
-      "home": "🏠 ホーム"
+      "home": "🏠 ホーム",
+      "courageUp": "🛡️ 勇気 +{nodes}"
+    },
+    "map": {
+      "title": "🗺️ 分岐路",
+      "subtitle": "どの道に進みますか？",
+      "danger": "⚠️ 危険度: {value}",
+      "treasure": "💎 宝箱発見！",
+      "random": "🎲 何が出るかな？"
+    },
+    "choices": {
+      "title": "分岐路",
+      "desc": "前方に分岐路が現れました。どちらに進みますか？"
+    },
+    "nodeTypes": {
+      "combat": "グリッチモンスター",
+      "treasure": "宝箱",
+      "random": "未知のエリア"
+    },
+    "combatJudgement": {
+      "success": "攻撃成功！",
+      "fail": "攻撃失敗..."
+    },
+    "combatStatus": {
+      "win": "モンスターを倒しました！",
+      "lose": "戦闘に敗北しました..."
+    },
+    "completeStats": {
+      "title": "探検完了！",
+      "distance": "総移動距離",
+      "gold": "獲得ゴールド",
+      "nodes": "探検したノード",
+      "clearNodes": "クリアノード",
+      "courageUp": "勇気上昇",
+      "retry": "もう一度探検",
+      "home": "ホームへ"
+    }
+  },
+  "QuestCard": {
+    "menu": {
+      "share": "共有する",
+      "bookmark": "ブックマーク",
+      "report": "通報する"
+    },
+    "alert": {
+      "shared": "リンクをクリップボードにコピーしました。",
+      "bookmarked": "ブックマークに保存しました。"
+    },
+    "footer": {
+      "requester": "依頼人",
+      "trust": "信頼度",
+      "answers": "回答"
+    }
+  },
+  "Rank": {
+    "kicker": "最も活発に活動しているクラウディアンたちのランキングです",
+    "title": "クラウディアンランキング",
+    "toggleTrust": "信頼度ランキング",
+    "toggleActivity": "累積活動ランキング",
+    "tabAll": "全体ランキング",
+    "tabWeekly": "週間ランキング",
+    "weeklyNotice": "週間ランキングは毎週月曜日の0時に更新されます",
+    "myRankBadge": "自分の順位",
+    "unit": "点"
+  },
+  "Settings": {
+    "title": "設定",
+    "subtitle": "アカウントとサービスの設定を管理します",
+    "account": {
+      "title": "アカウント管理",
+      "nicknameLabel": "ニックネーム",
+      "passwordLabel": "パスワード変更",
+      "passwordDesc": "セキュリティのために定期的に変更してください",
+      "logoutLabel": "ログアウト",
+      "logoutDesc": "現在のアカウントからログアウトします",
+      "deleteLabel": "アカウント削除",
+      "deleteDesc": "すべてのデータが削除され、復元できません"
+    },
+    "policy": {
+      "title": "ポリシーと情報",
+      "termsLabel": "利用規約",
+      "termsDesc": "サービス利用規約を確認します",
+      "privacyLabel": "プライバシーポリシー",
+      "privacyDesc": "個人情報の取り扱いに関するポリシーです",
+      "supportLabel": "カスタマーサポート",
+      "supportDesc": "お問い合わせはこちらまで"
+    },
+    "modal": {
+      "logoutTitle": "ログアウト",
+      "logoutDesc": "本当にログアウトしますか？",
+      "logoutConfirm": "ログアウト",
+      "deleteTitle": "アカウント削除",
+      "deleteDesc": "本当に退会しますか？",
+      "deleteSubDesc": "すべてのデータが永久に削除され、復元できません。",
+      "deleteConfirm": "退会する",
+      "passwordTitle": "パスワード変更",
+      "passwordDesc": "現在はソーシャルログインのみ対応しています。",
+      "passwordSubDesc": "パスワード変更は今後のアップデートで対応予定です。",
+      "cancel": "キャンセル",
+      "confirm": "確認"
     }
   }
 }

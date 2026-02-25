@@ -12,6 +12,7 @@ import {
   Settings, // 설정
   PanelLeft, // 사이드바 토글 아이콘
   LogIn,
+  LogOut,
   GraduationCap,
 } from "lucide-react";
 import { useModal } from "../../context/LoginModalContext";
@@ -19,6 +20,7 @@ import { useTranslations } from "next-intl";
 import styles from "./side-nav.module.scss";
 import { ThemeToggle } from "../theme-toggle";
 import { usePathname } from "next/navigation";
+import { useUserStore } from "../../store/useUserStore";
 
 interface MenuItem {
   href: string;
@@ -31,6 +33,7 @@ export default function SideNav() {
   const [isActive, setIsActive] = useState(false);
   const pathname = usePathname(); // 현재 경로 가져오기
   const { openLoginModal } = useModal();
+  const { user, logout } = useUserStore();
 
   const t = useTranslations("SideNav");
 
@@ -105,24 +108,95 @@ export default function SideNav() {
       </header>
 
       <Flex direction="column" flexGrow="1">
-        <Box className={styles.loginSection}>
-          {!isCollapsed ? (
+        <Box className={user ? styles.profileSection : styles.loginSection}>
+          {user ? (
+            !isCollapsed ? (
+              <>
+                <div className={styles.profileTop}>
+                  <div className={styles.avatar}>
+                    <img
+                      src={user.photoURL || "/default-avatar.png"} // fallback image needed
+                      alt="Profile"
+                      onError={(e) => {
+                        e.currentTarget.src =
+                          "https://api.dicebear.com/7.x/pixel-art/svg?seed=" +
+                          user.uid;
+                      }}
+                    />
+                  </div>
+                  <div className={styles.profileInfo}>
+                    <span className={styles.nickname}>{user.nickname}</span>
+                    <span className={styles.level}>Lv.{user.stats.level}</span>
+                  </div>
+                </div>
+
+                <div className={styles.expContainer}>
+                  <div className={styles.expLabel}>
+                    <span>누적 경험치</span>
+                    <span>
+                      {user.stats.exp} / {user.stats.maxExp} EXP
+                    </span>
+                  </div>
+                  <div className={styles.expBarBg}>
+                    <div
+                      className={styles.expBarFill}
+                      style={{
+                        width: `${Math.min((user.stats.exp / user.stats.maxExp) * 100, 100)}%`,
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className={styles.statsRow}>
+                  <div className={styles.points}>
+                    <span>{user.stats.points.toLocaleString()} G</span>
+                  </div>
+                  <Link
+                    href={`/user/${user.uid}`}
+                    className={styles.mypageLink}
+                  >
+                    마이페이지 &gt;
+                  </Link>
+                </div>
+
+                <button className={styles.logoutBtn} onClick={logout}>
+                  <LogOut size={14} />
+                  <span>로그아웃</span>
+                </button>
+              </>
+            ) : (
+              <Box className={styles.collapsedPlaceholder}>
+                <div
+                  className={styles.avatar}
+                  style={{ width: 32, height: 32 }}
+                >
+                  <img
+                    src={user.photoURL || "/default-avatar.png"}
+                    alt="Profile"
+                    onError={(e) => {
+                      e.currentTarget.src =
+                        "https://api.dicebear.com/7.x/pixel-art/svg?seed=" +
+                        user.uid;
+                    }}
+                  />
+                </div>
+                <button
+                  className={styles.logoutBtnCollapsed}
+                  onClick={logout}
+                  title="로그아웃"
+                >
+                  <LogOut size={16} color="var(--text-sub)" />
+                </button>
+              </Box>
+            )
+          ) : !isCollapsed ? (
             <>
               <Text as="p" size="2" className={styles.loginPrompt}>
                 {t("loginPrompt")}
               </Text>
               <Button
                 size="2"
-                style={{
-                  width: "100%",
-                  height: "2rem",
-                  // borderRadius: "0.5rem",
-                  fontFamily: "DungGeunMo",
-                  backgroundColor: "var(--bg-element)",
-                  color: "var(--text-main)",
-                  fontWeight: "bold",
-                  fontSize: "1rem",
-                }}
+                className={styles.loginBtn}
                 onClick={openLoginModal}
               >
                 {t("login")}
@@ -130,7 +204,7 @@ export default function SideNav() {
             </>
           ) : (
             <Box className={styles.collapsedPlaceholder}>
-              <LogIn color="var(--text-main)" onClick={openLoginModal}/>
+              <LogIn color="var(--text-main)" />
             </Box>
           )}
         </Box>
