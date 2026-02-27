@@ -7,6 +7,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { MONSTERS, TREASURES, Monster, Treasure } from "@/data/mockData";
 import { useUserStore } from "../../../../store/useUserStore";
+import { sendGAEvent } from "@next/third-parties/google";
 
 // ── Types ──
 type GamePhase =
@@ -133,8 +134,9 @@ export default function AdventurePage() {
     setGold(0);
     setDepth(0);
     setNodeClears(0);
+    sendGAEvent({ event: "adventure_start", value: { courage } });
     generateMap();
-  }, [generateMap]);
+  }, [generateMap, courage]);
 
   // ── Select a node ──
   const selectNode = useCallback(
@@ -172,6 +174,11 @@ export default function AdventurePage() {
 
       // Auto-resolve after a brief delay
       setTimeout(() => {
+        sendGAEvent({
+          event: "adventure_encounter",
+          value: { node_type: actualNode.type },
+        });
+
         if (actualNode.type === "treasure") {
           const tr = actualNode.data as Treasure;
           const g = randomInt(tr.goldMin, tr.goldMax);
@@ -223,6 +230,7 @@ export default function AdventurePage() {
       if (nodeClears > 0) {
         storeAddCourage(nodeClears);
       }
+      sendGAEvent({ event: "adventure_gameover", value: { depth, gold } });
       setPhase("gameover");
       return;
     }
@@ -234,6 +242,10 @@ export default function AdventurePage() {
       if (nodeClears > 0) {
         storeAddCourage(nodeClears);
       }
+      sendGAEvent({
+        event: "adventure_complete",
+        value: { depth: nextDepth, gold },
+      });
       setPhase("complete");
       return;
     }

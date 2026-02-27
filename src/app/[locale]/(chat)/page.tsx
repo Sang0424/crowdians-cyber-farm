@@ -21,6 +21,7 @@ import {
 import { useTranslations } from "next-intl";
 import { useUserStore } from "../../../../store/useUserStore";
 import ActionModal from "@/../components/domain/ActionModal";
+import { sendGAEvent } from "@next/third-parties/google";
 
 // ── Types ──
 interface ChatMessage {
@@ -186,6 +187,7 @@ export default function Home() {
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, userMsg]);
+      sendGAEvent({ event: "chat_send_message" });
 
       // Simulate AI typing
       setIsTyping(true);
@@ -229,6 +231,7 @@ export default function Home() {
       setSosModalOpen(false);
       setSosTargetId(null);
       setToast(t("Chat.sos.successMsg"));
+      sendGAEvent({ event: "chat_sos_used" });
     }
   };
 
@@ -243,6 +246,7 @@ export default function Home() {
     setRlhfModalOpen(false);
     setRlhfTargetId(null);
     setToast(t("Chat.rlhf.successMsg"));
+    sendGAEvent({ event: "chat_rlhf_submit" });
   };
 
   // ── Report ──
@@ -265,6 +269,10 @@ export default function Home() {
     setReportReason(null);
     setReportConfirmStep(false);
     setToast(t("Chat.report.successMsg"));
+    sendGAEvent({
+      event: "chat_report_submit",
+      value: { reason: reportReason },
+    });
   };
 
   // ── Reset chat ──
@@ -303,6 +311,7 @@ export default function Home() {
     addIntimacy(1);
     setDailyPetCount((prev) => prev + 1);
     spawnHearts();
+    sendGAEvent({ event: "chat_pet_character" });
 
     // Add pet response to chat log
     const phrase =

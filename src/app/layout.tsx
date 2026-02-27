@@ -3,8 +3,8 @@ import { getMessages, getLocale } from "next-intl/server";
 import { ReactNode } from "react";
 import localFont from "next/font/local";
 import { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 const myCustomFont = localFont({
@@ -68,7 +68,9 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <body className={`${myCustomFont.className} ${myCustomFont2.className}`}>
         {children}
-        <Analytics />
+        <GoogleAnalytics
+          gaId={process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID!}
+        />
         <SpeedInsights />
       </body>
     </html>

@@ -9,6 +9,7 @@ import Image from "next/image";
 import GEOS from "@/../public/Crowdy/GEOS.gif";
 import { Shield, Activity } from "lucide-react";
 import { useUserStore } from "@/../store/useUserStore";
+import { sendGAEvent } from "@next/third-parties/google";
 
 type RankMode = "trust" | "activity";
 type TabMode = "all" | "weekly";
@@ -97,6 +98,10 @@ export default function RankPage() {
   };
 
   const handleUserClick = (name: string) => {
+    sendGAEvent({
+      event: "rank_view_user_profile",
+      value: { target_user: name },
+    });
     router.push(`/user/${name}`);
   };
 
@@ -111,14 +116,26 @@ export default function RankPage() {
       <div className={styles.toggle}>
         <button
           className={`${styles.toggleBtn} ${rankMode === "trust" ? styles.activeToggle : ""}`}
-          onClick={() => setRankMode("trust")}
+          onClick={() => {
+            setRankMode("trust");
+            sendGAEvent({
+              event: "rank_mode_change",
+              value: { mode: "trust" },
+            });
+          }}
         >
           <Shield size={18} />
           {t("toggleTrust")}
         </button>
         <button
           className={`${styles.toggleBtn} ${rankMode === "activity" ? styles.activeToggle : ""}`}
-          onClick={() => setRankMode("activity")}
+          onClick={() => {
+            setRankMode("activity");
+            sendGAEvent({
+              event: "rank_mode_change",
+              value: { mode: "activity" },
+            });
+          }}
         >
           <Activity size={18} />
           {t("toggleActivity")}
@@ -129,13 +146,19 @@ export default function RankPage() {
       <nav className={styles.tabs}>
         <button
           className={`${styles.tab} ${tabMode === "all" ? styles.activeTab : ""}`}
-          onClick={() => setTabMode("all")}
+          onClick={() => {
+            setTabMode("all");
+            sendGAEvent({ event: "rank_tab_change", value: { tab: "all" } });
+          }}
         >
           {t("tabAll")}
         </button>
         <button
           className={`${styles.tab} ${tabMode === "weekly" ? styles.activeTab : ""}`}
-          onClick={() => setTabMode("weekly")}
+          onClick={() => {
+            setTabMode("weekly");
+            sendGAEvent({ event: "rank_tab_change", value: { tab: "weekly" } });
+          }}
         >
           {t("tabWeekly")}
         </button>
