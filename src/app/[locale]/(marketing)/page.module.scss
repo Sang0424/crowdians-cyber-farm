@@ -1,0 +1,416 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  background-color: var(--color-background);
+  color: var(--text-main);
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+// Typography & Shared
+.title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  opacity: 0.8;
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+}
+
+// ── Hero Section (Gateway) ──
+.hero {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    rgba(88, 101, 242, 0.05) 0%,
+    rgba(20, 20, 20, 0) 100%
+  );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: rgba(88, 101, 242, 0.1);
+  color: #5865f2;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(88, 101, 242, 0.2);
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.primaryBtn {
+  background: #5865f2;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.125rem;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 8px 24px rgba(88, 101, 242, 0.3);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(88, 101, 242, 0.4);
+    color: white;
+  }
+}
+
+.ghostBtn {
+  background: transparent;
+  color: var(--text-main);
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.125rem;
+  border: 2px solid var(--border-color, #e5e5e5);
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: #5865f2;
+  }
+}
+
+.heroBgShape1 {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 50vw;
+  height: 50vw;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(88, 101, 242, 0.15) 0%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  filter: blur(40px);
+  z-index: 1;
+}
+
+.heroBgShape2 {
+  position: absolute;
+  bottom: -20%;
+  right: -10%;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 212, 255, 0.1) 0%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  filter: blur(60px);
+  z-index: 1;
+}
+
+// ── B2C Section (Pixel/Cyberpunk) ──
+.b2cSection {
+  background: #0f111a;
+  color: #fff;
+  padding: 6rem 2rem;
+  position: relative;
+  border-top: 4px solid #5865f2;
+}
+
+.b2cContent {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.b2cHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.b2cTitle {
+  font-size: 2.75rem;
+  font-weight: 800;
+  font-family: "DungGeunMo", monospace;
+  line-height: 1.3;
+  margin-bottom: 1.5rem;
+  color: #ecc94b;
+}
+
+.glitch {
+  position: relative;
+  color: #00ffcc;
+}
+
+.b2cSubtitle {
+  font-size: 1.125rem;
+  opacity: 0.8;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.featureCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  text-align: center;
+  transition:
+    transform 0.3s,
+    border-color 0.3s;
+
+  &:hover {
+    transform: translateY(-5px);
+    border-color: #5865f2;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .featureIcon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: #ffd700;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-family: "DungGeunMo", monospace;
+  }
+
+  p {
+    color: #a0aec0;
+    line-height: 1.6;
+  }
+}
+
+.ctaWrapper {
+  text-align: center;
+}
+
+.pixelActionBtn {
+  display: inline-block;
+  background: #f12c4c;
+  color: white;
+  font-family: "DungGeunMo", monospace;
+  font-size: 1.5rem;
+  padding: 1.25rem 3rem;
+  text-decoration: none;
+  box-shadow: 4px 4px 0px #801325;
+  transition: all 0.1s;
+  text-transform: uppercase;
+
+  &:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #801325;
+  }
+}
+
+// ── B2B Section (Corporate) ──
+.b2bSection {
+  background: #ffffff;
+  color: #1a202c;
+  padding: 8rem 2rem;
+}
+
+html[class*="dark"] .b2bSection {
+  background: #1a1b26;
+  color: #e2e8f0;
+}
+
+.b2bContent {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.b2bHeader {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.b2bTitle {
+  font-size: 2.75rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 1.5rem;
+  color: #1a202c;
+}
+
+html[class*="dark"] .b2bTitle {
+  color: #f7fafc;
+}
+
+.b2bSubtitle {
+  font-size: 1.125rem;
+  opacity: 0.7;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.b2bCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+
+.b2bCard {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+
+  html[class*="dark"] & {
+    background: #24283b;
+    border-color: #414868;
+  }
+
+  .b2bCardHeader {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .b2bCardIcon {
+    font-size: 2rem;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  p {
+    color: #4a5568;
+    line-height: 1.6;
+
+    html[class*="dark"] & {
+      color: #a9b1d6;
+    }
+  }
+}
+
+.b2bFooter {
+  text-align: center;
+  background: #f1f5f9;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+
+  html[class*="dark"] & {
+    background: rgba(65, 72, 104, 0.4);
+  }
+}
+
+.useCases {
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+  color: #2d3748;
+
+  html[class*="dark"] & {
+    color: #cbd5e0;
+  }
+
+  strong {
+    color: #5865f2;
+  }
+}
+
+.corporateBtn {
+  display: inline-block;
+  background: #1a202c;
+  color: #fff;
+  padding: 1rem 2.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.125rem;
+  text-decoration: none;
+  transition: background 0.2s;
+
+  html[class*="dark"] & {
+    background: #e2e8f0;
+    color: #1a202c;
+  }
+
+  &:hover {
+    background: #2d3748;
+    color: #fff;
+
+    html[class*="dark"] & {
+      background: #f7fafc;
+      color: #1a202c;
+    }
+  }
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.875rem;
+  color: #718096;
+  border-top: 1px solid var(--border-color, #e2e8f0);
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.25rem;
+  }
+
+  .b2cTitle,
+  .b2bTitle {
+    font-size: 2rem;
+  }
+
+  .heroButtons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .primaryBtn,
+  .ghostBtn {
+    width: 100%;
+  }
+
+  .b2bCards,
+  .featuresGrid {
+    grid-template-columns: 1fr;
+  }
+}

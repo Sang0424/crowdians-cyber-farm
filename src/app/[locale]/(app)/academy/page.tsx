@@ -15,7 +15,7 @@ import {
 } from "@/data/mockData";
 import { Search, X, ThumbsUp, MessageCircle } from "lucide-react";
 import { QuestCard } from "@/../components/domain/QuestCard";
-import { useUserStore } from "../../../../store/useUserStore";
+import { useUserStore } from "@/../store/useUserStore";
 
 type Phase =
   | "intro"

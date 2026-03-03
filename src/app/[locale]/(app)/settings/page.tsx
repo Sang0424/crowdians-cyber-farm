@@ -18,8 +18,8 @@ import {
   Check,
   X,
 } from "lucide-react";
-import { useUserStore } from "../../../../store/useUserStore";
-import ActionModal from "../../../../components/domain/ActionModal";
+import { useUserStore } from "@/../store/useUserStore";
+import ActionModal from "@/../components/domain/ActionModal";
 import { sendGAEvent } from "@next/third-parties/google";
 
 export default function SettingsPage() {

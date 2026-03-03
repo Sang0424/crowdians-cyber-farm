@@ -45,7 +45,7 @@ export default function SideNav() {
 
   const menuItems: MenuItem[] = [
     {
-      href: "/",
+      href: "/chat",
       icon: MessageCircle,
       labelKey: "chat",
     },

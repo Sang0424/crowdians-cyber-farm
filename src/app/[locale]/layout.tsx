@@ -2,8 +2,6 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { ReactNode } from "react";
-import { Flex } from "@radix-ui/themes";
-import SideNav from "@/../components/layout/side-nav";
 import { ModalProvider } from "@/../context/LoginModalContext";
 import { WaitListModalProvider } from "@/../context/WaitListModalContext";
 import { getLocale } from "next-intl/server";
@@ -26,23 +24,10 @@ export default async function LocaleLayout({
     <NextIntlClientProvider messages={messages}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <NicknameSetup />
-        <Flex>
-          <ModalProvider>
-            <WaitListModalProvider>
-              <SideNav />
-              <main
-                style={{
-                  flexGrow: 1,
-                  fontFamily: "DungGeunMo",
-                }}
-              >
-                {children}
-              </main>
-            </WaitListModalProvider>
-          </ModalProvider>
-        </Flex>
+        <ModalProvider>
+          <WaitListModalProvider>{children}</WaitListModalProvider>
+        </ModalProvider>
       </ThemeProvider>
     </NextIntlClientProvider>
   );
 }
-

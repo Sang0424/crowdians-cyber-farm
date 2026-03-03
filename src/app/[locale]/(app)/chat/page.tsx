@@ -3,7 +3,7 @@
 import styles from "./page.module.scss";
 import Image from "next/image";
 import { MessageInput } from "@/../components/domain/MessageInput";
-import { Link } from "../../../../i18n";
+import { Link } from "@/../i18n";
 import { useState, useEffect, useRef, useCallback } from "react";
 import {
   MessageCircle,
@@ -19,7 +19,7 @@ import {
   XCircle,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useUserStore } from "../../../../store/useUserStore";
+import { useUserStore } from "@/../store/useUserStore";
 import ActionModal from "@/../components/domain/ActionModal";
 import { sendGAEvent } from "@next/third-parties/google";
 

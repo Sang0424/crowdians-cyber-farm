@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { MONSTERS, TREASURES, Monster, Treasure } from "@/data/mockData";
-import { useUserStore } from "../../../../store/useUserStore";
+import { useUserStore } from "@/../store/useUserStore";
 import { sendGAEvent } from "@next/third-parties/google";
 
 // ── Types ──
