@@ -3,6 +3,7 @@
 import Link from "next/link";
 import styles from "./page.module.scss";
 import { useTranslations } from "next-intl";
+import CrowdyIdle from "@/../components/domain/CrowdyIdle";
 
 export default function LandingPage() {
   const t = useTranslations("LandingPage");
@@ -28,6 +29,11 @@ export default function LandingPage() {
           </div>
         </div>
 
+        {/* Mascot in Hero */}
+        {/* <div className={styles.heroMascot}>
+          <CrowdyIdle width={120} height={180} duration={1.2} />
+        </div> */}
+
         {/* Dynamic Background Elements */}
         <div className={styles.heroBgShape1} />
         <div className={styles.heroBgShape2} />
@@ -45,6 +51,13 @@ export default function LandingPage() {
               {t("b2cTitle")}
             </h2>
             <p className={styles.b2cSubtitle}>{t("b2cSubtitle")}</p>
+          </div>
+
+          <div className={styles.b2cMascotArea}>
+            <div className={styles.b2cMascot}>
+              <CrowdyIdle width={180} height={270} duration={1.5} />
+            </div>
+            <div className={styles.mascotSpeech}>{t("b2cGlitch")}</div>
           </div>
           <div className={styles.featuresGrid}>
             <div className={styles.featureCard}>

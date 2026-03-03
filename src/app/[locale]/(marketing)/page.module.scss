@@ -52,6 +52,24 @@
   max-width: 800px;
 }
 
+.heroMascot {
+  position: absolute;
+  bottom: 10%;
+  right: 15%;
+  z-index: 3;
+  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(88, 101, 242, 0.4));
+
+  @media (max-width: 1024px) {
+    right: 5%;
+    transform: scale(0.8);
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
 .badge {
   display: inline-block;
   padding: 0.5rem 1rem;
@@ -177,6 +195,43 @@
   opacity: 0.8;
   max-width: 700px;
   margin: 0 auto;
+}
+
+.b2cMascotArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+.b2cMascot {
+  filter: drop-shadow(0 0 30px rgba(0, 255, 204, 0.3));
+  animation: float 6s ease-in-out infinite reverse;
+}
+
+.mascotSpeech {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-family: "DungGeunMo", monospace;
+  color: #00ffcc;
+  margin-top: 1rem;
+  position: relative;
+  font-size: 0.9rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid rgba(255, 255, 255, 0.1);
+  }
 }
 
 .featuresGrid {
@@ -386,6 +441,16 @@ html[class*="dark"] .b2bTitle {
   font-size: 0.875rem;
   color: #718096;
   border-top: 1px solid var(--border-color, #e2e8f0);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
 // Responsive Design

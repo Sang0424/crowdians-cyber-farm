@@ -3,6 +3,7 @@
 import styles from "./page.module.scss";
 import Image from "next/image";
 import { MessageInput } from "@/../components/domain/MessageInput";
+import CrowdyIdle from "@/../components/domain/CrowdyIdle";
 import { Link } from "@/../i18n";
 import { useState, useEffect, useRef, useCallback } from "react";
 import {
@@ -21,7 +22,6 @@ import {
 import { useTranslations } from "next-intl";
 import { useUserStore } from "@/../store/useUserStore";
 import ActionModal from "@/../components/domain/ActionModal";
-import { sendGAEvent } from "@next/third-parties/google";
 
 // ── Types ──
 interface ChatMessage {
@@ -102,6 +102,9 @@ export default function Home() {
 
   // Daily pet limit
   const [dailyPetCount, setDailyPetCount] = useState(0);
+  const [spriteAnimation, setSpriteAnimation] = useState<"idle" | "like">(
+    "idle",
+  );
 
   const chatScrollRef = useRef<HTMLDivElement>(null);
   const logScrollRef = useRef<HTMLDivElement>(null);
@@ -187,7 +190,6 @@ export default function Home() {
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, userMsg]);
-      sendGAEvent({ event: "chat_send_message" });
 
       // Simulate AI typing
       setIsTyping(true);
@@ -231,7 +233,6 @@ export default function Home() {
       setSosModalOpen(false);
       setSosTargetId(null);
       setToast(t("Chat.sos.successMsg"));
-      sendGAEvent({ event: "chat_sos_used" });
     }
   };
 
@@ -246,7 +247,6 @@ export default function Home() {
     setRlhfModalOpen(false);
     setRlhfTargetId(null);
     setToast(t("Chat.rlhf.successMsg"));
-    sendGAEvent({ event: "chat_rlhf_submit" });
   };
 
   // ── Report ──
@@ -269,10 +269,6 @@ export default function Home() {
     setReportReason(null);
     setReportConfirmStep(false);
     setToast(t("Chat.report.successMsg"));
-    sendGAEvent({
-      event: "chat_report_submit",
-      value: { reason: reportReason },
-    });
   };
 
   // ── Reset chat ──
@@ -311,7 +307,10 @@ export default function Home() {
     addIntimacy(1);
     setDailyPetCount((prev) => prev + 1);
     spawnHearts();
-    sendGAEvent({ event: "chat_pet_character" });
+
+    // Celebrate animation on pet
+    setSpriteAnimation("like");
+    setTimeout(() => setSpriteAnimation("idle"), 1500);
 
     // Add pet response to chat log
     const phrase =
@@ -349,7 +348,7 @@ export default function Home() {
       {msg.role === "assistant" && (
         <div className={styles.chatAvatar}>
           <Image
-            src="/Crowdy/GEOS.gif"
+            src="/Crowdy.png"
             alt="Crowdy"
             width={32}
             height={32}
@@ -411,7 +410,7 @@ export default function Home() {
     <div className={`${styles.chatMsg} ${styles.chatMsgAi}`}>
       <div className={styles.chatAvatar}>
         <Image
-          src="/Crowdy/GEOS.gif"
+          src="/south.png"
           alt="Crowdy"
           width={32}
           height={32}
@@ -441,14 +440,7 @@ export default function Home() {
             ref={characterRef}
             onClick={handleCharacterClick}
           >
-            <Image
-              src="/Crowdy/GEOS.gif"
-              alt="GEOS"
-              width={80}
-              height={80}
-              unoptimized={true}
-              className={styles.character}
-            />
+            <CrowdyIdle spriteType={spriteAnimation} />
             {/* Heart particles */}
             {hearts.map((h) => (
               <span
