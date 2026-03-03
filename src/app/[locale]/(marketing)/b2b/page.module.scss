@@ -188,6 +188,39 @@
       box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
     }
   }
+
+  .surveyWrapper {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #334155;
+    text-align: center;
+
+    p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    .surveyBtn {
+      display: inline-block;
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #475569;
+      color: #e2e8f0;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: #64748b;
+        color: #fff;
+      }
+    }
+  }
 }
 
 .faqSection {

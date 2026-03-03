@@ -465,6 +465,8 @@
     "faqWhyDesc": "Through our proprietary 3-step cross-verification logic (creation-peer review-trust filtering), we block abuse and provide only 100% verified colloquial data.",
     "faqCostTitle": "How much does it cost?",
     "faqCostDesc": "During our closed beta period, waitlisted companies will receive massive discounts upon official launch.",
-    "successMsg": "Your application has been submitted. Our team will contact you shortly."
+    "successMsg": "Your application has been submitted. Our team will contact you shortly.",
+    "formSurveyPrompt": "Or would you like to take a survey?",
+    "formSurveyBtn": "Go to Survey"
   }
 }

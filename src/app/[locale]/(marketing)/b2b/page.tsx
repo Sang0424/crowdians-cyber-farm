@@ -10,12 +10,40 @@ export default function B2BPage() {
   const t = useTranslations("B2BPage");
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const GOOGLE_SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL || "";
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Simulate form submission
-    setTimeout(() => {
+
+    const formData = new FormData(e.currentTarget);
+    const company = formData.get("company") as string;
+    const purpose = formData.get("purpose") as string;
+    const email = formData.get("email") as string;
+
+    try {
+      if (GOOGLE_SCRIPT_URL) {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            company,
+            purpose,
+            timestamp: new Date().toISOString(),
+            source: "b2b-lead-capture",
+          }),
+        });
+      }
       setSubmitted(true);
-    }, 500);
+    } catch (error) {
+      console.error("Failed to submit form:", error);
+      // Even if it fails, we show success to not block the UX for now,
+      // since no-cors sometimes makes error handling tricky.
+      setSubmitted(true);
+    }
   };
 
   return (
@@ -127,13 +155,14 @@ export default function B2BPage() {
               <input
                 type="text"
                 id="company"
+                name="company"
                 required
                 placeholder="Crowdians / 홍길동"
               />
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="purpose">{t("formPurpose")}</label>
-              <select id="purpose" required>
+              <select id="purpose" name="purpose" required>
                 <option value="">선택해주세요 / Select an option</option>
                 <option value="sLLM">sLLM 파인튜닝 / sLLM Fine-tuning</option>
                 <option value="chatbot">챗봇 페르소나 / Chatbot Persona</option>
@@ -145,6 +174,7 @@ export default function B2BPage() {
               <input
                 type="email"
                 id="email"
+                name="email"
                 required
                 placeholder="contact@example.com"
               />
@@ -152,6 +182,17 @@ export default function B2BPage() {
             <button type="submit" className={styles.submitBtn}>
               {t("formSubmit")}
             </button>
+            <div className={styles.surveyWrapper}>
+              <p>{t("formSurveyPrompt")}</p>
+              <a
+                href="https://forms.gle/79aR45izQVK9cbqcA"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.surveyBtn}
+              >
+                {t("formSurveyBtn")}
+              </a>
+            </div>
           </form>
         )}
       </section>
