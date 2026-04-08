@@ -1,4 +1,9 @@
 {
+  "common": {
+    "expand": "もっと見る",
+    "collapse": "閉じる",
+    "back": "戻る"
+  },
   "LoginModal": {
     "title": "Crowdians",
     "subtitle": "ソーシャルアカウントで簡単に始めましょう",
@@ -460,5 +465,63 @@
     "successMsg": "申し込みが完了しました。担当者より追ってご連絡いたします。",
     "formSurveyPrompt": "またはアンケートに参加しますか？",
     "formSurveyBtn": "アンケートへ"
+  },
+  "Legal": {
+    "opensource": {
+      "title": "オープンソースライセンス",
+      "desc": "Crowdiansは、以下のオープンソースソフトウェアを使用して構築されています。",
+      "list": [
+        {
+          "name": "Next.js",
+          "license": "MIT License",
+          "url": "https://nextjs.org"
+        },
+        {
+          "name": "React",
+          "license": "MIT License",
+          "url": "https://reactjs.org"
+        },
+        {
+          "name": "Firebase",
+          "license": "Apache License 2.0",
+          "url": "https://firebase.google.com"
+        },
+        {
+          "name": "Zustand",
+          "license": "MIT License",
+          "url": "https://github.com/pmndrs/zustand"
+        },
+        {
+          "name": "Lucide React",
+          "license": "ISC License",
+          "url": "https://lucide.dev"
+        },
+        {
+          "name": "Framer Motion",
+          "license": "MIT License",
+          "url": "https://www.framer.com/motion/"
+        },
+        {
+          "name": "TanStack Query",
+          "license": "MIT License",
+          "url": "https://tanstack.com/query"
+        },
+        {
+          "name": "Anthropic/hh-rlhf Dataset",
+          "license": "MIT License",
+          "url": "https://huggingface.co/datasets/Anthropic/hh-rlhf"
+        },
+        {
+          "name": "OpenAssistant/oasst1 Dataset",
+          "license": "Apache License 2.0",
+          "url": "https://huggingface.co/datasets/OpenAssistant/oasst1"
+        },
+        {
+          "name": "everyday-conversations Dataset",
+          "license": "CC-BY-4.0",
+          "url": "https://huggingface.co/datasets/b-mc2/everyday-conversations"
+        }
+      ]
+    }
   }
 }

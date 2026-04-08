@@ -1,4 +1,9 @@
 {
+  "common": {
+    "expand": "Show more",
+    "collapse": "Collapse",
+    "back": "Back"
+  },
   "LoginModal": {
     "title": "Crowdians",
     "subtitle": "Easily get started with your social account",
@@ -403,6 +408,10 @@
       "termsDesc": "Review the terms of service",
       "privacyLabel": "Privacy Policy",
       "privacyDesc": "How we handle your personal data",
+      "refundLabel": "Payment & Refund Policy",
+      "refundDesc": "Info about subscription billing and refunds",
+      "opensourceLabel": "Open Source Licenses",
+      "opensourceDesc": "List of open source software used",
       "supportLabel": "Customer Support",
       "supportDesc": "Contact us for any inquiries"
     },
@@ -468,5 +477,121 @@
     "successMsg": "Your application has been submitted. Our team will contact you shortly.",
     "formSurveyPrompt": "Or would you like to take a survey?",
     "formSurveyBtn": "Go to Survey"
+  },
+  "Legal": {
+    "privacy": {
+      "title": "Privacy Policy",
+      "lastUpdated": "Last Updated: April 7, 2026",
+      "content": [
+        {
+          "header": "1. Purpose of Collection and Use",
+          "body": "Crowdians (hereinafter 'Company') processes personal information for the following purposes. Information will not be used for any other purpose unless prior consent is obtained.\n1) Member registration and management\n2) Service provision and operation\n3) Customer support and inquiries"
+        },
+        {
+          "header": "2. Items Collected",
+          "body": "The Company collects the following information for service provision:\n- Mandatory: Social login info (Google, etc.), email address, nickname\n- Generated info: Usage records, access logs, cookies, payment history"
+        },
+        {
+          "header": "3. Retention Period",
+          "body": "The Company processes and retains personal information within the period agreed upon at the time of collection or as required by law.\n- Until account deletion (unless retention is required by applicable law)"
+        },
+        {
+          "header": "4. Rights of Users",
+          "body": "Users may exercise their rights to access, correct, delete, or suspend the processing of their personal information at any time."
+        }
+      ]
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "lastUpdated": "Last Updated: April 7, 2026",
+      "content": [
+        {
+          "header": "Article 1 (Purpose)",
+          "body": "These Terms of Service govern the relationship between the Company and users regarding the use of Crowdians and related services."
+        },
+        {
+          "header": "Article 2 (Definitions)",
+          "body": "1) 'Service' refers to the AI-based knowledge sharing platform operated by the Company.\n2) 'Member' refers to any user who agrees to these terms and creates an account."
+        },
+        {
+          "header": "Article 3 (Provision and Changes)",
+          "body": "The Company provides AI chat, Academy quests, and Adventure services. Content may change due to technical updates or company policy."
+        }
+      ]
+    },
+    "refund": {
+      "title": "Payment & Refund Policy",
+      "lastUpdated": "Last Updated: April 7, 2026",
+      "content": [
+        {
+          "header": "1. Paid Service Payments",
+          "body": "Crowdians Premium is offered at $5/month (plus tax). Payments are processed securely via our Merchant of Record, Lemon Squeezy."
+        },
+        {
+          "header": "2. Refund Policy",
+          "body": "Due to the nature of digital goods, refunds are available within 7 days of purchase only if no premium features (e.g., premium stamina) have been consumed. Refunds may be restricted if the service has already been utilized."
+        },
+        {
+          "header": "3. How to Request a Refund",
+          "body": "To request a refund, please contact support@crowdians.com with your account details and payment receipt."
+        }
+      ]
+    },
+    "opensource": {
+      "title": "Open Source Licenses",
+      "desc": "Crowdians is built using the following open source software.",
+      "list": [
+        {
+          "name": "Next.js",
+          "license": "MIT License",
+          "url": "https://nextjs.org"
+        },
+        {
+          "name": "React",
+          "license": "MIT License",
+          "url": "https://reactjs.org"
+        },
+        {
+          "name": "Firebase",
+          "license": "Apache License 2.0",
+          "url": "https://firebase.google.com"
+        },
+        {
+          "name": "Zustand",
+          "license": "MIT License",
+          "url": "https://github.com/pmndrs/zustand"
+        },
+        {
+          "name": "Lucide React",
+          "license": "ISC License",
+          "url": "https://lucide.dev"
+        },
+        {
+          "name": "Framer Motion",
+          "license": "MIT License",
+          "url": "https://www.framer.com/motion/"
+        },
+        {
+          "name": "TanStack Query",
+          "license": "MIT License",
+          "url": "https://tanstack.com/query"
+        },
+        {
+          "name": "Anthropic/hh-rlhf Dataset",
+          "license": "MIT License",
+          "url": "https://huggingface.co/datasets/Anthropic/hh-rlhf"
+        },
+        {
+          "name": "OpenAssistant/oasst1 Dataset",
+          "license": "Apache License 2.0",
+          "url": "https://huggingface.co/datasets/OpenAssistant/oasst1"
+        },
+        {
+          "name": "everyday-conversations Dataset",
+          "license": "CC-BY-4.0",
+          "url": "https://huggingface.co/datasets/b-mc2/everyday-conversations"
+        }
+      ]
+    }
   }
 }
